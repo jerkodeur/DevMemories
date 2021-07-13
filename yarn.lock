@@ -1368,6 +1368,18 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+autoprefixer@^10.3.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.3.1.tgz#954214821d3aa06692406c6a0a9e9d401eafbed2"
+  integrity sha512-L8AmtKzdiRyYg7BUXJTzigmhbQRCXFKz6SA1Lqo0+AR2FBbQ4aTAPFSDlOutnFkjhiz8my4agGXog1xlMjPJ6A==
+  dependencies:
+    browserslist "^4.16.6"
+    caniuse-lite "^1.0.30001243"
+    colorette "^1.2.2"
+    fraction.js "^4.1.1"
+    normalize-range "^0.1.2"
+    postcss-value-parser "^4.1.0"
+
 babel-loader@^8.2.2:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
@@ -1546,7 +1558,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001219:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.30001243:
   version "1.0.30001244"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001244.tgz#a6dc49ad5fa02d81d04373ec3f5ceabc3da06abf"
   integrity sha512-Wb4UFZPkPoJoKKVfELPWytRzpemjP/s0pe22NriANru1NoI+5bGNxzKtk7edYL8rmCWTfQO8eRiF0pn1Dqzx7Q==
@@ -2398,6 +2410,11 @@ forwarded@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.2.0.tgz#2269936428aad4c15c7ebe9779a84bf0b2a81811"
   integrity sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==
+
+fraction.js@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.1.1.tgz#ac4e520473dae67012d618aab91eda09bcb400ff"
+  integrity sha512-MHOhvvxHTfRFpF1geTK9czMIZ6xclsEor2wkIGYYq+PxcQqT7vStJqjhe6S1TenZrMZzo+wlqOufBDVepUEgPg==
 
 fresh@0.5.2:
   version "0.5.2"
@@ -3256,6 +3273,11 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
+normalize-range@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+  integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
+
 normalize-url@^6.0.1:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
@@ -3575,6 +3597,15 @@ postcss-discard-overridden@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/postcss-discard-overridden/-/postcss-discard-overridden-5.0.1.tgz#454b41f707300b98109a75005ca4ab0ff2743ac6"
   integrity sha512-Y28H7y93L2BpJhrdUR2SR2fnSsT+3TVx1NmVQLbcnZWwIUpJ7mfcTC6Za9M2PG6w8j7UQRfzxqn8jU2VwFxo3Q==
+
+postcss-loader@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-6.1.1.tgz#58dd0a3accd9bc87cc52eff75244db578d11301a"
+  integrity sha512-lBmJMvRh1D40dqpWKr9Rpygwxn8M74U9uaCSeYGNKLGInbk9mXBt1ultHf2dH9Ghk6Ue4UXlXWwGMH9QdUJ5ug==
+  dependencies:
+    cosmiconfig "^7.0.0"
+    klona "^2.0.4"
+    semver "^7.3.5"
 
 postcss-merge-longhand@^5.0.2:
   version "5.0.2"
