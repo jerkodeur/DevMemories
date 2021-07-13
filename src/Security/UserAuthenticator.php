@@ -6,9 +6,12 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -26,12 +29,16 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
+    private $userRepository;
     private $flashBag;
+    private $tokenStorage;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, FlashBagInterface $flashBag)
+    public function __construct(UrlGeneratorInterface $urlGenerator, FlashBagInterface $flashBag, UserRepository $userRepository, TokenStorageInterface $tokenStorage)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->flashBag =$flashBag;
+        $this->userRepository = $userRepository;
+        $this->flashBag = $flashBag;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -53,6 +60,16 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
+        }
+
+        $user = $this->userRepository->findOneBy(['email' => $request->request->get('email')]);
+
+        if (!$user->isVerified()) {
+            $this->tokenStorage->setToken(new AnonymousToken('default', 'anon.'));
+            $request->getSession()->invalidate();
+            $this->flashBag->add('error', 'Vous devez valider votre adresse e-mail pour pouvoir vous connecter');
+
+            return new RedirectResponse($this->urlGenerator->generate('app_login'));
         }
 
         $this->flashBag->add('success', 'Vous êtes connecté !');
