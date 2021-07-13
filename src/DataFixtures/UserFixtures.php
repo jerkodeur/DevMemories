@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
         $this->userPasswordHasher = $userPasswordHasherInterface;
     }
 
-    public function load(ObjectManager $manager, )
+    public function load(ObjectManager $manager,)
     {
         $user = new User();
         $user->setEmail('user@user.fr');
@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         $user = new User();
-        $user->setEmail('useradmin@user.fr');
+        $user->setEmail('admin@admin.fr');
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
         $manager->persist($user);
