@@ -166,3 +166,58 @@ body {
 .navbar {
     box-shadow: 0px 3px 2px #f8f9fa;
 }
+
+.form-container {
+    width: 70%;
+    background-color: $primary;
+    border-radius: 20px;
+    box-shadow: 2px 2px 8px $secondary;
+    margin: 0 !important;
+    padding: 0 !important;
+    .form-header {
+        h1,p, .form-body, .form-footer {
+            padding: .5em 0 .5em 1em;
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 1.1em !important;
+            border-radius: 20px 20px 0 0;
+            background-color: $secondary;
+            color: $primary;
+            font-family: $font-secondary;
+        }
+    }
+    .form-body {
+        .row {
+            margin: auto;
+            width: 70% !important;
+            label {
+                margin-left: -.75em !important;
+                margin-bottom: 0.25em;
+            }
+            input {
+                margin-bottom: 1em;
+            }
+        }
+    }
+    .form-footer {
+        .row {
+            margin: auto;
+            margin-top: 1em;
+            width: 100% !important;
+            border-radius: 0 0 20px 20px;
+            button {
+                font-family: $font-secondary;
+                border-top: 1px solid $secondary;
+                padding: 0.25em !important;
+                border-radius: 0 0 20px 20px;
+                background-color: $secondary;
+                color: $light;
+                &:hover {
+                    background-color: $light;
+                    color: $secondary;
+                }
+            }
+        }
+    }
+}

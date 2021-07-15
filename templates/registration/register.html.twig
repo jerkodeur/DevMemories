@@ -1,21 +1,24 @@
-{% extends 'base.html.twig' %}
+{# registration/register.html.twig #}
 
-{% block title %}Register{% endblock %}
+{% extends "base.html.twig" %}
 
-{% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+{% block title %}Enregistrement{% endblock %}
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
+    {% block form_header %}
+        Formulaire d'inscription sur le site devMemories
+    {% endblock %}
+    {% block form_description %}
+        Merci de renseigner les champs suivant afin de pouvoir vous enregistrer sur le site
+    {% endblock %}
+    {% block form_body %}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+    {% endblock %}
+    {% block form_footer %}
         <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+        {{ form_end(registrationForm) }}
+    {% endblock %}
