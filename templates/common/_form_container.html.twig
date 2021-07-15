@@ -1,0 +1,16 @@
+<section class="container form-container">
+    <header class="form-header">
+        <h1>
+        {% block form_header %}{% endblock %}
+        </h1>
+        <p>
+        {% block form_description %}{% endblock %}
+        </p>
+    </header>
+    <div class="form-body">
+        {% block form_body %}{% endblock %}
+    </div>
+    <footer class="form-footer">
+        {% block form_footer %}{% endblock %}
+    </footer>
+</section>
