@@ -2,23 +2,21 @@
 
 {% extends "base.html.twig" %}
 
-{% block title %}Enregistrement{% endblock %}
+{% block title %}{% trans %}Enregistrement{% endtrans %}{% endblock %}
 
     {% block form_header %}
-        Formulaire d'inscription sur le site devMemories
+        {% trans %}Formulaire d'inscription{% endtrans %}
     {% endblock %}
     {% block form_description %}
-        Merci de renseigner les champs suivant afin de pouvoir vous enregistrer sur le site
+        {% trans %}Merci de renseigner les champs suivants afin de pouvoir vous enregistrer sur le site{% endtrans %}
     {% endblock %}
     {% block form_body %}
         {{ form_start(registrationForm) }}
             {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-            }) }}
+            {{ form_row(registrationForm.plainPassword) }}
             {{ form_row(registrationForm.agreeTerms) }}
     {% endblock %}
     {% block form_footer %}
-        <button type="submit" class="btn">Register</button>
+            {{ form_row(registrationForm.submit) }}
         {{ form_end(registrationForm) }}
     {% endblock %}

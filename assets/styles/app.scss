@@ -2,18 +2,18 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic);
 @import url(https://fonts.googleapis.com/css?family=Fira+Code:300,regular,500,600,700);
 
-// Bootstrap
-@import "custom";
-@import "~bootstrap/scss/bootstrap";
-
-// Bootswatch
 @import "_variables";
-@import "_bootswatch";
 
 // fontawesome icons
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
+// Bootstrap
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+// Bootswatch
+@import "_bootswatch";
 
 *,
 ::before,
@@ -191,15 +191,35 @@ body {
         .row {
             margin: auto;
             width: 70% !important;
-            label {
+            .form-label {
                 margin-left: -.75em !important;
                 margin-bottom: 0.25em;
+                color: $dark;
+                font-size: .9em;
+                text-shadow: 1px 1px 3px $white;
             }
             input {
                 margin-bottom: 1em;
             }
         }
+        .form-error-message {
+            font-size: .9em;
+            margin-bottom: .25em;
+            @extend %fa-icon;
+            @extend .fas;
+            &:before {
+                content: fa-content($fa-var-exclamation-triangle);
+                padding-right: .5em;
+            }
+        }
+        .invalid-feedback .d-block {
+            .badge, .badge-danger {
+                display: none;
+            }
+        }
     }
+
+
     .form-footer {
         .row {
             margin: auto;
