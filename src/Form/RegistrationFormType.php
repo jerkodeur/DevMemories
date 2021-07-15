@@ -23,7 +23,10 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Adresse E-mail *',
                 'label_attr' =>  ['class' => 'form-label'],
                 'row_attr' => ['class' => 'row'],
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Entrez votre adresse e-mail'
+                    ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label'=> 'Accepter les termes d\'utilisation du site *',
@@ -42,7 +45,10 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'label' => 'Mot de passe *',
                 'label_attr' =>  ['class' => 'form-label'],
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'Entrez votre mot de passe'
+                ],
                 'row_attr' => ['class' => 'row'],
                 'constraints' => [
                     new NotBlank([
