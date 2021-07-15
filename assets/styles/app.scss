@@ -198,6 +198,15 @@ body {
                 font-size: .9em;
                 text-shadow: 1px 1px 3px $white;
             }
+            .form-text {
+                &.text-muted {
+                    color: $secondary !important;
+                    font-size: .9em;
+                    font-family: $font-secondary;
+                    padding-left: .5em;
+                    margin-top: -0.5em;
+                }
+            }
             input {
                 margin-bottom: 1em;
             }
