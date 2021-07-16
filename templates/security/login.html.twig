@@ -1,26 +1,27 @@
+{# security/login.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{% trans %}Connexion{% endtrans %}{% endblock %}
 
-{% block body %}
+{% block form_header %}
+  {% trans %}Formulaire de connexion{% endtrans %}
+{% endblock %}
+
+{% block form_description %}
+  {% trans %}Veuillez renseigner les champs suivants afin de pouvoir vous connecter sur le site{% endtrans %}
+{% endblock %}
+
+{% block form_body %}
   <form method="post">
-
-    {% if app.user %}
-      <div class="mb-3">
-        You are logged in as
-        {{ app.user.username }},
-        <a href="{{ path('app_logout') }}">Logout</a>
-      </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required="required" autofocus="autofocus">
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required="required">
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    <a href="{{ path('app_forgot_password_request') }}">Mot de passe perdu ?</a>
+    <div class="row">
+      <label for="inputEmail" class="form-label">{% trans %}E-mail{% endtrans %} *</label>
+      <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required="required" autofocus="autofocus" placeholder="{{ 'Entrez votre adresse e-mail'|trans }}">
+    </div>
+    <div class="row">
+      <label for="inputPassword" class="form-label">{% trans %}Mot de passe{% endtrans %} *</label>
+      <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required="required" placeholder="{{ 'Entrez votre mot de passe'|trans}}">
+    </div>
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -33,8 +34,18 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-      Sign in
-    </button>
-  </form>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <div class="row">
+      <div class="col-md-4"><a href="{{ path('app_forgot_password_request') }}">{% trans %}Mot de passe perdu ?{% endtrans %}</a></div>
+      <div class="col text-end">{% trans %}Pas encore inscrit{% endtrans %} ? <a href="{{ path('app_register') }}">{% trans %}Inscription{% endtrans %}</a></div>
+    </div>
+{% endblock %}
+
+{% block form_footer %}
+  <div class="row">
+      <button class="btn btn-lg btn-primary" type="submit">
+        {% trans %}Connexion{% endtrans %}
+      </button>
+  </div>
+</form>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -21,25 +22,40 @@ class ChangePasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Vous devez renseigner un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'New password',
+                    'label' => 'Mot de passe *',
+                    'label_attr' =>  ['class' => 'form-label'],
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => 'Votre nouveau mot de passe'
+                    ],
+                    'row_attr' => ['class' => 'row'],
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Repeat Password',
+                    'label_attr' =>  ['class' => 'form-label'],
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'placeholder' => 'Confirmer votre mot de passe'
+                    ],
+                    'label' => 'Répétez le mot de passe *',
+                    'row_attr' => ['class' => 'row'],
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les deux mots de passe ne sont pas identiques',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Réinitialiser mon mot de passe',
+                'row_attr' => ['class' => 'row'],
             ])
         ;
     }
