@@ -1,3 +1,7 @@
 {# dashboard/index.html.twig #}
 
 {% extends "dashboard/base.html.twig" %}
+
+{% block body %}
+    Bienvenue dans ton dashboard {{ app.user.email }} !
+{% endblock %}
