@@ -4,11 +4,11 @@
 
 {% block body %}
     <p>
-    Si votre adresse e-mail correspond à un compte existant, alors un e-mail contenant un lien qui va vous permettre de réinitialiser votre mot de passe vient d'être envoyé. Ce lien expira dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+    {% trans %}Si votre adresse e-mail correspond à un compte existant, alors un e-mail contenant un lien qui va vous permettre de réinitialiser votre mot de passe vient d'être envoyé. Ce lien expira dans{% endtrans %} {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
     </p>
     <p>
         {% trans %}Si vous n'avez pas reçu d'e-mail, vérifiez le dossier spam de votre boite de reception, ou {% endtrans %}
         <a href="{{ path('app_forgot_password_request') }}">{% trans %}Réessayez à nouveau{% endtrans %}</a>.
     </p>
-    <p><a href="{{ path('home') }}">Retour à l'accueil</a></p>
+    <p><a href="{{ path('home') }}">{% trans %}Retour à l'accueil{% endtrans %}</a></p>
 {% endblock %}
