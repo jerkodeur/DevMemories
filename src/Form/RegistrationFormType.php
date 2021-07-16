@@ -32,7 +32,7 @@ class RegistrationFormType extends AbstractType
                 'label'=> 'Accepter les termes d\'utilisation du site *',
                 'label_attr' => ['class' => 'ps-3 form-label'],
                 'mapped' => false,
-                'row_attr' => ['class' => 'row'],
+                'row_attr' => ['class' => 'col-lg-6'],
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter les termes d\'utilisation du site',
