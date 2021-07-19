@@ -1,0 +1,73 @@
+{# templates/dashboard/common/_sidebar.html.twig #}
+
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+            {# Photo + Nom utilisateur #}
+            {# <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+                <h5 class="centered">Sam Soffes</h5> #}
+            <li class="mt">
+                <a class="active" href="{{ path('dashboard_home') }}">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-desktop"></i>
+                    <span>Mes contenus</span>
+                </a>
+                <ul class="sub">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fa fa-cogs"></i>
+                            <span>Gérer mon contenu</span>
+                        </a>
+                        <ul class="sub">
+                            <li class="muted">Articles</li>
+                            <li class="muted">Extraits de code</li>
+                            <li class="muted">Raccourcis clavier</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span>Mes ressources</span>
+                </a>
+                <ul class="sub">
+                    <li>
+                        <a href="#">Mots clés</a>
+                    </li>
+                    <li>
+                        <a href="#">Technologies</a>
+                    </li>
+                    <li>
+                        <a href="#">Notes</a>
+                    </li>
+                    <li>
+                        <a href="#">Liens</a>
+                    </li>
+                    <li>
+                        <a href="#">Couleurs</a>
+                    </li>
+                    <li>
+                        <a href="#">Applications</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>Mes catégories</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="#">Gérer mes catégories</a></li>
+                    <li class="muted">Arborescence</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
