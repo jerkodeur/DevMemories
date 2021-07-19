@@ -1,0 +1,19 @@
+{% block stylesheets %}
+    <!-- Favicons -->
+    <link href="{{ asset('dashboard/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('dashboard/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('dashboard/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{ asset('dashboard/lib/font-awesome/css/font-awesome.cs') }}s" rel="stylesheet"/>
+    {# <link rel="stylesheet" type="text/css" href="{{ asset('dashboard/css/zabuto_calendar.css') }}"> #}
+    <link rel="stylesheet" type="text/css" href="{{ asset('dashboard/lib/gritter/css/jquery.gritter.css') }}"/>
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/css/style-responsive.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="lib/chart-master/Chart.js"></script>
+{% endblock %}
