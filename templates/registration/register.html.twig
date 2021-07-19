@@ -16,7 +16,7 @@
             {{ form_row(registrationForm.plainPassword) }}
             <div class="row">
                 {{ form_row(registrationForm.agreeTerms) }}
-                <div class="col text-end">{% trans %}Déjà enregistrer{% endtrans %} ? <a href="{{ path('app_login') }}">{% trans %}Connexion{% endtrans %}</a></div>
+                <div class="col text-end">{% trans %}Déjà enregistré{% endtrans %} ? <a href="{{ path('app_login') }}">{% trans %}Connexion{% endtrans %}</a></div>
             </div>
     {% endblock %}
     {% block form_footer %}
