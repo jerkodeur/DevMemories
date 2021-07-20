@@ -274,6 +274,9 @@ ul.top-menu {
 	ul {
 		li {
 			position: relative;
+			ul.sub {
+				display: none;
+			}
 		}
 	}
 	.sub-menu {
@@ -282,11 +285,16 @@ ul.top-menu {
 			li {
 				padding: 0;
 				a {
-					padding: 12px 0 12px 25px;
+					padding: 12px 0 12px 15px;
 				}
 			}
 		}
 	}
+}
+
+#sidebar ul li #sidebar > ul > li.active > ul.sub,
+#sidebar > ul > li > ul.sub > li > a {
+	display: block;
 }
 
 /*LEFT NAVIGATION ICON*/
@@ -318,99 +326,11 @@ ul.sidebar-menu,
 ul.sidebar-menu li ul.sub {
 	padding: 0;
 }
-ul.sidebar-menu {
+.sidebar-menu {
 	margin-top: 75px;
 }
-ul {
-	&.sidebar-menu li {
-		margin: 10px;
-		ul {
-			&.sub {
-				border-radius: 0 0 10px 10px;
-				box-shadow: 2px 2px 5px $light-success;
-				&:hover {
-				box-shadow: 2px 2px 5px $primary;
-				}
-				li {
-					background: $dark;
-					margin: 0;
-					&:last-child {
-						border-radius: 0 0 10px 10px;
-						a.active,
-						a:hover {
-							&:not(.muted) {
-								border-radius: 0 0 8px 8px;
-							}
-						}
-					}
-					&.muted {
-						color: darken($color: $secondary, $amount: 25%);
-						font-weight: normal;
-						padding: 10px 0 10px 30px !important;
-					}
-					a {
-						font-size: 12px;
-						line-height: 10px;
-						// height: 35px;
-						-webkit-transition: all 0.3s ease;
-						-moz-transition: all 0.3s ease;
-						-o-transition: all 0.3s ease;
-						-ms-transition: all 0.3s ease;
-						transition: all 0.3s ease;
-						color: $primary;
-						&:hover {
-							background: $success;
-						}
-						&.active {
-							border-radius: 2px;
-							background: $success;
-							color: $dark;
-							-webkit-transition: all 0.3s ease;
-							-moz-transition: all 0.3s ease;
-							-o-transition: all 0.3s ease;
-							-ms-transition: all 0.3s ease;
-							transition: all 0.3s ease;
-							display: block;
-						}
-					}
-					&:last-child {
-						border-radius: 0 0 10px 10px;
-					}
-				}
-			}
-		}
-		&.sub-menu {
-			line-height: 10px;
-		}
-		a {
-			color: $secondary;
-			text-decoration: none;
-			display: block;
-			padding: 15px 0 15px 20px;
-			font-size: 12px;
-			outline: none;
-			-webkit-transition: all 0.3s ease;
-			-moz-transition: all 0.3s ease;
-			-o-transition: all 0.3s ease;
-			-ms-transition: all 0.3s ease;
-			transition: all 0.3s ease;
-			span {
-				display: inline-block;
-			}
-			i {
-				color: $primary;
-				font-size: 15px;
-				padding-right: 6px;
-			}
-			&.active {
-				i {
-					color: $success;
-				}
-			}
-		}
-	}
-}
 ul.sidebar-menu li {
+	margin: 10px;
 	display: block;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
@@ -427,18 +347,91 @@ ul.sidebar-menu li {
 			color: $dark;
 		}
 	}
-}
-// ul.sidebar-menu li a:hover i,
-// ul.sidebar-menu li a:focus i {
-// 	color: $dark;
-// }
-#sidebar ul li ul.sub {
-	display: none;
-}
+	&.sub-menu {
+		line-height: 10px;
+	}
 
-#sidebar > ul > li.active > ul.sub,
-#sidebar > ul > li > ul.sub > li > a {
-	display: block;
+	a {
+		color: $secondary;
+		text-decoration: none;
+		display: block;
+		padding: 15px 0 15px 20px;
+		font-size: 12px;
+		outline: none;
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+		-o-transition: all 0.3s ease;
+		-ms-transition: all 0.3s ease;
+		transition: all 0.3s ease;
+		span {
+			display: inline-block;
+		}
+		i {
+			color: $primary;
+			font-size: 15px;
+			padding-right: 6px;
+		}
+		&.active {
+			i {
+				color: $success;
+			}
+		}
+	}
+}
+.sidebar-menu li ul {
+	&.sub {
+		border-radius: 0 0 10px 10px;
+		box-shadow: 2px 2px 5px $light-success;
+		&:hover {
+			box-shadow: 2px 2px 5px $primary;
+		}
+		li {
+			background: $dark;
+			margin: 0;
+			&:last-child {
+				border-radius: 0 0 10px 10px;
+				a.active,
+				a:hover {
+					&:not(.muted) {
+						border-radius: 0 0 8px 8px;
+					}
+				}
+			}
+			&.muted {
+				color: darken($color: $secondary, $amount: 25%);
+				font-weight: normal;
+				padding: 15px !important;
+			}
+			a {
+				font-size: 12px;
+				line-height: 10px;
+				// height: 35px;
+				-webkit-transition: all 0.3s ease;
+				-moz-transition: all 0.3s ease;
+				-o-transition: all 0.3s ease;
+				-ms-transition: all 0.3s ease;
+				transition: all 0.3s ease;
+				color: $primary;
+				&:hover {
+					background: $success;
+				}
+				&.active {
+					border-radius: 2px;
+					background: $success;
+					color: $dark;
+					-webkit-transition: all 0.3s ease;
+					-moz-transition: all 0.3s ease;
+					-o-transition: all 0.3s ease;
+					-ms-transition: all 0.3s ease;
+					transition: all 0.3s ease;
+					display: block;
+				}
+			}
+			&:last-child {
+				border-radius: 0 0 10px 10px;
+			}
+		}
+	}
 }
 
 .mail-info,
