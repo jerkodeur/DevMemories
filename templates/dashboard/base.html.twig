@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Jerkoder">
+		<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+		{# stylesheets and javascript dependencies #}
+		{% include "dashboard/dependencies/_head.html.twig" %}
+
+		<title>{% block title %}Dashboard{% endblock %}</title>
+	</head>
+
+	<body>
+		<main id="container">
+			{# navbar #}
+			{% include "dashboard/common/_navbar.html.twig" %}
+			{# sidebar #}
+			{% include "dashboard/common/_sidebar.html.twig" %}
+			<section id="main-content">
+				<div class="wrapper">
+					<div class="row">
+						{% block body %}{% endblock %}
+					</div>
+				</div>
+			</section>
+			{# footer #}
+			{% include "dashboard/common/_footer.html.twig" %}
+		</main>
+
+		{# Page bottom javascript scripts #}
+		{% block js %}
+			{% include "dashboard/dependencies/_script.html.twig" %}
+		{% endblock %}
+		{# Notification popup #}
+		{# {% include "dashboard/common/_notification.html.twig" %} #}
+	</body>
+
+</html>

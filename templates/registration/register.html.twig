@@ -1,21 +1,25 @@
-{% extends 'base.html.twig' %}
+{# registration/register.html.twig #}
 
-{% block title %}Register{% endblock %}
+{% extends "base.html.twig" %}
 
-{% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+{% block title %}{% trans %}Enregistrement{% endtrans %}{% endblock %}
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+    {% block form_header %}
+        {% trans %}Formulaire d'inscription{% endtrans %}
+    {% endblock %}
+    {% block form_description %}
+        {% trans %}Merci de renseigner les champs suivants afin de pouvoir vous enregistrer sur le site{% endtrans %}
+    {% endblock %}
+    {% block form_body %}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
+            <div class="row">
+                {{ form_row(registrationForm.agreeTerms) }}
+                <div class="col text-end">{% trans %}Déjà enregistré{% endtrans %} ? <a href="{{ path('app_login') }}">{% trans %}Connexion{% endtrans %}</a></div>
+            </div>
+    {% endblock %}
+    {% block form_footer %}
+            {{ form_row(registrationForm.submit) }}
+        {{ form_end(registrationForm) }}
+    {% endblock %}
