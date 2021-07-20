@@ -11,7 +11,10 @@ const $ = require('jquery');
 require('bootstrap');
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.scss';
+import './css/app.scss';
+
+const imagesContext = require.context('./images', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
+imagesContext.keys().forEach(imagesContext);
 
 // start the Stimulus application
 import './bootstrap';
