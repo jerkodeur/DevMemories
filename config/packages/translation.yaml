@@ -1,12 +1,9 @@
 framework:
     default_locale: fr
     translator:
-        enabled: true
-        enabled_locales: []
-        formatter: translator.formatter.default
-        cache_dir: '%kernel.cache_dir%/translations'
         default_path: '%kernel.project_dir%/translations'
-        fallbacks: [en, fr]
+        fallbacks:
+            - en
 #        providers:
 #            crowdin:
 #                dsn: '%env(CROWDIN_DSN)%'
