@@ -7,29 +7,22 @@
             {# Photo + Nom utilisateur #}
             {# <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
                 <h5 class="centered">Sam Soffes</h5> #}
-            <li class="mt">
-                <a class="active" href="{{ path('dashboard_home') }}">
-                    <i class="fa fa-dashboard"></i>
+            <li class="sub-menu">
+                <a class="active sidebar-top" href="{{ path('dashboard_home') }}">
+                    <i class="fa fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-desktop"></i>
+                    <i class="fa fa-list-alt"></i>
                     <span>Mes contenus</span>
                 </a>
                 <ul class="sub">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="fa fa-cogs"></i>
-                            <span>Gérer mon contenu</span>
-                        </a>
-                        <ul class="sub">
-                            <li class="muted">Articles</li>
-                            <li class="muted">Extraits de code</li>
-                            <li class="muted">Raccourcis clavier</li>
-                        </ul>
-                    </li>
+                    <li><a href="#">Tous les contenus</a></li>
+                    <li class="muted">Articles</li>
+                    <li class="muted">Extraits de code</li>
+                    <li class="muted">Raccourcis clavier</li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -60,7 +53,7 @@
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-tags"></i>
                     <span>Mes catégories</span>
                 </a>
                 <ul class="sub">
