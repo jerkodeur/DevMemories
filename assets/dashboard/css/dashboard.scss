@@ -22,6 +22,32 @@ Website: http://Alvarez.is/
 	}
 }
 
+.button-shadow-success {
+	font-size: 12px;
+	color: $light-success;
+	border-radius: 4px;
+	padding: 5px 15px;
+	background: $dark;
+	box-shadow: 2px 2px 5px $light-success;
+	&:hover {
+		box-shadow: 4px 4px 5px $primary;
+		color: $primary !important;
+		border-color: none !important;
+	}
+}
+
+.button-shadow-secondary {
+	font-size: 12px;
+	color: $secondary;
+	border-radius: 4px;
+	padding: 5px 15px;
+	background: $dark;
+	box-shadow: 2px 2px 5px $secondary;
+	&:hover {
+		box-shadow: 3px 3px 5px $primary;
+	}
+}
+
 /* BASIC THEME CONFIGURATION */
 body {
 	color: $secondary;
@@ -223,16 +249,13 @@ ul.top-menu {
 	li {
 		margin-top: 20px;
 
-		.logout {
-			color: #f2f2f2;
-			font-size: 12px;
-			border-radius: 4px;
-			-webkit-border-radius: 4px;
-			border: 1px solid #64c3c2 !important;
-			padding: 5px 15px;
+		.new-content {
+			@extend .button-shadow-success;
 			margin-right: 15px;
-			background: $light-success;
-			margin-top: 15px;
+		}
+		.logout {
+			@extend .button-shadow-secondary;
+			margin-right: 15px;
 		}
 	}
 }
@@ -303,16 +326,21 @@ ul {
 		margin: 10px;
 		ul {
 			&.sub {
-				border: 1pt $light-success solid;
 				border-radius: 0 0 10px 10px;
-				box-shadow: 2px 2px 5px $success;
+				box-shadow: 2px 2px 5px $light-success;
+				&:hover {
+				box-shadow: 2px 2px 5px $primary;
+				}
 				li {
 					background: $dark;
 					margin: 0;
 					&:last-child {
 						border-radius: 0 0 10px 10px;
-						.active {
-							border-radius: 0 0 8px 8px;
+						a.active,
+						a:hover {
+							&:not(.muted) {
+								border-radius: 0 0 8px 8px;
+							}
 						}
 					}
 					&.muted {
@@ -331,8 +359,7 @@ ul {
 						transition: all 0.3s ease;
 						color: $primary;
 						&:hover {
-							color: $light-success;
-							background: transparent;
+							background: $success;
 						}
 						&.active {
 							border-radius: 2px;
@@ -345,6 +372,9 @@ ul {
 							transition: all 0.3s ease;
 							display: block;
 						}
+					}
+					&:last-child {
+						border-radius: 0 0 10px 10px;
 					}
 				}
 			}
@@ -390,6 +420,7 @@ ul.sidebar-menu li {
 	a.active,
 	a:hover,
 	a:focus {
+		box-shadow: 2px 2px 5px $primary;
 		background: $light-success;
 		color: $dark;
 		&i {
@@ -478,19 +509,6 @@ ul.top-menu > li {
 	margin-top: 20px;
 }
 
-.notify-row {
-	float: left;
-	margin-top: 15px;
-	margin-left: 92px;
-}
-
-.notify-row .notification span.label {
-	display: inline-block;
-	height: 18px;
-	width: 20px;
-	padding: 5px;
-}
-
 ul.top-menu > li > a {
 	color: #666666;
 	font-size: 16px;
@@ -512,11 +530,31 @@ ul.top-menu > li > a:focus {
 	color: #b6b6b6 !important;
 }
 
+.notify-row {
+	float: left;
+	margin-top: 15px;
+	margin-left: 92px;
+}
+
+.notify-row .notification span.label {
+	display: inline-block;
+	height: 18px;
+	width: 20px;
+	padding: 5px;
+}
+
 .notify-row .badge {
 	position: absolute;
 	right: -10px;
 	top: -10px;
 	z-index: 100;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+	/* Safari and Chrome */
+	.dropdown-menu.extended {
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176) !important;
+	}
 }
 
 .dropdown-menu.extended {
@@ -529,13 +567,6 @@ ul.top-menu > li > a:focus {
 	border: none !important;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-	/* Safari and Chrome */
-	.dropdown-menu.extended {
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176) !important;
-	}
 }
 
 .dropdown-menu.extended li p {
