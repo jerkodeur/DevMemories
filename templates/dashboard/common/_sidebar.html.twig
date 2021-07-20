@@ -7,65 +7,91 @@
             {# Photo + Nom utilisateur #}
             {# <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
                 <h5 class="centered">Sam Soffes</h5> #}
-            <li class="mt">
-                <a class="active" href="{{ path('dashboard_home') }}">
-                    <i class="fa fa-dashboard"></i>
+            <li class="sub-menu">
+                <a class="active sidebar-top" href="{{ path('dashboard_home') }}">
+                    <i class="fa fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-desktop"></i>
-                    <span>Mes contenus</span>
+                    <i class="fa fa-list-alt"></i>
+                    <span>{% trans %}Mes contenus{% endtrans %}</span>
                 </a>
                 <ul class="sub">
                     <li>
-                        <a href="javascript:;">
-                            <i class="fa fa-cogs"></i>
-                            <span>Gérer mon contenu</span>
+                        <a href="#">
+                            <i class="fas fa-archive"></i>
+                            {% trans %}Tous les contenus{% endtrans %}
                         </a>
-                        <ul class="sub">
-                            <li class="muted">Articles</li>
-                            <li class="muted">Extraits de code</li>
-                            <li class="muted">Raccourcis clavier</li>
-                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-newspaper"></i>
+                            {% trans %}Articles de veille{% endtrans %}
+                        </a>
+                    </li>
+                    <li class="muted">
+                        <i class="fas fa-code"></i>
+                        {% trans %}Extraits de code{% endtrans %}
+                    </li>
+                    <li class="muted">
+                        <i class="fas fa-keyboard"></i>
+                        {% trans %}Raccourcis{% endtrans %}
                     </li>
                 </ul>
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-cogs"></i>
-                    <span>Mes ressources</span>
+                    <i class="fas fa-paperclip"></i>
+                    <span>{% trans %}Mes ressources{% endtrans %}</span>
                 </a>
                 <ul class="sub">
                     <li>
-                        <a href="#">Mots clés</a>
+                        <a href="#">
+                            <i class="fas fa-key"></i>
+                            {% trans %}Mots clés{% endtrans %}
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Technologies</a>
+                        <a href="#">
+                            <i class="fas fa-palette"></i>
+                            {% trans %}Couleurs{% endtrans %}
+                        </a>
                     </li>
-                    <li>
-                        <a href="#">Notes</a>
+                    <li class="muted">
+                        <i class="fab fa-app-store-ios"></i>
+                        {% trans %}Technologies{% endtrans %}
                     </li>
-                    <li>
-                        <a href="#">Liens</a>
+                    <li class="muted">
+                        <i class="fas fa-comments"></i>
+                        {% trans %}Notes{% endtrans %}
                     </li>
-                    <li>
-                        <a href="#">Couleurs</a>
+                    <li class="muted">
+                        <i class="fa fa-link"></i>
+                        {% trans %}Liens{% endtrans %}
                     </li>
-                    <li>
-                        <a href="#">Applications</a>
+                    <li class="muted">
+                        <i class="fas fa-copyright"></i>
+                        {% trans %}Applications{% endtrans %}
                     </li>
                 </ul>
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-book"></i>
-                    <span>Mes catégories</span>
+                    <i class="fa fa-tags"></i>
+                    <span>{% trans %}Mes catégories{% endtrans %}</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="#">Gérer mes catégories</a></li>
-                    <li class="muted">Arborescence</li>
+                    <li><a href="#">
+                        <i class="fas fa-user-tag"></i>
+                            {% trans %}Gérer mes catégories{% endtrans %}
+                        </a>
+                    </li>
+                    <li class="muted">
+                        <i class="fas fa-sitemap"></i>
+                        {% trans %}Arborescence{% endtrans %}
+                    </li>
                 </ul>
             </li>
         </ul>
