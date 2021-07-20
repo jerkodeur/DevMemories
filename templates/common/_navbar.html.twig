@@ -24,7 +24,7 @@
                     <li class="dropdown-header disabled">Jérôme Potié</li>
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item disabled" href="">Profil</a></li>
-                    <li><a class="dropdown-item disabled" href="">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{ path('dashboard_home') }}">Dashboard</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
                         <a class="dropdown-item dropdown-item-end" href="{{ path('app_logout') }}">
@@ -37,7 +37,7 @@
             {% else %}
             <div class="nav-item visitor-button">
                 <a href="">
-                    <img src="{{ asset('main/assets/images/visitor.png') }}" alt="" class="rounded-img" />
+                    <img src="{{ asset('build/images/visitor.png', 'app') }}" alt="" class="rounded-img" />
                 </a>
             </div>
             {% endif %}
