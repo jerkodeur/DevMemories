@@ -31,7 +31,7 @@ php bin/console server:start --no-tls
 ### [Display the page in the browser](http://localhost:8000/) at localhost
 
 You can connect to the application with identifiers below:
-> user@user.fr  `Password:` _password_
+> user@user.fr  `Password:` _password_  
 > admin@admin.fr  `Password:` _password_
 
 ### ENJOY
