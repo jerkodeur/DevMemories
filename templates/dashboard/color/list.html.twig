@@ -1,11 +1,11 @@
 {% extends 'dashboard/index.html.twig' %}
 
-{% block title %}Hello ColorController!{% endblock %}
+{% block title %}{% trans %}Mes couleurs{% endtrans %}{% endblock %}
 
 {% block body %}
 
   <div class="container">
-    <h1>Mes couleurs</h1>
+    <h1>{% trans %}Mes couleurs{% endtrans %}</h1>
     <div class="row">
         {% for color in colors %}
           <div class="col badge rounded-pill badge-color" style="color: {{ color.codeText}}; background: {{ color.codeBg }}">{{ loop.index }}</div>

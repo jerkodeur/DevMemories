@@ -1,0 +1,19 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<h1>{% trans %}Mes catégories{% endtrans %}</h1>
+<div class="row">
+    {% for category in categories %}
+        {# <div class="col badge rounded-pill badge-color" style="color: {{ color.codeText}}; background: {{ color.codeBg }}">{{ loop.index }}</div> #}
+    <pre>
+        {{ dump(category) }}
+    </pre>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
