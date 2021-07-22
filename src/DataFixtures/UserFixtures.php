@@ -69,7 +69,7 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         // Custom users
-        for($i = 0; $i < 5; $i++) {
+        for($i = 1; $i <= 6; $i++) {
 
             $user = new User();
             $user
