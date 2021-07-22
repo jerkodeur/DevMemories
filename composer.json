@@ -80,10 +80,6 @@
         "db:reload": [
             "php bin/console doctrine:database:drop --force",
             "composer db:install"
-        ],
-        "db:update": [
-            "php bin/console make:migration",
-            "php bin/console doctrine:migrations:migrate -n"
         ]
     },
     "conflict": {
