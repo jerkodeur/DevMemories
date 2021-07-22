@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug as Slug;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -25,6 +26,7 @@ class Category
     private $label;
 
     /**
+     * @Slug(fields={"label"}, separator="-", unique=true)
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
@@ -39,10 +41,20 @@ class Category
      */
     private $subCategories;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=user::class, inversedBy="categories")
+     */
+    private $users;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="categories")
+     */
+    private $color;
+
     public function __construct()
     {
-        $this->parent = new ArrayCollection();
         $this->subCategories = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function __toString()
@@ -117,6 +129,42 @@ class Category
                 $subCategory->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|users[]
+     */
+    public function getusers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function adduser(user $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeuser(user $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getColor(): ?Color
+    {
+        return $this->color;
+    }
+
+    public function setColor(?Color $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

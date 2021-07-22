@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ColorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Color
      * @ORM\Column(type="string", length=50)
      */
     private $code_bg;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="color")
+     */
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,36 @@ class Color
     public function setCodeBg(string $code_bg): self
     {
         $this->code_bg = $code_bg;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getColor() === $this) {
+                $category->setColor(null);
+            }
+        }
 
         return $this;
     }
