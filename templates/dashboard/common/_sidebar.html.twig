@@ -1,4 +1,5 @@
 {# templates/dashboard/common/_sidebar.html.twig #}
+{% set route = app.request.get('_route') %}
 
 <aside>
     <div id="sidebar" class="nav-collapse ">
@@ -8,7 +9,7 @@
             {# <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
                 <h5 class="centered">Sam Soffes</h5> #}
             <li class="sub-menu">
-                <a class="active sidebar-top" href="{{ path('dashboard_home') }}">
+                <a class="{{ route == 'dashboard_home' or route == '#' or not (route is defined) ? 'active' }} sidebar-top" href="{{ path('dashboard_home') }}">
                     <i class="fa fa-home"></i>
                     <span>Dashboard</span>
                 </a>
@@ -42,7 +43,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;">
+                <a class="{{ 'dashboard_resources' in route ? 'active' }}"  href="javascript:;">
                     <i class="fas fa-paperclip"></i>
                     <span>{% trans %}Mes ressources{% endtrans %}</span>
                 </a>
@@ -54,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path('dashboard_colors_list') }}">
+                        <a class="{{ route == 'dashboard_resources_colors_list' ? 'active' }}" href="{{ path('dashboard_resources_colors_list') }}">
                             <i class="fas fa-palette"></i>
                             {% trans %}Couleurs{% endtrans %}
                         </a>
@@ -78,12 +79,12 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;">
+                <a class="{{ 'dashboard_categories' in route ? 'active' }}" href="javascript:;">
                     <i class="fa fa-tags"></i>
                     <span>{% trans %}Mes catégories{% endtrans %}</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="#">
+                    <li><a class="{{ route == 'dashboard_categories_list' ? 'active' }}"  href="{{ path('dashboard_categories_list') }}">
                         <i class="fas fa-user-tag"></i>
                             {% trans %}Gérer mes catégories{% endtrans %}
                         </a>
