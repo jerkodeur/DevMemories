@@ -1,4 +1,4 @@
-.form_category {
+.form-container {
         width: 100%;
     fieldset {
         box-shadow: 2px 2px 5px $dark;
@@ -14,13 +14,14 @@
         }
         label {
             font-size: .9em;
-            width: 75%;
+            width: 73%;
             padding-left: 0;
             text-align: left;
         }
         legend {
+            padding-left: .5em;
             color: $secondary;
-            font-size: 1.2em;
+            font-size: 1.1em;
             text-shadow: 1px 1px 2px $light;
             text-align: left;
             border-bottom: 1px $secondary solid;
@@ -29,19 +30,30 @@
             @extend .button-shadow-secondary;
             margin: .5em 0;
         }
-        fieldset.form-custom-colors {
-            margin: .75em auto;
-            width: 75%;
+    }
+    .form-custom-colors {
+        margin: .75em auto;
+        width: 75%;
+        text-align: center;
 
-            legend {
-                font-size: .9em ;
+        legend {
+            font-size: .9em ;
+        }
+
+
+        .custom-colors-container {
+            display: flex;
+            justify-content: space-around;
+            .flex-equal {
+                width: 35%;
             }
-
-            .custom-colors-container {
-                display: flex;
-                justify-content: space-around;
+            &.form-colors {
+                label {
+                    width: 100%;
+                    text-align: center;
+                }
                 .flex-equal {
-                    width: 35%;
+                    width: 50%;
                 }
             }
         }
