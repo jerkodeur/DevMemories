@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
         $user
             ->setEmail('user@user.fr')
             ->setRoles(['ROLE_USER'])
-            ->setNickname('user')
+            ->setNickname('user_1')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'));
 
         $this->addReference('user', $user);
@@ -39,7 +39,7 @@ class UserFixtures extends Fixture
         $user
             ->setEmail('admin@admin.fr')
             ->setRoles(['ROLE_ADMIN'])
-            ->setNickname('admin')
+            ->setNickname('user_2')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'));
 
         $this->addReference('admin', $user);
@@ -51,7 +51,7 @@ class UserFixtures extends Fixture
         $user
             ->setEmail('no-verif@user.fr')
             ->setRoles(['ROLE_USER'])
-            ->setNickname('no verify user')
+            ->setNickname('user_3')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'))
             ->setIsVerified(false);
 
@@ -62,20 +62,20 @@ class UserFixtures extends Fixture
         $user
             ->setEmail('verif@user.fr')
             ->setRoles(['ROLE_USER'])
-            ->setNickname('verify user')
+            ->setNickname('user_4')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'))
             ->setIsVerified(true);
 
         $manager->persist($user);
 
         // Custom users
-        for($i = 1; $i <= 6; $i++) {
+        for($i = 5; $i <= 10; $i++) {
 
             $user = new User();
             $user
                 ->setEmail('user_' . $i . '@user.fr')
                 ->setRoles(['ROLE_USER'])
-                ->setNickname('user' . $i)
+                ->setNickname('user_' . $i)
                 ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'))
                 ->setIsVerified($this->faker->randomElement([true, false]));
 

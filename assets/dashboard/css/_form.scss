@@ -1,0 +1,49 @@
+.form_category {
+        width: 100%;
+    fieldset {
+        box-shadow: 2px 2px 5px $dark;
+        padding: 0.5em;
+        border-radius: 4px;
+        input, select {
+            margin: auto;
+            margin-bottom: .5em;
+            width: 75%;
+            &[type=color] {
+                height: 2rem;
+            }
+        }
+        label {
+            font-size: .9em;
+            width: 75%;
+            padding-left: 0;
+            text-align: left;
+        }
+        legend {
+            color: $secondary;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px $light;
+            text-align: left;
+            border-bottom: 1px $secondary solid;
+        }
+        button {
+            @extend .button-shadow-secondary;
+            margin: .5em 0;
+        }
+        fieldset.form-custom-colors {
+            margin: .75em auto;
+            width: 75%;
+
+            legend {
+                font-size: .9em ;
+            }
+
+            .custom-colors-container {
+                display: flex;
+                justify-content: space-around;
+                .flex-equal {
+                    width: 35%;
+                }
+            }
+        }
+    }
+}

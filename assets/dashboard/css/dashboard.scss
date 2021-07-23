@@ -22,29 +22,49 @@ Website: http://Alvarez.is/
 	}
 }
 
-.button-shadow-success {
-	font-size: 12px;
+.button-shadow-dark-success {
+	border: none !important;
+	font-size: .9em;
 	color: $light-success;
 	border-radius: 4px;
 	padding: 5px 15px;
 	background: $dark;
 	box-shadow: 2px 2px 5px $light-success;
 	&:hover {
-		box-shadow: 4px 4px 5px $primary;
-		color: $primary !important;
-		border-color: none !important;
+		box-shadow: 4px 4px 5px $light;
+		color: $light !important;
+		border: none !important;
 	}
 }
 
-.button-shadow-secondary {
-	font-size: 12px;
+.button-shadow-dark-secondary {
+	border: none !important;
+	font-size: .9em;
 	color: $secondary;
 	border-radius: 4px;
 	padding: 5px 15px;
 	background: $dark;
 	box-shadow: 2px 2px 5px $secondary;
 	&:hover {
-		box-shadow: 3px 3px 5px $primary;
+		box-shadow: 3px 3px 5px $light;
+		color: $light !important;
+		border: none !important;
+	}
+}
+
+.button-shadow-secondary {
+	border: none !important;
+	font-size: 1em;
+	color: $light;
+	border-radius: 4px;
+	padding: 5px 15px;
+	background: $secondary;
+	box-shadow: 2px 2px 5px $light;
+	&:hover {
+		background-color: $dark;
+		box-shadow: 3px 3px 5px $secondary;
+		color: $secondary !important;
+		border: none !important;
 	}
 }
 
@@ -250,11 +270,11 @@ ul.top-menu {
 		margin-top: 20px;
 
 		.new-content {
-			@extend .button-shadow-success;
+			@extend .button-shadow-dark-success;
 			margin-right: 15px;
 		}
 		.logout {
-			@extend .button-shadow-secondary;
+			@extend .button-shadow-dark-secondary;
 			margin-right: 15px;
 		}
 	}
