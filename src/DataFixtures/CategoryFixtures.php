@@ -30,9 +30,11 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $this->CreateSubCategories($manager, 'user', 3);
-        $this->CreateSubCategories($manager, 'admin', 3);
-        $this->CreateSubCategories($manager, null, rand(1,3), rand(5,25) );
+        $num_existing_users = count($this->userRepository->findAll());
+
+        for($i = 1; $i < $num_existing_users; $i++){
+            $this->CreateSubCategories($manager, 'user_' . $i, rand(1,3));
+        }
     }
 
     /**
@@ -43,24 +45,23 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
      * @param integer $levels Number of subcategory levels
      * @param integer $loops Number of category to create by loop
      */
-    public function CreateSubCategories(ObjectManager $manager, string|null $userReference = null, int $levels = 1, int $loops = 25) {
+    private function CreateSubCategories(ObjectManager $manager, string $userReference, int $levels = 1, int $loops = 25) {
         if($levels > 0) {
 
             $num_existing_colors = count($this->colorRepository->findAll());
-            $num_existing_users = count($this->userRepository->findAll());
-            $num_existing_categories = count($this->categoryRepository->findAll());
+            $user= $this->userRepository->findBy(['nickname' => $userReference])[0];
+            $num_existing_user_categories = count($this->categoryRepository->findBy(['user' => $user->getId()]));
 
             for($i= 1; $i <= $loops; $i++) {
                 $category = new Category();
                 $category->setLabel($this->faker->word);
-                $category->adduser($this->getReference($userReference ?? 'user' . rand(1, $num_existing_users - 4) ));
+                $category->setUser($user);
                 $category->setColor($this->getReference('color' . rand(1, $num_existing_colors)));
 
-                if($num_existing_categories > 0) {
-                    $category->setParent($this->getReference('category' . rand(1, $num_existing_categories)));
+                if($num_existing_user_categories > 0) {
+                    $category->setParent($this->getReference('category_' . $user->getId() . '_' . rand(1, $num_existing_user_categories)));
                 }
-
-                $this->addReference('category' . $num_existing_categories + $i, $category);
+                $this->addReference('category_' . $user->getId() . '_' . $num_existing_user_categories + $i, $category);
 
                 $manager->persist($category);
             }

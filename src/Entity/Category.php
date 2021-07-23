@@ -42,19 +42,19 @@ class Category
     private $subCategories;
 
     /**
-     * @ORM\ManyToMany(targetEntity=user::class, inversedBy="categories")
-     */
-    private $users;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="categories")
      */
     private $color;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();
-        $this->users = new ArrayCollection();
     }
 
     public function __toString()
@@ -133,30 +133,6 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|users[]
-     */
-    public function getusers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function adduser(user $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeuser(user $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
-
     public function getColor(): ?Color
     {
         return $this->color;
@@ -165,6 +141,18 @@ class Category
     public function setColor(?Color $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
