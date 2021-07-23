@@ -22,7 +22,7 @@ class CategoryType extends AbstractType
             ])
             ->add('color', EntityType::class, [
                 'class' => Color::class,
-                'label' => 'Sélectionnez une couleur existante'
+                'label' => 'Sélectionnez une couleur existante...'
             ])
             ->add('bgColorPicker', ColorType::class, [
                 'label' => 'Fond',
@@ -32,7 +32,7 @@ class CategoryType extends AbstractType
                 'label' => 'Texte',
                 'mapped' => false
             ])
-            ->add('submitColor', SubmitType::class, [
+            ->add('submitNewCategory', SubmitType::class, [
                 'label' => 'Créer la catégorie'
             ])
         ;
