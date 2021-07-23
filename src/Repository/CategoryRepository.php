@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,34 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+
+    public function findUserParentCategories(int $user_id): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andwhere('c.parent IS NULL')
+            ->andWhere('c.user = :user_id')
+            ->setParameter('user_id', $user_id)
+            ->orderBy('c.label', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function findCategoriesWithSub()
+    // {
+    //     $parent_categories = $this->findUserParentCategories($this->getUser()->getId());
+    //     $categories = [];
+    //     foreach ($parent_categories as $index => $parent) {
+
+    //         $subCategory = $this->createQueryBuilder('c')
+    //             ->where('c.parent = :parent')
+    //             ->setParameter('parent', $parent->id)
+    //             ->orderBy('c.label', 'ASC')
+    //             ->getQuery()
+    //             ->getResult();
+    //         $categories[$parent->label][] = $subCategory;
+    //         return;
+    //     }
+    // }
 
     // /**
     //  * @return Category[] Returns an array of Category objects
