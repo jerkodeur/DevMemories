@@ -45,14 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="user")
-     */
-    private $categories;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nickname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $categories;
 
     public function __construct()
     {
@@ -160,6 +160,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): self
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Category[]
      */
@@ -172,7 +184,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
-            $category->addUser($this);
+            $category->setUser($this);
         }
 
         return $this;
@@ -181,20 +193,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCategory(Category $category): self
     {
         if ($this->categories->removeElement($category)) {
-            $category->removeUser($this);
+            // set the owning side to null (unless already changed)
+            if ($category->getUser() === $this) {
+                $category->setUser(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getNickname(): ?string
-    {
-        return $this->nickname;
-    }
-
-    public function setNickname(string $nickname): self
-    {
-        $this->nickname = $nickname;
 
         return $this;
     }
