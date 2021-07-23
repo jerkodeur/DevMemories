@@ -1,0 +1,34 @@
+section.tree-categories-container {
+    width: 50%;
+    text-align: center;
+
+    h1 {
+        font-size: 1.5em;
+        margin-top: 1rem;
+        // margin-bottom: 2rem;
+        box-shadow: 0px 2px 5px $dark;
+        padding: 0.25em;
+        border-radius: 4px;
+    }
+
+    ul {
+        text-align: left;
+        padding-bottom: .25rem;
+        padding-left: 2em;
+        margin: 0 ;
+    }
+    li.cat-accordion-header {
+        margin-top: 0.5em;
+        button[class*='cat-accordion-button'] {
+            box-shadow: 2px 2px 5px $dark;
+            border-radius: 4px;
+            border: none;
+            padding: .5em;
+            white-space: nowrap;
+        }
+    }
+    .cat-accordion-body {
+        padding-left: .5rem;
+        margin-top: 0.75em;
+    }
+}

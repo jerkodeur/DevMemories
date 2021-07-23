@@ -39,6 +39,11 @@ class Color
         $this->categories = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->code_bg . '_' . $this->code_text;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -80,6 +80,10 @@
         "db:reload": [
             "php bin/console doctrine:database:drop --force",
             "composer db:install"
+        ],
+        "start": [
+            "symfony server:start --no-tls -d",
+            "yarn watch"
         ]
     },
     "conflict": {
