@@ -22,6 +22,9 @@
 			<section id="main-content">
 				<div class="wrapper">
 					<div class="container">
+						{% block flash %}
+							{% include "dashboard/common/_flashMessage.html.twig" %}
+						{% endblock %}
 						{% block body %}{% endblock %}
 					</div>
 				</div>
