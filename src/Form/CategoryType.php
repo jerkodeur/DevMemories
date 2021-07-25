@@ -25,6 +25,7 @@ class CategoryType extends AbstractType
                 'class' => Category::class,
                 'label' => 'Définir comme sous catégorie de:',
                 'placeholder' => 'Choisir une catégorie parente',
+                'required' => false,
                 'choices' => null
             ])
             ->add('color', EntityType::class, [
@@ -32,6 +33,7 @@ class CategoryType extends AbstractType
                 'attr' => ['class' => 'select-color'],
                 'label' => 'Sélectionnez une couleur existante...',
                 'placeholder' => 'Choisir une couleur',
+                'required' => false,
                 'choices' => null
             ])
             ->add('bgColorPicker', ColorType::class, [
