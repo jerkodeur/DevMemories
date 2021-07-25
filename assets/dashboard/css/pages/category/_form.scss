@@ -1,16 +1,23 @@
 .form-container {
+        margin-top: 1em;
         width: 100%;
     fieldset {
         box-shadow: 2px 2px 5px $dark;
         padding: 0.5em;
         border-radius: 4px;
         input, select {
+            font-size: .9em !important;
             margin: auto;
             margin-bottom: .5em;
             width: 75%;
             &[type=color] {
                 height: 2rem;
             }
+        }
+        select {
+            -webkit-appearance: auto !important;
+            -moz-appearance: auto !important;
+            appearance: auto !important;
         }
         label {
             font-size: .9em;
@@ -47,6 +54,15 @@
             .flex-equal {
                 width: 35%;
             }
+            input {
+                padding: 4px;
+                background: $primary;
+                border: none;
+                box-shadow: 1px 1px 3px $dark;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             &.form-colors {
                 label {
                     width: 100%;
@@ -56,6 +72,56 @@
                     width: 50%;
                 }
             }
+        }
+    }
+    &#form-color-update {
+        legend {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            i:hover {
+                &::before{
+                    color: red ;
+                    cursor: pointer;
+                }
+            }
+        }
+        fieldset {
+            box-shadow: 1px 1px 5px $light;
+        }
+        .custom-colors-update-container {
+            display: flex;
+            flex-direction: row;
+
+            .flex-equal {
+                width: 25%;
+            }
+            button, input {
+                padding: 0;
+            }
+        }
+    }
+    #preview-category {
+        width: 75%;
+        margin: auto;
+        margin: 1em auto;
+        fieldset {
+            padding: 0;
+            legend {
+                font-size: .9em;
+                margin-bottom: 0;
+            }
+            #preview-category-content {
+                border-radius: 0 0 4px 4px;
+                padding: 0.25em;
+            }
+        }
+    }
+    input, select {
+        color: $dark;
+        &::placeholder {
+            color: $primary;
         }
     }
 }

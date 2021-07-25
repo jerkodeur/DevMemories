@@ -1,8 +1,9 @@
 .categories-handle-container {
+    text-align: center;
+    
     #category-title {
         cursor: pointer ;
     }
-    text-align: center;
 
     ul {
         text-align: left;
@@ -26,6 +27,7 @@
     }
 
     .tree-categories-container {
+        width: 100%;
         box-shadow: 2px 2px 5px $success;
         padding: 0.5em;
         border-radius: 4px;

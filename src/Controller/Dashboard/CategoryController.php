@@ -21,12 +21,14 @@ class CategoryController extends AbstractController
         $color = new Color();
         $category = new Category();
         $color_form = $this->createForm(ColorsType::class, $color);
+        $color_form_2 = $this->createForm(ColorsType::class, $color);
         $category_form = $this->createForm(CategoryType::class, $category);
 
         return $this->render('dashboard/category/list.html.twig', [
             'categories' => $categoryRepository->findUserParentCategories($this->getUser()->getId()),
             'colors' => $colorRepository->findAll(),
             'color_form' => $color_form->createView(),
+            'color_form_2' => $color_form_2->createView(),
             'category_form' => $category_form->createView()
         ]);
     }
