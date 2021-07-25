@@ -28,7 +28,8 @@ class UserFixtures extends Fixture
             ->setEmail('user@user.fr')
             ->setRoles(['ROLE_USER'])
             ->setNickname('user_1')
-            ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'));
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'))
+            ->setIsVerified(true);
 
         $this->addReference('user', $user);
 
@@ -40,7 +41,8 @@ class UserFixtures extends Fixture
             ->setEmail('admin@admin.fr')
             ->setRoles(['ROLE_ADMIN'])
             ->setNickname('user_2')
-            ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'));
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'password12345'))
+            ->setIsVerified(true);
 
         $this->addReference('admin', $user);
 
