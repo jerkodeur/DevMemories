@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,20 +17,31 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
+            ->add('label', TextType::class, [
+                'label'=> 'Nom de la catégorie',
+                'attr' => ['placeholder' => 'Saisir un nom']
+            ])
             ->add('parent', EntityType::class, [
-                'class' => Category::class
+                'class' => Category::class,
+                'label' => 'Définir comme sous catégorie de:',
+                'placeholder' => 'Choisir une catégorie parente',
+                'choices' => null
             ])
             ->add('color', EntityType::class, [
                 'class' => Color::class,
-                'label' => 'Sélectionnez une couleur existante...'
+                'attr' => ['class' => 'select-color'],
+                'label' => 'Sélectionnez une couleur existante...',
+                'placeholder' => 'Choisir une couleur',
+                'choices' => null
             ])
             ->add('bgColorPicker', ColorType::class, [
                 'label' => 'Fond',
+                'data' => '#f0f5fa',
                 'mapped' => false
             ])
             ->add('textColorPicker', ColorType::class, [
                 'label' => 'Texte',
+                'data' => '#212529',
                 'mapped' => false
             ])
             ->add('submitNewCategory', SubmitType::class, [

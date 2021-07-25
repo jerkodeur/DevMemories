@@ -6,13 +6,13 @@
     <div class="categories-main-container row">
         <section class="categories-handle-container col-12 col-md-6">
             <h1 id="category-title">
-                {% trans %}Liste des catégories{% endtrans %}
+                {% trans %}Mes catégories{% endtrans %}
                 <span>
                     <i class="fas fa-chevron-down" id="cat-arrow-down" style="display: inline-block"></i>
                     <i class="fas fa-chevron-up" id="cat-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            <div class="tree-categories-container" id="category-list">
+            <div class="tree-categories-container" id="category-list" style="display:none">
                 {% macro menu_categories(categories) %}
                     {% import _self as macros %}
                     {% for category in categories %}
@@ -55,6 +55,12 @@
                                     <div class="flex-equal">{{ form_row(category_form.textColorPicker) }}</div>
                                 </div>
                             </fieldset>
+                            <div id="preview-category" style="display:none">
+                                <fieldset>
+                                    <legend>Aperçu</legend>
+                                    <div id="preview-category-content"></div>
+                                </fieldset>
+                            </div>
                             {{ form_row(category_form.submitNewCategory) }}
                         {{ form_end(category_form) }}
                 </fieldset>
@@ -62,15 +68,60 @@
 
         </section>
         <section class="colors-handle-container col-12 col-md-4">
-            <h1>{% trans %}Couleurs existantes{% endtrans %}</h1>
+            <h1 id="color-title">
+                {% trans %}Mes couleurs{% endtrans %}
+                <span>
+                    <i class="fas fa-chevron-down" id="color-arrow-down" style="display: inline-block"></i>
+                    <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
+                </span>
+            </h1>
+            <div>
+                <form action="" class="form-container" id="form-color-update" style="display: none">
+                    {{ form_start(color_form_2, {'action': path('dashboard_resources_colors_add')}) }}
+                    <fieldset>
+                        <legend>
+                            {% trans %}Modifier une couleur{% endtrans %}
+                            <i class="fas fa-times-circle"></i>
+                        </legend>
+                        <div class="custom-colors-update-container">
+                            <div class="flex-equal">{{ form_row(color_form_2.code_text) }}</div>
+                            <div class="flex-equal">{{ form_row(color_form_2.code_bg) }}</div>
+                            <input type="hidden" value="" name="color_id" />
+                            <button form="form-color-update" type='reset'>Annuler</button>
+                            {{ form_widget(color_form_2.submitNewColor, { 'label': 'Modifier' }) }}
+                        </div>
+                    {# <fieldset> #}
+                    {{ form_end(color_form_2) }}
+                </form>
+            </div>
+            <div class="tree-color-container"  id="color-list"  style="display:none">
+                {% for color in colors %}
+                    <div class="badge rounded-pill badge-color col-2 data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
+                            {% if colors|length > 50 %}
+                                col-1
+                            {% elseif colors|length > 40 %}
+                                col-2
+                            {% elseif colors|length > 30 %}
+                                col-3
+                            {% elseif colors|length > 20 %}
+                                col-4
+                            {% else %}
+                                col-5
+                            {% endif %}
+                            "
+                        style="color: {{ color.codeText}}; background: {{ color.codeBg }}">
+                        {{ loop.index }}
+                    </div>
+                {% endfor %}
+            </div>
             <form action="" class="form-container">
                 <fieldset>
                     <legend>{% trans %}Ajouter une couleur{% endtrans %}</legend>
-                        {{ form_start(color_form) }}
+                        {{ form_start(color_form, {'action': path('dashboard_resources_colors_add')} ) }}
                             <div class="form-custom-colors">
                                 <div class="custom-colors-container form-colors">
-                                    <div class="flex-equal">{{ form_row(color_form.code_text) }}</div>
-                                    <div class="flex-equal">{{ form_row(color_form.code_bg) }}</div>
+                                    <div class="flex-equal">{{ form_row(color_form.code_text, {id: 'colors_code_text_2'}) }}</div>
+                                    <div class="flex-equal">{{ form_row(color_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
                                 </div>
                                 {{ form_row(color_form.submitNewColor) }}
                             </div>
@@ -86,6 +137,7 @@
     {{ parent() }}
     <script>
         window.onload = () => {
+
             // Add a listener to the category title to show/hide the subCategories
             let buttons = document.querySelectorAll("button[class*='cat-accordion-button']");
             for(let button of buttons) {
@@ -101,16 +153,98 @@
             }
 
             // Hide/show list of categories on click
-            const handleButtonList = document.getElementById('category-title');
-            {# console.log(catArrow.className); #}
+            const handleButtonCatList = document.getElementById('category-title');
             const catArrowDown = document.getElementById('cat-arrow-down');
             const catArrowUp = document.getElementById('cat-arrow-up');
-            handleButtonList.addEventListener("click", function(){
+            handleButtonCatList.addEventListener("click", function(){
                 const categoryList = document.getElementById('category-list');
                 categoryList.style.display = categoryList.style.display === "none" ? "inline-block" : "none";
                 catArrowDown.style.display = catArrowDown.style.display === "inline-block" ? "none" : "inline-block";
                 catArrowUp.style.display = catArrowUp.style.display === "inline-block" ? "none" : "inline-block";
-                console.log(catArrowUp.style.display)
+            });
+
+            // Hide/show list of colors on click
+            const handleButtonColorList = document.getElementById('color-title');
+            const colorArrowDown = document.getElementById('color-arrow-down');
+            const colorArrowUp = document.getElementById('color-arrow-up');
+            handleButtonColorList.addEventListener("click", function(){
+                const colorList = document.getElementById('color-list');
+                colorList.style.display = colorList.style.display === "none" ? "inline-block" : "none";
+                colorArrowDown.style.display = colorArrowDown.style.display === "inline-block" ? "none" : "inline-block";
+                colorArrowUp.style.display = colorArrowUp.style.display === "inline-block" ? "none" : "inline-block";
+            });
+
+            // Hide the update form on click
+            const handleButtonUpdateColor = document.getElementById('form-color-update');
+            handleButtonUpdateColor.addEventListener("click", function(){
+                this.style.display = "none";
+            })
+
+            // Function to show the update form and object datas
+            function modifyColor(id) {
+
+            }
+
+            // Set the default values for the second color picker form
+            document.getElementById('colors_code_text_2').value = '#f0f5fa';
+            document.getElementById('colors_code_bg_2').value = '#212529';
+
+            // Category preview
+            const previewContainer = document.getElementById('preview-category');
+            const previewCategoryContent = document.getElementById('preview-category-content');
+            const labelCategoryInput = document.getElementById('category_label');
+            labelCategoryInput.addEventListener('input', function(){
+                if(this.value) {
+                    previewContainer.style.display = 'block'
+                    previewCategoryContent.innerHTML = this.value
+                } else {
+                    previewContainer.style.display = 'none'
+                }
+            })
+            const colorInput = document.getElementById('category_color');
+            const bgPicker = document.getElementById('category_bgColorPicker');
+            const textPicker = document.getElementById('category_textColorPicker');
+            colorInput.addEventListener('input', function(){
+                const selectedText = this.options[this.selectedIndex].text
+                if(selectedText !== "Choisir une couleur") {
+                    const [bgColor, textColor] = selectedText.split('_');
+                    previewCategoryContent.style.background = bgColor;
+                    previewCategoryContent.style.boxShadow = `2px 2px 5px #212529`;
+                    previewCategoryContent.style.color = textColor;
+
+                    this.style.background = bgColor;
+                    this.style.color = textColor;
+
+                    bgPicker.value = bgColor;
+                    textPicker.value = textColor;
+                } else {
+                    this.style.background = '#ffffff';
+                    this.style.color = '#212529';
+
+                    bgPicker.value = '#f0f5fa';
+                    textPicker.value = '#7b8ab8';
+                }
+            })
+
+            // Stylise the select color
+            for(let i=0; i<colorInput.options.length; i++) {
+                const [bgColor, textColor] = colorInput.options[i].text.split('_')
+                colorInput.options[i].style.background = bgColor;
+                colorInput.options[i].style.color = textColor;
+            }
+
+            // Reset the selected colors if color picker change
+            bgPicker.addEventListener('change', function(){
+                colorInput.options.selectedIndex = 0
+                colorInput.style.background = '#ffffff';
+                colorInput.style.color = '#212529';
+                previewCategoryContent.style.background = this.value;
+            })
+            textPicker.addEventListener('change', function(){
+                colorInput.options.selectedIndex = 0
+                colorInput.style.background = '#ffffff';
+                colorInput.style.color = '#212529';
+                previewCategoryContent.style.color = this.value;
             })
         }
     </script>

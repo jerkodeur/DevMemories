@@ -1,3 +1,22 @@
 .colors-handle-container {
-    // width: 30%;
+    text-align: center;
+
+    #color-title {
+        cursor: pointer ;
+    }
+
+    #category-title {
+        cursor: pointer ;
+    }
+
+    .tree-color-container {
+        margin: 0 0 1em;
+        width: 100%;
+        box-shadow: 2px 2px 5px $success;
+        padding: 1em !important;
+        border-radius: 4px;
+        .badge {
+            cursor: pointer ;
+        }
+    }
 }
