@@ -41,7 +41,7 @@
 
                 {{ macros.menu_categories(categories, 1) }}
             </div>
-            <form action="" class="form-container">
+            <div class="form-container">
                 <fieldset>
                     <legend>{% trans %}Ajouter une catégorie{% endtrans %}</legend>
                         {{ form_start(category_form) }}
@@ -64,7 +64,7 @@
                             {{ form_row(category_form.submitNewCategory) }}
                         {{ form_end(category_form) }}
                 </fieldset>
-            </form>
+            </div>
 
         </section>
         <section class="colors-handle-container col-12 col-md-4">
@@ -96,19 +96,21 @@
             </div>
             <div class="tree-color-container"  id="color-list"  style="display:none">
                 {% for color in colors %}
-                    <div class="badge rounded-pill badge-color col-2 data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
-                            {% if colors|length > 50 %}
-                                col-1
-                            {% elseif colors|length > 40 %}
-                                col-2
-                            {% elseif colors|length > 30 %}
-                                col-3
-                            {% elseif colors|length > 20 %}
-                                col-4
-                            {% else %}
-                                col-5
-                            {% endif %}
-                            "
+                    <div class="badge rounded-pill badge-color
+                        {% if colors|length > 50 %}
+                            col-1
+                        {% elseif colors|length > 40 %}
+                            col-2
+                        {% elseif colors|length > 30 %}
+                            col-3
+                        {% elseif colors|length > 20 %}
+                            col-4
+                        {% else %}
+                            col-5
+                        {% endif %}
+                        "
+                    data-id="{{ color.id }} data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
+
                         style="color: {{ color.codeText}}; background: {{ color.codeBg }}">
                         {{ loop.index }}
                     </div>
