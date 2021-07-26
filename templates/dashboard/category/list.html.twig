@@ -1,8 +1,8 @@
 {% extends 'dashboard/index.html.twig' %}
-
 {% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
 
 {% block body %}
+
     <div class="categories-main-container row">
         <section class="categories-handle-container col-12 col-md-6">
             <h1 id="category-title">
@@ -76,7 +76,7 @@
                 </span>
             </h1>
             <div class="form-container" >
-                {{ form_start(color_edit_form, {'attr': {'id': 'form-color-update', 'style': 'display: none' }}) }}
+                {{ form_start(color_edit_form, {'attr': {'id': 'color_edit_form', 'style': 'display: none' }}) }}
                 <fieldset>
                     <legend>
                         {% trans %}Modifier une couleur{% endtrans %}
@@ -85,18 +85,19 @@
                         </div>
                     </legend>
                     <div class="custom-colors-update-container">
-                        <div class="flex-equal">{{ form_row(color_edit_form.code_text) }}</div>
-                        <div class="flex-equal">{{ form_row(color_edit_form.code_bg) }}</div>
+                        <div class="flex-equal">{{ form_row(color_edit_form.code_text,) }}</div>
+                        <div class="flex-equal">{{ form_row(color_edit_form.code_bg, ) }}</div>
                         <input type="hidden" value="" name="color_id" id="color_update_id" />
-                        <button type="button" id="form-color-update-reset">
+                        <button type="button" id="color_edit_form-reset">
                             <i class="fas fa-undo"></i>
                         </button>
-                        <button form="form-color-update" type="submit">
+                        <button form="color_edit_form" type="submit" id="color_edit_form_submitColor.">
                             <i class="fas fa-check-circle"></i>
                         </button>
+                        {{ form_row(color_edit_form.submitColor, {'attr': {'style': 'display: none' }}) }}
                     </div>
+                {{ form_end(color_edit_form) }}
                 <fieldset>
-                {{ form_end(color_edit_form, {"render_rest": false}) }}
             </div>
             <div class="tree-color-container"  id="color-list"  style="display:none">
                 {% for color in colors %}
@@ -120,20 +121,20 @@
                     </div>
                 {% endfor %}
             </div>
-            <form action="" class="form-container">
+            <div class="form-container">
                 <fieldset>
                     <legend>{% trans %}Ajouter une couleur{% endtrans %}</legend>
-                        {{ form_start(color_new_form) }}
+                        {{ form_start(color_new_form, {'attr': {'id': 'color_new_form'}} ) }}
                             <div class="form-custom-colors">
                                 <div class="custom-colors-container form-colors">
                                     <div class="flex-equal">{{ form_row(color_new_form.code_text, {id: 'colors_code_text_2'}) }}</div>
                                     <div class="flex-equal">{{ form_row(color_new_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
                                 </div>
-                                {{ form_row(color_new_form.submitNewColor) }}
+                                {{ form_row(color_new_form.submitColor) }}
                             </div>
                         {{ form_end(color_new_form) }}
                 </fieldset>
-            </form>
+            </div>
         </section>
     </div>
 
@@ -183,15 +184,15 @@
             // Hide the update form on click
             const formUpdateColorHide = document.getElementById('hideFormColorButton');
             formUpdateColorHide.addEventListener("click", function(){
-                document.getElementById('form-color-update').style.display = "none";
+                document.getElementById('color_edit_form').style.display = "none";
             })
 
-            const formUpdateColorReset = document.getElementById('form-color-update-reset');
+            const formUpdateColorReset = document.getElementById('color_edit_form-reset');
             formUpdateColorReset.addEventListener("click", function() {
                 const colorUpdateId = document.getElementById('color_update_id').value;
                 const currentBadge = document.getElementById(`badge_${colorUpdateId}`);
-                document.getElementById('colors_code_text').value = currentBadge.dataset.textColor;
-                document.getElementById('colors_code_bg').value = currentBadge.dataset.bgColor;
+                document.getElementById('color_edit_form_code_text').value = currentBadge.dataset.textColor;
+                document.getElementById('color_edit_form_code_bg').value = currentBadge.dataset.bgColor;
             })
 
             // Set the default values for the second color picker form
@@ -260,12 +261,12 @@
             const colors = document.querySelectorAll(".badge-color");
             colors.forEach(color => {
                 color.addEventListener('click', function() {
-                    document.getElementById('form-color-update').style.display = 'block';
-                    document.getElementById('colors_code_text').value = this.dataset.textColor;
-                    document.getElementById('colors_code_bg').value = this.dataset.bgColor;
+                    document.getElementById('color_edit_form').style.display = 'block';
+                    document.getElementById('color_edit_form_code_text').value = this.dataset.textColor;
+                    document.getElementById('color_edit_form_code_bg').value = this.dataset.bgColor;
                     document.getElementById('color_update_id').value = this.dataset.id;
                 })
             })
         }
-    </script>
+    </script> #}
 {% endblock %}
