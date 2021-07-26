@@ -75,26 +75,28 @@
                     <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            <div class="form-container">
-                {{ form_start(color_form_2, {'attr': {'id': 'form-color-update',  style: "display: none"}}) }}
+            <div class="form-container" >
+                {{ form_start(color_edit_form, {'attr': {'id': 'form-color-update', 'style': 'display: none' }}) }}
                 <fieldset>
                     <legend>
                         {% trans %}Modifier une couleur{% endtrans %}
-                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <i class="fas fa-times-circle" id="hideFormColorButton"></i>
+                        </div>
                     </legend>
                     <div class="custom-colors-update-container">
-                        <div class="flex-equal">{{ form_row(color_form_2.code_text) }}</div>
-                        <div class="flex-equal">{{ form_row(color_form_2.code_bg) }}</div>
-                        <input type="hidden" value="" name="color_id" />
-                        <button form="form-color-update" type="reset">
+                        <div class="flex-equal">{{ form_row(color_edit_form.code_text) }}</div>
+                        <div class="flex-equal">{{ form_row(color_edit_form.code_bg) }}</div>
+                        <input type="hidden" value="" name="color_id" id="color_update_id" />
+                        <button type="button" id="form-color-update-reset">
                             <i class="fas fa-undo"></i>
                         </button>
-                        <button form="form-color-update" type="submit" id="submitUpdateColor">
+                        <button form="form-color-update" type="submit">
                             <i class="fas fa-check-circle"></i>
                         </button>
                     </div>
                 <fieldset>
-                {{ form_end(color_form_2, {"render_rest": false}) }}
+                {{ form_end(color_edit_form, {"render_rest": false}) }}
             </div>
             <div class="tree-color-container"  id="color-list"  style="display:none">
                 {% for color in colors %}
@@ -112,7 +114,7 @@
                                 col-5
                             {% endif %}
                             "
-                    data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
+                    data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}" id="badge_{{color.id}}"
                         style="color: {{ color.codeText}}; background: {{ color.codeBg }}" >
                         {{ loop.index }}
                     </div>
@@ -121,15 +123,15 @@
             <form action="" class="form-container">
                 <fieldset>
                     <legend>{% trans %}Ajouter une couleur{% endtrans %}</legend>
-                        {{ form_start(color_form, {'action': path('dashboard_resources_colors_add')} ) }}
+                        {{ form_start(color_new_form) }}
                             <div class="form-custom-colors">
                                 <div class="custom-colors-container form-colors">
-                                    <div class="flex-equal">{{ form_row(color_form.code_text, {id: 'colors_code_text_2'}) }}</div>
-                                    <div class="flex-equal">{{ form_row(color_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
+                                    <div class="flex-equal">{{ form_row(color_new_form.code_text, {id: 'colors_code_text_2'}) }}</div>
+                                    <div class="flex-equal">{{ form_row(color_new_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
                                 </div>
-                                {{ form_row(color_form.submitNewColor) }}
+                                {{ form_row(color_new_form.submitNewColor) }}
                             </div>
-                        {{ form_end(color_form) }}
+                        {{ form_end(color_new_form) }}
                 </fieldset>
             </form>
         </section>
@@ -179,15 +181,18 @@
             });
 
             // Hide the update form on click
-            const handleButtonUpdateColor = document.getElementById('form-color-update');
-            handleButtonUpdateColor.addEventListener("click", function(){
-                this.style.display = "none";
+            const formUpdateColorHide = document.getElementById('hideFormColorButton');
+            formUpdateColorHide.addEventListener("click", function(){
+                document.getElementById('form-color-update').style.display = "none";
             })
 
-            // Function to show the update form and object datas
-            function modifyColor(id) {
-
-            }
+            const formUpdateColorReset = document.getElementById('form-color-update-reset');
+            formUpdateColorReset.addEventListener("click", function() {
+                const colorUpdateId = document.getElementById('color_update_id').value;
+                const currentBadge = document.getElementById(`badge_${colorUpdateId}`);
+                document.getElementById('colors_code_text').value = currentBadge.dataset.textColor;
+                document.getElementById('colors_code_bg').value = currentBadge.dataset.bgColor;
+            })
 
             // Set the default values for the second color picker form
             document.getElementById('colors_code_text_2').value = '#f0f5fa';
@@ -256,13 +261,11 @@
             colors.forEach(color => {
                 color.addEventListener('click', function() {
                     document.getElementById('form-color-update').style.display = 'block';
-                    console.log(this.dataset)
                     document.getElementById('colors_code_text').value = this.dataset.textColor;
                     document.getElementById('colors_code_bg').value = this.dataset.bgColor;
-                    console.log(color);
+                    document.getElementById('color_update_id').value = this.dataset.id;
                 })
             })
-            console.log(colors);
         }
     </script>
 {% endblock %}
