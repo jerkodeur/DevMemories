@@ -20,7 +20,7 @@ class ColorsType extends AbstractType
             ->add('code_bg', ColorType::class, [
                 'label' => 'Texte'
             ])
-            ->add('submitNewColor', SubmitType::class, [
+            ->add('submitColor', SubmitType::class, [
                 'label' => 'Créer la couleur'
             ])
         ;
