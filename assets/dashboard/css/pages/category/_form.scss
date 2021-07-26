@@ -74,31 +74,71 @@
             }
         }
     }
-    &#form-color-update {
-        legend {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            i:hover {
-                &::before{
-                    color: red ;
-                    cursor: pointer;
+    #form-color-update {
+        box-shadow: 1px 1px 5px $dark;
+        fieldset {
+            box-shadow: 1px 1px 5px $dark;
+            background-color: $primary;
+            padding: 0 !important;
+            legend {
+                width: 100%;
+                align-items: center;
+                background-color: $secondary;
+                margin-bottom: 0;
+                color: $primary;
+                text-shadow: none;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                i:hover {
+                    &::before{
+                        color: red ;
+                        cursor: pointer;
+                    }
+                }
+                button {
+                    padding: 0;
                 }
             }
         }
-        fieldset {
-            box-shadow: 1px 1px 5px $light;
-        }
+
         .custom-colors-update-container {
+            background-color: $primary;
             display: flex;
             flex-direction: row;
+            justify-content: space-around;
+            padding: 0.5em 0 0.5em 0;
 
             .flex-equal {
                 width: 25%;
             }
             button, input {
-                padding: 0;
+                padding: .5em;
+                margin: .5em;
+                &[type=reset] {
+                    background-color: $danger;
+                    &:hover {
+                        color: $white !important;
+                        background-color: darken($color: $danger, $amount: 25%);
+                    }
+                }
+                &[type=submit] {
+                    background-color: $success;
+                    color: $light !important;
+                    &:hover {
+                        color: $white !important;
+                        background-color: lighten($color: $success, $amount: 25%);
+                    }
+                }
+            }
+            input {
+                padding: 4px;
+                background: $primary;
+                border: none;
+                box-shadow: 1px 1px 3px $dark;
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
