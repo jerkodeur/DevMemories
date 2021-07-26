@@ -75,43 +75,45 @@
                     <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            <div>
-                <form action="" class="form-container" id="form-color-update" style="display: none">
-                    {{ form_start(color_form_2, {'action': path('dashboard_resources_colors_add')}) }}
-                    <fieldset>
-                        <legend>
-                            {% trans %}Modifier une couleur{% endtrans %}
-                            <i class="fas fa-times-circle"></i>
-                        </legend>
-                        <div class="custom-colors-update-container">
-                            <div class="flex-equal">{{ form_row(color_form_2.code_text) }}</div>
-                            <div class="flex-equal">{{ form_row(color_form_2.code_bg) }}</div>
-                            <input type="hidden" value="" name="color_id" />
-                            <button form="form-color-update" type='reset'>Annuler</button>
-                            {{ form_widget(color_form_2.submitNewColor, { 'label': 'Modifier' }) }}
-                        </div>
-                    {# <fieldset> #}
-                    {{ form_end(color_form_2) }}
-                </form>
+            <div class="form-container">
+                {{ form_start(color_form_2, {'attr': {'id': 'form-color-update',  style: "display: none"}}) }}
+                <fieldset>
+                    <legend>
+                        {% trans %}Modifier une couleur{% endtrans %}
+                        <i class="fas fa-times-circle"></i>
+                    </legend>
+                    <div class="custom-colors-update-container">
+                        <div class="flex-equal">{{ form_row(color_form_2.code_text) }}</div>
+                        <div class="flex-equal">{{ form_row(color_form_2.code_bg) }}</div>
+                        <input type="hidden" value="" name="color_id" />
+                        <button form="form-color-update" type="reset">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button form="form-color-update" type="submit" id="submitUpdateColor">
+                            <i class="fas fa-check-circle"></i>
+                        </button>
+                    </div>
+                <fieldset>
+                {{ form_end(color_form_2, {"render_rest": false}) }}
             </div>
             <div class="tree-color-container"  id="color-list"  style="display:none">
                 {% for color in colors %}
-                    <div class="badge rounded-pill badge-color
-                        {% if colors|length > 50 %}
-                            col-1
-                        {% elseif colors|length > 40 %}
-                            col-2
-                        {% elseif colors|length > 30 %}
-                            col-3
-                        {% elseif colors|length > 20 %}
-                            col-4
-                        {% else %}
-                            col-5
-                        {% endif %}
-                        "
-                    data-id="{{ color.id }} data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
-
-                        style="color: {{ color.codeText}}; background: {{ color.codeBg }}">
+                    <div
+                        class="badge rounded-pill badge-color
+                            {% if colors|length > 50 %}
+                                col-1
+                            {% elseif colors|length > 40 %}
+                                col-2
+                            {% elseif colors|length > 30 %}
+                                col-3
+                            {% elseif colors|length > 20 %}
+                                col-4
+                            {% else %}
+                                col-5
+                            {% endif %}
+                            "
+                    data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}"
+                        style="color: {{ color.codeText}}; background: {{ color.codeBg }}" >
                         {{ loop.index }}
                     </div>
                 {% endfor %}
@@ -248,6 +250,19 @@
                 colorInput.style.color = '#212529';
                 previewCategoryContent.style.color = this.value;
             })
+
+            // Function to handle the color update
+            const colors = document.querySelectorAll(".badge-color");
+            colors.forEach(color => {
+                color.addEventListener('click', function() {
+                    document.getElementById('form-color-update').style.display = 'block';
+                    console.log(this.dataset)
+                    document.getElementById('colors_code_text').value = this.dataset.textColor;
+                    document.getElementById('colors_code_bg').value = this.dataset.bgColor;
+                    console.log(color);
+                })
+            })
+            console.log(colors);
         }
     </script>
 {% endblock %}
