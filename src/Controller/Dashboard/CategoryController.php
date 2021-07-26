@@ -36,8 +36,12 @@ class CategoryController extends AbstractController
     {
         $color = new Color();
         $category = new Category();
-        $color_form = $this->createForm(ColorsType::class, $color);
-        $color_form_2 = $this->createForm(ColorsType::class, $color);
+        $color_new_form = $this->createForm(ColorsType::class, $color, [
+            'action' => $this->generateUrl('dashboard_colors_new')
+        ]);
+        $color_edit_form = $this->createForm(ColorsType::class, $color, [
+            'action' => $this->generateUrl('dashboard_colors_edit')
+        ]);
         $category_form = $this->createForm(CategoryType::class, $category, [
             'action' => $this->generateUrl('dashboard_categories_new')
         ]);
@@ -45,8 +49,8 @@ class CategoryController extends AbstractController
         return $this->render('dashboard/category/list.html.twig', [
             'categories' => $this->categoryRepository->findUserParentCategories($this->getUser()->getId()),
             'colors' => $this->colorRepository->findBy(['user' => $this->getUser()]),
-            'color_form' => $color_form->createView(),
-            'color_form_2' => $color_form_2->createView(),
+            'color_new_form' => $color_new_form->createView(),
+            'color_edit_form' => $color_edit_form->createView(),
             'category_form' => $category_form->createView()
         ]);
     }
