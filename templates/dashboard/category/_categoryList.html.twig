@@ -1,0 +1,45 @@
+<article class="tree-categories-container" id="category-list" style="display:none">
+    {% macro menu_categories(categories) %}
+        {% import _self as macros %}
+        {% for category in categories %}
+            <ul>
+                <li class="cat-accordion-header">
+                    <button class="cat-accordion-button_{{category.slug}}" type="button" aria-expanded="true"
+                            style="color: {{category.color.codeText}}; background: {{category.color.codeBg}}"
+                    >
+                        {{ category.label }}
+                        {% if category.subCategories|length > 0 %}
+                            <i class="fas fa-chevron-down" id="{{category.slug}}-subCat-arrow-down" style="display: inline-block"></i>
+                            <i class="fas fa-chevron-up" id="{{category.slug}}-subCat-arrow-up"style="display:none"></i>
+                        {% endif %}
+                    </button>
+                </li>
+                {% if category.subCategories|length > 0 %}
+                    <div id="cat-accordion-sub_{{category.slug}}" style="display: none" class="cat-accordion-body">
+                        {{ macros.menu_categories(category.subCategories) }}
+                    </div>
+                {% endif %}
+            </ul>
+        {% endfor %}
+    {% endmacro %}
+
+    {% import _self as macros %}
+
+    {{ macros.menu_categories(categories, 1) }}
+</article>
+
+<script>
+    // Add a listener to the category title to show/hide the subCategories
+    let buttons = document.querySelectorAll("button[class*='cat-accordion-button']");
+    for(let button of buttons) {
+        const label = button.className.split('_')[1];
+        const subCatArrowDown = document.getElementById(`${label}-subCat-arrow-down`);
+        const subCatArrowUp = document.getElementById(`${label}-subCat-arrow-up`);
+        button.addEventListener("click", function(){
+            const toggleNode = document.getElementById(`cat-accordion-sub_${label}`);
+            toggleNode.style.display = toggleNode.style.display === "none" ? "inline-block" : "none";
+            subCatArrowDown.style.display = subCatArrowDown.style.display === "inline-block" ? "none" : "inline-block";
+            subCatArrowUp.style.display = subCatArrowUp.style.display === "inline-block" ? "none" : "inline-block";
+        })
+    }
+</script>
