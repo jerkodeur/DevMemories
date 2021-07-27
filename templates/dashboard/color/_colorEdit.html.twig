@@ -4,6 +4,7 @@
     {{ form_start(color_edit_form, {'attr': {'id': 'color_edit_form', 'style': 'display: none' }}) }}
     <fieldset>
         <legend>
+            <button type="button" id="color_edit_form_nb_cat" disabled title="Nombre de catégories liées"></button>
             {% trans %}Modifier une couleur{% endtrans %}
             <div>
                 <i class="fas fa-times-circle" id="hideFormColorButton"></i>
@@ -13,17 +14,25 @@
             <div class="flex-equal">{{ form_row(color_edit_form.code_text,) }}</div>
             <div class="flex-equal">{{ form_row(color_edit_form.code_bg, ) }}</div>
             <input type="hidden" value="" name="color_id" id="color_update_id" />
-            <button type="button" id="color_edit_form-reset">
+            <button type="button" id="color_edit_form_reset" title="Annuler les changements">
                 <i class="fas fa-undo"></i>
             </button>
-            <button form="color_edit_form" type="submit" id="color_edit_form_submitColor.">
+            <button form="color_edit_form" type="submit" id="color_edit_form_submitColor" title="Valider les changements" >
                 <i class="fas fa-check-circle"></i>
+            </button>
+            <button type="button"data-bs-toggle="modal" title="Supprimer la couleur" data-bs-target="#modal"
+                onclick="deleteColorConfirm()" id="color_edit_form_delete">
+                <i class="fas fa-trash-alt"></i>
             </button>
             {{ form_row(color_edit_form.submitColor, {'attr': {'style': 'display: none' }}) }}
         </div>
     {{ form_end(color_edit_form) }}
     <fieldset>
 </section>
+
+{% block modal %}
+    {% include "common/modal/_deleteModal.html.twig" with {content: {type: "la couleur", name: "l'id'"}} %}
+{% endblock %}
 
 <script>
     // Hide the update form on click
@@ -32,11 +41,20 @@
         document.getElementById('color_edit_form').style.display = "none";
     })
 
-    const formUpdateColorReset = document.getElementById('color_edit_form-reset');
+    const formUpdateColorReset = document.getElementById('color_edit_form_reset');
     formUpdateColorReset.addEventListener("click", function() {
         const colorUpdateId = document.getElementById('color_update_id').value;
         const currentBadge = document.getElementById(`badge_${colorUpdateId}`);
         document.getElementById('color_edit_form_code_text').value = currentBadge.dataset.textColor;
         document.getElementById('color_edit_form_code_bg').value = currentBadge.dataset.bgColor;
     })
+
+    // Set the modal content
+    function deleteColorConfirm() {
+        const colorUpdateId = document.getElementById('color_update_id');
+
+        document.getElementById('modal-content').innerHTML = colorUpdateId.value
+        document.getElementById('delete-confirm').href = `/dashboard/colors/delete/${colorUpdateId.value}`
+    }
+
 </script>

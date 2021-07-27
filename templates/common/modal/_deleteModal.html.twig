@@ -1,0 +1,17 @@
+{# templates/common/modal/_deleteModal.html.twig #}
+
+{% extends "common/modal/_modal.html.twig" %}
+
+{% block modal_title %}
+    Supprimer {{ content.type }}
+{% endblock %}
+
+{% block modal_body %}
+    Êtes-vous sur de vouloir supprimer {{ content.type }} contenant {{ content.name }} ?
+    <span id="modal-content" class="fw-bold"></span>
+{% endblock %}
+
+{% block modal_button_2 %}
+    <a href="#" class="btn btn btn-danger rounded" role="button" aria-pressed="true" id="delete-confirm">Confirmer la suppression</a>
+{% endblock %}
+

@@ -98,6 +98,17 @@
                 }
                 button {
                     padding: 0;
+                    background-color: $secondary;
+                    color: $light;
+                    &:disabled {
+                        padding: 0 .5em;
+                        border-radius: 50%;
+                        &:hover {
+                            background-color: $secondary !important;
+                            color: $light !important;
+                            box-shadow: 2px 2px 5px #f0f5fa !important;
+                        }
+                    }
                 }
             }
         }
@@ -130,6 +141,15 @@
                         background-color: lighten($color: $success, $amount: 25%);
                     }
                 }
+                &#color_edit_form_delete {
+                    background-color: darken($color: $danger, $amount: 15%);
+                    color: $light !important;
+                    &:hover {
+                        color: $white !important;
+                        background-color: $danger;
+                    }
+                }
+
             }
             input {
                 padding: 4px;

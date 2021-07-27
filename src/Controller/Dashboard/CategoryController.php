@@ -209,9 +209,8 @@ class CategoryController extends AbstractController
             ])
         ) {
             $category->setColor($exist);
-
-            return $this;
         }
+        return $this;
     }
 
     /**
