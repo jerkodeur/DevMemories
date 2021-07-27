@@ -1,0 +1,83 @@
+<section class="form-container">
+    <fieldset>
+        <legend>{% trans %}Ajouter une catégorie{% endtrans %}</legend>
+            {{ form_start(category_form) }}
+                {{ form_row(category_form.label) }}
+                {{ form_row(category_form.parent) }}
+                {{ form_row(category_form.color) }}
+                <fieldset class="form-custom-colors">
+                    <legend>.. où modifier les couleurs</legend>
+                    <div class="custom-colors-container">
+                        <div class="flex-equal">{{ form_row(category_form.bgColorPicker) }}</div>
+                        <div class="flex-equal">{{ form_row(category_form.textColorPicker) }}</div>
+                    </div>
+                </fieldset>
+                <div id="preview-category" style="display:none">
+                    <fieldset>
+                        <legend>Aperçu</legend>
+                        <div id="preview-category-content"></div>
+                    </fieldset>
+                </div>
+                {{ form_row(category_form.submitNewCategory) }}
+            {{ form_end(category_form) }}
+    </fieldset>
+</section>
+
+<script>
+ // Category preview
+    const previewContainer = document.getElementById('preview-category');
+    const previewCategoryContent = document.getElementById('preview-category-content');
+    const labelCategoryInput = document.getElementById('category_label');
+    labelCategoryInput.addEventListener('input', function(){
+        if(this.value) {
+            previewContainer.style.display = 'block'
+            previewCategoryContent.innerHTML = this.value
+        } else {
+            previewContainer.style.display = 'none'
+        }
+    })
+    const colorInput = document.getElementById('category_color');
+    const bgPicker = document.getElementById('category_bgColorPicker');
+    const textPicker = document.getElementById('category_textColorPicker');
+    colorInput.addEventListener('input', function(){
+        const selectedText = this.options[this.selectedIndex].text
+        if(selectedText !== "Choisir une couleur") {
+            const [bgColor, textColor] = selectedText.split('_');
+            previewCategoryContent.style.background = bgColor;
+            previewCategoryContent.style.boxShadow = `2px 2px 5px #212529`;
+            previewCategoryContent.style.color = textColor;
+
+            this.style.background = bgColor;
+            this.style.color = textColor;
+
+            bgPicker.value = bgColor;
+            textPicker.value = textColor;
+        } else {
+            this.style.background = '#ffffff';
+            this.style.color = '#212529';
+
+            bgPicker.value = '#f0f5fa';
+            textPicker.value = '#7b8ab8';
+        }
+    })
+    // Stylise the select color
+    for(let i=0; i<colorInput.options.length; i++) {
+        const [bgColor, textColor] = colorInput.options[i].text.split('_')
+        colorInput.options[i].style.background = bgColor;
+        colorInput.options[i].style.color = textColor;
+    }
+
+    // Reset the selected colors if color picker change
+    bgPicker.addEventListener('change', function(){
+        colorInput.options.selectedIndex = 0
+        colorInput.style.background = '#ffffff';
+        colorInput.style.color = '#212529';
+        previewCategoryContent.style.background = this.value;
+    })
+    textPicker.addEventListener('change', function(){
+        colorInput.options.selectedIndex = 0
+        colorInput.style.background = '#ffffff';
+        colorInput.style.color = '#212529';
+        previewCategoryContent.style.color = this.value;
+    })
+</script>

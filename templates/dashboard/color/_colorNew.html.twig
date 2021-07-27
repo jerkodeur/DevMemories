@@ -1,0 +1,20 @@
+<section class="form-container">
+    <fieldset>
+        <legend>{% trans %}Ajouter une couleur{% endtrans %}</legend>
+            {{ form_start(color_new_form, {'attr': {'id': 'color_new_form'}} ) }}
+                <div class="form-custom-colors">
+                    <div class="custom-colors-container form-colors">
+                        <div class="flex-equal">{{ form_row(color_new_form.code_text, {id: 'colors_code_text_2'}) }}</div>
+                        <div class="flex-equal">{{ form_row(color_new_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
+                    </div>
+                    {{ form_row(color_new_form.submitColor) }}
+                </div>
+            {{ form_end(color_new_form) }}
+    </fieldset>
+</section>
+
+<script>
+    // Set the default values for the second color picker form
+    document.getElementById('colors_code_text_2').value = '#f0f5fa';
+    document.getElementById('colors_code_bg_2').value = '#212529';
+</script>

@@ -1,3 +1,5 @@
+{# templates/dashboard/category/list.html.twig #}
+
 {% extends 'dashboard/index.html.twig' %}
 {% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
 
@@ -12,59 +14,8 @@
                     <i class="fas fa-chevron-up" id="cat-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            <div class="tree-categories-container" id="category-list" style="display:none">
-                {% macro menu_categories(categories) %}
-                    {% import _self as macros %}
-                    {% for category in categories %}
-                        <ul>
-                            <li class="cat-accordion-header">
-                                <button class="cat-accordion-button_{{category.slug}}" type="button" aria-expanded="true"
-                                        style="color: {{category.color.codeText}}; background: {{category.color.codeBg}}"
-                                >
-                                    {{ category.label }}
-                                    {% if category.subCategories|length > 0 %}
-                                        <i class="fas fa-chevron-down" id="{{category.slug}}-subCat-arrow-down" style="display: inline-block"></i>
-                                        <i class="fas fa-chevron-up" id="{{category.slug}}-subCat-arrow-up"style="display:none"></i>
-                                    {% endif %}
-                                </button>
-                            </li>
-                            {% if category.subCategories|length > 0 %}
-                                <div id="cat-accordion-sub_{{category.slug}}" style="display: none" class="cat-accordion-body">
-                                    {{ macros.menu_categories(category.subCategories) }}
-                                </div>
-                            {% endif %}
-                        </ul>
-                    {% endfor %}
-                {% endmacro %}
-
-                {% import _self as macros %}
-
-                {{ macros.menu_categories(categories, 1) }}
-            </div>
-            <div class="form-container">
-                <fieldset>
-                    <legend>{% trans %}Ajouter une catégorie{% endtrans %}</legend>
-                        {{ form_start(category_form) }}
-                            {{ form_row(category_form.label) }}
-                            {{ form_row(category_form.parent) }}
-                            {{ form_row(category_form.color) }}
-                            <fieldset class="form-custom-colors">
-                                <legend>.. où modifier les couleurs</legend>
-                                <div class="custom-colors-container">
-                                    <div class="flex-equal">{{ form_row(category_form.bgColorPicker) }}</div>
-                                    <div class="flex-equal">{{ form_row(category_form.textColorPicker) }}</div>
-                                </div>
-                            </fieldset>
-                            <div id="preview-category" style="display:none">
-                                <fieldset>
-                                    <legend>Aperçu</legend>
-                                    <div id="preview-category-content"></div>
-                                </fieldset>
-                            </div>
-                            {{ form_row(category_form.submitNewCategory) }}
-                        {{ form_end(category_form) }}
-                </fieldset>
-            </div>
+            {% include "dashboard/category/_categoryList.html.twig" %}
+            {% include "dashboard/category/_categoryAdd.html.twig" %}
 
         </section>
         <section class="colors-handle-container col-12 col-md-4">
@@ -75,66 +26,9 @@
                     <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            <div class="form-container" >
-                {{ form_start(color_edit_form, {'attr': {'id': 'color_edit_form', 'style': 'display: none' }}) }}
-                <fieldset>
-                    <legend>
-                        {% trans %}Modifier une couleur{% endtrans %}
-                        <div>
-                            <i class="fas fa-times-circle" id="hideFormColorButton"></i>
-                        </div>
-                    </legend>
-                    <div class="custom-colors-update-container">
-                        <div class="flex-equal">{{ form_row(color_edit_form.code_text,) }}</div>
-                        <div class="flex-equal">{{ form_row(color_edit_form.code_bg, ) }}</div>
-                        <input type="hidden" value="" name="color_id" id="color_update_id" />
-                        <button type="button" id="color_edit_form-reset">
-                            <i class="fas fa-undo"></i>
-                        </button>
-                        <button form="color_edit_form" type="submit" id="color_edit_form_submitColor.">
-                            <i class="fas fa-check-circle"></i>
-                        </button>
-                        {{ form_row(color_edit_form.submitColor, {'attr': {'style': 'display: none' }}) }}
-                    </div>
-                {{ form_end(color_edit_form) }}
-                <fieldset>
-            </div>
-            <div class="tree-color-container"  id="color-list"  style="display:none">
-                {% for color in colors %}
-                    <div
-                        class="badge rounded-pill badge-color
-                            {% if colors|length > 50 %}
-                                col-1
-                            {% elseif colors|length > 40 %}
-                                col-2
-                            {% elseif colors|length > 30 %}
-                                col-3
-                            {% elseif colors|length > 20 %}
-                                col-4
-                            {% else %}
-                                col-5
-                            {% endif %}
-                            "
-                    data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}" id="badge_{{color.id}}"
-                        style="color: {{ color.codeText}}; background: {{ color.codeBg }}" >
-                        {{ loop.index }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="form-container">
-                <fieldset>
-                    <legend>{% trans %}Ajouter une couleur{% endtrans %}</legend>
-                        {{ form_start(color_new_form, {'attr': {'id': 'color_new_form'}} ) }}
-                            <div class="form-custom-colors">
-                                <div class="custom-colors-container form-colors">
-                                    <div class="flex-equal">{{ form_row(color_new_form.code_text, {id: 'colors_code_text_2'}) }}</div>
-                                    <div class="flex-equal">{{ form_row(color_new_form.code_bg, {id: 'colors_code_bg_2'}) }}</div>
-                                </div>
-                                {{ form_row(color_new_form.submitColor) }}
-                            </div>
-                        {{ form_end(color_new_form) }}
-                </fieldset>
-            </div>
+            {% include "dashboard/color/_colorEdit.html.twig" %}
+            {% include "dashboard/color/_colorList.html.twig" %}
+            {% include "dashboard/color/_colorNew.html.twig" %}
         </section>
     </div>
 
@@ -144,20 +38,6 @@
     {{ parent() }}
     <script>
         window.onload = () => {
-
-            // Add a listener to the category title to show/hide the subCategories
-            let buttons = document.querySelectorAll("button[class*='cat-accordion-button']");
-            for(let button of buttons) {
-                const label = button.className.split('_')[1];
-                const subCatArrowDown = document.getElementById(`${label}-subCat-arrow-down`);
-                const subCatArrowUp = document.getElementById(`${label}-subCat-arrow-up`);
-                button.addEventListener("click", function(){
-                    const toggleNode = document.getElementById(`cat-accordion-sub_${label}`);
-                    toggleNode.style.display = toggleNode.style.display === "none" ? "inline-block" : "none";
-                    subCatArrowDown.style.display = subCatArrowDown.style.display === "inline-block" ? "none" : "inline-block";
-                    subCatArrowUp.style.display = subCatArrowUp.style.display === "inline-block" ? "none" : "inline-block";
-                })
-            }
 
             // Hide/show list of categories on click
             const handleButtonCatList = document.getElementById('category-title');
@@ -180,93 +60,6 @@
                 colorArrowDown.style.display = colorArrowDown.style.display === "inline-block" ? "none" : "inline-block";
                 colorArrowUp.style.display = colorArrowUp.style.display === "inline-block" ? "none" : "inline-block";
             });
-
-            // Hide the update form on click
-            const formUpdateColorHide = document.getElementById('hideFormColorButton');
-            formUpdateColorHide.addEventListener("click", function(){
-                document.getElementById('color_edit_form').style.display = "none";
-            })
-
-            const formUpdateColorReset = document.getElementById('color_edit_form-reset');
-            formUpdateColorReset.addEventListener("click", function() {
-                const colorUpdateId = document.getElementById('color_update_id').value;
-                const currentBadge = document.getElementById(`badge_${colorUpdateId}`);
-                document.getElementById('color_edit_form_code_text').value = currentBadge.dataset.textColor;
-                document.getElementById('color_edit_form_code_bg').value = currentBadge.dataset.bgColor;
-            })
-
-            // Set the default values for the second color picker form
-            document.getElementById('colors_code_text_2').value = '#f0f5fa';
-            document.getElementById('colors_code_bg_2').value = '#212529';
-
-            // Category preview
-            const previewContainer = document.getElementById('preview-category');
-            const previewCategoryContent = document.getElementById('preview-category-content');
-            const labelCategoryInput = document.getElementById('category_label');
-            labelCategoryInput.addEventListener('input', function(){
-                if(this.value) {
-                    previewContainer.style.display = 'block'
-                    previewCategoryContent.innerHTML = this.value
-                } else {
-                    previewContainer.style.display = 'none'
-                }
-            })
-            const colorInput = document.getElementById('category_color');
-            const bgPicker = document.getElementById('category_bgColorPicker');
-            const textPicker = document.getElementById('category_textColorPicker');
-            colorInput.addEventListener('input', function(){
-                const selectedText = this.options[this.selectedIndex].text
-                if(selectedText !== "Choisir une couleur") {
-                    const [bgColor, textColor] = selectedText.split('_');
-                    previewCategoryContent.style.background = bgColor;
-                    previewCategoryContent.style.boxShadow = `2px 2px 5px #212529`;
-                    previewCategoryContent.style.color = textColor;
-
-                    this.style.background = bgColor;
-                    this.style.color = textColor;
-
-                    bgPicker.value = bgColor;
-                    textPicker.value = textColor;
-                } else {
-                    this.style.background = '#ffffff';
-                    this.style.color = '#212529';
-
-                    bgPicker.value = '#f0f5fa';
-                    textPicker.value = '#7b8ab8';
-                }
-            })
-
-            // Stylise the select color
-            for(let i=0; i<colorInput.options.length; i++) {
-                const [bgColor, textColor] = colorInput.options[i].text.split('_')
-                colorInput.options[i].style.background = bgColor;
-                colorInput.options[i].style.color = textColor;
-            }
-
-            // Reset the selected colors if color picker change
-            bgPicker.addEventListener('change', function(){
-                colorInput.options.selectedIndex = 0
-                colorInput.style.background = '#ffffff';
-                colorInput.style.color = '#212529';
-                previewCategoryContent.style.background = this.value;
-            })
-            textPicker.addEventListener('change', function(){
-                colorInput.options.selectedIndex = 0
-                colorInput.style.background = '#ffffff';
-                colorInput.style.color = '#212529';
-                previewCategoryContent.style.color = this.value;
-            })
-
-            // Function to handle the color update
-            const colors = document.querySelectorAll(".badge-color");
-            colors.forEach(color => {
-                color.addEventListener('click', function() {
-                    document.getElementById('color_edit_form').style.display = 'block';
-                    document.getElementById('color_edit_form_code_text').value = this.dataset.textColor;
-                    document.getElementById('color_edit_form_code_bg').value = this.dataset.bgColor;
-                    document.getElementById('color_update_id').value = this.dataset.id;
-                })
-            })
         }
     </script> #}
 {% endblock %}
