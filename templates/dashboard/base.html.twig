@@ -14,12 +14,12 @@
 	</head>
 
 	<body>
-		<main id="container">
+		<div id="container">
 			{# navbar #}
 			{% include "dashboard/common/_navbar.html.twig" %}
 			{# sidebar #}
 			{% include "dashboard/common/_sidebar.html.twig" %}
-			<section id="main-content">
+			<main id="main-content">
 				<div class="wrapper">
 					<div class="container">
 						{% block flash %}
@@ -28,17 +28,17 @@
 						{% block body %}{% endblock %}
 					</div>
 				</div>
-			</section>
+			</main>
 			{# footer #}
 			{% include "dashboard/common/_footer.html.twig" %}
-		</main>
+		</div>
 
 		{# Page bottom javascript scripts #}
 		{% block js %}
 			{% include "dashboard/dependencies/_script.html.twig" %}
+
 		{% endblock %}
-		{# Notification popup #}
-		{# {% include "dashboard/common/_notification.html.twig" %} #}
+		{% block modal %}{% endblock %}
 	</body>
 
 </html>

@@ -14,7 +14,7 @@
                     col-5
                 {% endif %}
                 "
-        data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}" id="badge_{{color.id}}"
+        data-id="{{ color.id }}" data-text-color="{{color.codeText}}" data-bg-color="{{color.codeBg}}" data-bind="{{color.categories|length > 0}}" id="badge_{{color.id}}"
             style="color: {{ color.codeText}}; background: {{ color.codeBg }}" >
             {{ loop.index }}
         </div>
@@ -30,6 +30,13 @@
             document.getElementById('color_edit_form_code_text').value = this.dataset.textColor;
             document.getElementById('color_edit_form_code_bg').value = this.dataset.bgColor;
             document.getElementById('color_update_id').value = this.dataset.id;
+            // Display the delete button only when the color has no category bound
+            document.getElementById('color_edit_form_delete').style.display = this.dataset.bind ? 'none' : 'block';
+            document.getElementById('color_edit_form_nb_cat').innerHTML = this.dataset.bind && this.dataset.bind;
         })
+    })
+    // Add a shadow if color is bound with one or many categories
+    colors.forEach(color => {
+        color.style.border = color.dataset.bind  && '1px solid #212529';
     })
 </script>
