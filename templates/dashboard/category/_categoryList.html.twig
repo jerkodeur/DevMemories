@@ -1,4 +1,5 @@
 <article class="tree-categories-container" id="category-list" style="display:none">
+    <input type="hidden" id="currentCategoryShow"></input>
     {% macro menu_categories(categories) %}
         {% import _self as macros %}
         {% for category in categories %}
@@ -13,6 +14,14 @@
                             <i class="fas fa-chevron-up" id="{{category.slug}}-subCat-arrow-up"style="display:none"></i>
                         {% endif %}
                     </button>
+                    <div id="handle-category-{{category.id}}">
+                        <button class="category-edit-button-{{category.id}}" onclick="location.href='{{ path('dashboard_category_edit', {id: category.id}) }}'">Modifier</button>
+                        <button class="category-delete-button-{{category.id}}" data-bs-toggle="modal" title="Supprimer la catégorie" data-bs-target="#modal" onclick="deleteCategoryConfirm('category-delete-button-{{category.id}}')" data-label="{{category.label}}" data-id="{{category.id}}" data-sub={{category.subCategories|length}}>Supprimer</button>
+                        <button class="expand-category-button-{{category.id}}" data-id="{{category.id}}" href="{{ path('dashboard_category_edit', {id: category.id}) }}">
+                            <i class="fas fa-chevron-right" id="fa-right-{{category.id}}"></i>
+                            <i class="fas fa-chevron-left" id="fa-left-{{category.id}}" style="display:none"></i>
+                        </button>
+                    </div>
                 </li>
                 {% if category.subCategories|length > 0 %}
                     <div id="cat-accordion-sub_{{category.slug}}" style="display: none" class="cat-accordion-body">
@@ -29,8 +38,21 @@
 </article>
 
 <script>
+// Set the modal content
+    function deleteCategoryConfirm(id) {
+        console.log(id);
+        {# alert('delete') #}
+        const el = document.getElementsByClassName(id)[0];
+        console.log(el.dataset.sub)
+        const subCategories = el.dataset.sub > 0 ? ' et <b>toutes ses sous-catégories</b>' : ''
+        const message = `Êtes-vous sur de vouloir supprimer la catégorie <b>${el.dataset.label}</b> ${subCategories} ?`
+        document.getElementById('modal-title').innerHTML = "Suppression d'une catégorie" ;
+        document.getElementById('modal-content').innerHTML = message;
+        document.getElementById('delete-confirm').href = `/dashboard/categories/delete/${el.dataset.id}`
+    }
+
     // Add a listener to the category title to show/hide the subCategories
-    let buttons = document.querySelectorAll("button[class*='cat-accordion-button']");
+    const buttons = document.querySelectorAll("button[class*='cat-accordion-button']");
     for(let button of buttons) {
         const label = button.className.split('_')[1];
         const subCatArrowDown = document.getElementById(`${label}-subCat-arrow-down`);
@@ -40,6 +62,27 @@
             toggleNode.style.display = toggleNode.style.display === "none" ? "inline-block" : "none";
             subCatArrowDown.style.display = subCatArrowDown.style.display === "inline-block" ? "none" : "inline-block";
             subCatArrowUp.style.display = subCatArrowUp.style.display === "inline-block" ? "none" : "inline-block";
+        })
+    }
+
+    // Display/hide the handle category container
+    const handleDisplayCategorybuttons = document.querySelectorAll("button[class*='expand-category-button']");
+    for(let button of handleDisplayCategorybuttons) {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id
+            const container = document.getElementById(`handle-category-${id}`);
+            container.style.animationName = 'container-left-to-right';
+            container.style.animationDuration = '2s';
+            container.style.animationFillMode = 'forwards';
+            const containerShowed = document.getElementById(`currentCategoryShow`).value;
+            if(containerShowed) {
+                const el = document.getElementById(`handle-category-${containerShowed}`);
+                el.style.animationName = 'container-right-to-left';
+                el.style.animationDuration = '1s';
+                el.style.animationFillMode = 'forwards';
+            }
+
+            document.getElementById('currentCategoryShow').value = id;
         })
     }
 </script>

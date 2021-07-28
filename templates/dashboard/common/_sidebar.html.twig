@@ -77,12 +77,12 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a class="{{ 'dashboard_categories' in route ? 'active' }}" href="javascript:;">
+                <a class="{{ 'dashboard_category' in route ? 'active' }}" href="javascript:;">
                     <i class="fa fa-tags"></i>
                     <span>{% trans %}Mes catégories{% endtrans %}</span>
                 </a>
                 <ul class="sub">
-                    <li><a class="{{ route == 'dashboard_categories_list' ? 'active' }}"  href="{{ path('dashboard_categories_list') }}">
+                    <li><a class="{{ route == 'dashboard_category_list' ? 'active' }}"  href="{{ path('dashboard_category_list') }}">
                         <i class="fas fa-user-tag"></i>
                             {% trans %}Gérer mes catégories{% endtrans %}
                         </a>
