@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('dashboard/categories', name: 'dashboard_categories_')]
+#[Route('dashboard/categories', name: 'dashboard_category_')]
 class CategoryController extends AbstractController
 {
     private ValidatorInterface $validator;
@@ -49,9 +49,9 @@ class CategoryController extends AbstractController
             $this->handleCategoryRequest($request, $category);
 
             if (!$this->get('session')->getFlashBag()->peek('error', [])) {
-                return $this->redirect($this->generateUrl('dashboard_categories_list'));
+                return $this->redirect($this->generateUrl('dashboard_category_list'));
             } else {
-                $this->redirectToRoute('dashboard_categories_list');
+                $this->redirectToRoute('dashboard_category_list');
             }
         }
 
@@ -60,9 +60,9 @@ class CategoryController extends AbstractController
             $this->handleNewColorRequest($request, $color);
 
             if (!$this->get('session')->getFlashBag()->peek('error', [])) {
-                return $this->redirect($this->generateUrl('dashboard_categories_list'));
+                return $this->redirect($this->generateUrl('dashboard_category_list'));
             } else {
-                $this->redirectToRoute('dashboard_categories_list');
+                $this->redirectToRoute('dashboard_category_list');
             }
         }
 
@@ -255,5 +255,28 @@ class CategoryController extends AbstractController
             }
             return $errors;
         }
+    }
+
+    #[Route('/edit/{id<\d+>}', name: 'edit')]
+    public function edit(Request $request, Category $category): Response
+    {
+        dd($request);
+        // $this->getDoctrine()->getManager()->remove($category);
+        // $this->getDoctrine()->getManager()->flush();
+
+        // $this->addFlash('success', 'La catégorie a été supprimée avec succès !');
+
+        return $this->redirectToRoute('dashboard_category_list');
+    }
+
+    #[Route('/delete/{id<\d+>}', name: 'delete')]
+    public function delete(Category $category): Response
+    {
+        $this->getDoctrine()->getManager()->remove($category);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'La catégorie a été supprimée avec succès !');
+
+        return $this->redirectToRoute('dashboard_category_list');
     }
 }
