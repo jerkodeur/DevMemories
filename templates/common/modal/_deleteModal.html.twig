@@ -3,12 +3,11 @@
 {% extends "common/modal/_modal.html.twig" %}
 
 {% block modal_title %}
-    Supprimer {{ content.type }}
+    <span id="modal-title"></span>
 {% endblock %}
 
 {% block modal_body %}
-    Êtes-vous sur de vouloir supprimer {{ content.type }} contenant {{ content.name }} ?
-    <span id="modal-content" class="fw-bold"></span>
+    <span id="modal-content"></span>
 {% endblock %}
 
 {% block modal_button_2 %}

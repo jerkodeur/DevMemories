@@ -33,6 +33,7 @@ class Category
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="subCategories")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parent;
 
@@ -43,6 +44,7 @@ class Category
 
     /**
      * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $color;
 
