@@ -43,16 +43,16 @@ class Category
     private $subCategories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="categories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $color;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Color::class, inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $color;
 
     public function __construct()
     {
@@ -61,7 +61,11 @@ class Category
 
     public function __toString()
     {
-        return $this->label;
+        if($this->parent) {
+            return $this->parent->getLabel() . ' / ' . $this->label ;
+        } else {
+            return $this->label;
+        }
     }
 
     public function getId(): ?int
@@ -135,18 +139,6 @@ class Category
         return $this;
     }
 
-    public function getColor(): ?Color
-    {
-        return $this->color;
-    }
-
-    public function setColor(?Color $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -155,6 +147,18 @@ class Category
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getColor(): ?Color
+    {
+        return $this->color;
+    }
+
+    public function setColor(?Color $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
