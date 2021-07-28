@@ -20,7 +20,7 @@
             <button form="color_edit_form" type="submit" id="color_edit_form_submitColor" title="Valider les changements" >
                 <i class="fas fa-check-circle"></i>
             </button>
-            <button type="button"data-bs-toggle="modal" title="Supprimer la couleur" data-bs-target="#modal"
+            <button type="button" data-bs-toggle="modal" title="Supprimer la couleur" data-bs-target="#modal"
                 onclick="deleteColorConfirm()" id="color_edit_form_delete">
                 <i class="fas fa-trash-alt"></i>
             </button>
@@ -29,10 +29,6 @@
     {{ form_end(color_edit_form) }}
     <fieldset>
 </section>
-
-{% block modal %}
-    {% include "common/modal/_deleteModal.html.twig" with {content: {type: "la couleur", name: "l'id'"}} %}
-{% endblock %}
 
 <script>
     // Hide the update form on click
@@ -53,8 +49,9 @@
     function deleteColorConfirm() {
         const colorUpdateId = document.getElementById('color_update_id');
 
-        document.getElementById('modal-content').innerHTML = colorUpdateId.value
-        document.getElementById('delete-confirm').href = `/dashboard/colors/delete/${colorUpdateId.value}`
+        document.getElementById('modal-title').innerHTML = "Suppression d'une couleur" ;
+        document.getElementById('modal-content').innerHTML = `Êtes-vous sur de vouloir supprimer la couleur sélectionnée ?`;
+        document.getElementById('delete-confirm').href = `/dashboard/colors/delete/${colorUpdateId.value}`;
     }
 
 </script>
