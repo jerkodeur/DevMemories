@@ -37,8 +37,8 @@ class CategoryController extends AbstractController
         $color = new Color();
         $category = new Category();
 
-        $color_new_form = $this->get('form.factory')->createNamed('color_new_form', ColorsType::class, $color);
         $color_edit_form = $this->get('form.factory')->createNamed('color_edit_form', ColorsType::class, $color);
+        $color_new_form = $this->get('form.factory')->createNamed('color_new_form', ColorsType::class, $color);
         $category_form = $this->createForm(CategoryType::class, $category);
 
         $color_new_form->handleRequest($request);
@@ -46,7 +46,7 @@ class CategoryController extends AbstractController
         $category_form->handleRequest($request);
 
         if ($category_form->isSubmitted() && $category_form->isValid()) {
-            $this->handleCategoryRequest($request, $category);
+            $this->handleNewCategoryRequest($request, $category);
 
             if (!$this->get('session')->getFlashBag()->peek('error', [])) {
                 return $this->redirect($this->generateUrl('dashboard_category_list'));
@@ -93,42 +93,29 @@ class CategoryController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \App\Entity\Category $category
      */
-    public function handleCategoryRequest(Request $request, Category $category)
+    public function handleNewCategoryRequest(Request $request, Category $category)
     {
 
         if ($this->verifyIfCategoryRelationExist($request)) return;
-
         // handle the category color
-        if (!$request->get('category')['color']) {
+        if(!$category->getColor()) {
+            $params = $request->request->all();
+            $color = $this->verifyIfColorExist($params['category']['bgColorPicker'], $params['category']['textColorPicker']);
+            // dd($color);
 
-            $this->verifyIfCategoryColorExist($request, $category);
-
-            if (!$category->getColor()) {
-                $color = new Color;
-                $color->setCodeBg($request->get('category')['bgColorPicker']);
-                $color->setCodeText($request->get('category')['textColorPicker']);
-                $color->setUser($this->getUser());
-
-                if ($this->validateColor($color)) return;
-
-                $this->em->persist($color);
-                $this->em->flush();
-
-                // Get id of the new color
-                $color = $this->colorRepository->findOneBy([
-                    'code_bg' => $request->get('category')['bgColorPicker'],
-                    'code_text' => $request->get('category')['textColorPicker'],
-                    'user' => $this->getUser()->getId()
-                ]);
-
+            if($color) {
+                $this->addFlash('warning', "La couleur n'a pas été ajoutée car elle existait déjà");
                 $category->setColor($color);
+            } else {
+                $this->addFlash('success', "Une nouvelle couleur a été ajoutée en base de donnée");
+                $persistColor = $this->persistColor($params['category']['bgColorPicker'], $params['category']['textColorPicker']);
+                $category->setColor($persistColor);
             }
         }
 
         $category->setUser($this->getUser());
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($category);
-        $entityManager->flush();
+        $this->em->persist($category);
+        $this->em->flush();
 
         if (!$this->get('session')->getFlashBag()->peek('error', [])) {
             return $this->addFlash('success', 'La nouvelle catégorie a bien été ajoutée');
@@ -145,8 +132,16 @@ class CategoryController extends AbstractController
      */
     public function handleNewColorRequest(Request $request, Color $color)
     {
+        $existColor = $this->verifyIfColorExist($color->getCodeBg(), $color->getCodeText());
 
-        if ($this->verifyIfColorExist($request, $color)) return;
+        if (isset($existColor)) {
+            $this->addFlash(
+                'error',
+                "Erreur ! La couleur choisie n'a pas pu été crée, elle existait déjà !"
+            );
+            return;
+        };
+
         if ($this->validateColor($color)) return;
 
         $color->setUser($this->getUser());
@@ -193,48 +188,35 @@ class CategoryController extends AbstractController
         return $exist;
     }
 
-    /**
-     * Define color to the category if already present in database
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \App\Entity\Category $category
-     */
-    public function verifyIfCategoryColorExist(Request $request, Category $category): self
-    {
-        if (
-            $exist = $this->colorRepository->findOneBy([
-                'code_bg' => $request->get('category')['bgColorPicker'],
-                'code_text' => $request->get('category')['textColorPicker'],
-                'user' => $this->getUser()->getId()
-            ])
-        ) {
-            $category->setColor($exist);
-        }
-        return $this;
-    }
+    // /**
+    //  * Define color to the category if already present in database
+    //  *
+    //  * @param \Symfony\Component\HttpFoundation\Request $request
+    //  * @param \App\Entity\Category $category
+    //  */
+    // public function verifyIfCategoryColorExist(Request $request, Category $category): self
+    // {
+    //     dd($request);
+    //     $this->verifyIfColorExist ? $category->setColor($exist);
+    // }
 
     /**
-     * Control if the color already exist
+     * Return the existing color if occured
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \App\Entity\Category $category
+     * @param string $backgroundColor
+     * @param string $textColor
+     *
+     * @return \App\Entity\Color|null
      */
-    public function verifyIfColorExist(Request $request)
+    public function verifyIfColorExist(string $backgroundColor, string $textColor) :?Color
     {
-        if (
-            $exist = $this->colorRepository->findOneBy([
-                'code_bg' => $request->get('color_new_form')['code_text'],
-                'code_text' => $request->get('color_new_form')['code_bg'],
-                'user' => $this->getUser()->getId()
-            ])
-        ) {
-            $this->addFlash(
-                'error',
-                'Une couleur correspondant aux codes couleurs renseignés existe déjà !'
-            );
+        $color = $this->colorRepository->findOneBy([
+            'code_bg' => $backgroundColor,
+            'code_text' => $textColor,
+            'user' => $this->getUser()->getId()
+        ]);
 
-            return $exist;
-        }
+        return $color;
     }
 
     /**
@@ -257,16 +239,88 @@ class CategoryController extends AbstractController
         }
     }
 
+    /**
+     * Persist the given color to the database
+     *
+     * @param string $backgroundColor
+     * @param string $textColor
+     *
+     * @return \App\Entity\Color
+     */
+    public function persistColor(string $backgroundColor, string $textColor): Color
+    {
+        $color = new Color();
+        $color
+            ->setCodeBg($backgroundColor)
+            ->setCodeText($textColor)
+            ->setUser($this->getUser())
+        ;
+
+        $this->em->persist($color);
+        // $this->em->flush();
+
+        return $color;
+    }
+
     #[Route('/edit/{id<\d+>}', name: 'edit')]
     public function edit(Request $request, Category $category): Response
     {
-        dd($request);
-        // $this->getDoctrine()->getManager()->remove($category);
-        // $this->getDoctrine()->getManager()->flush();
+        $category = $request->get('category');
 
-        // $this->addFlash('success', 'La catégorie a été supprimée avec succès !');
+        $category_form = $this->createForm(CategoryType::class, $category);
+        $category_form->handleRequest($request);
 
-        return $this->redirectToRoute('dashboard_category_list');
+        if($category_form->isSubmitted() && $category_form->isValid()) {
+            $this->checkIfSameParent($category);
+
+            if(!$category->getColor()) {
+                $params = $request->request->all();
+                $color = $this->verifyIfColorExist($params['category']['bgColorPicker'], $params['category']['textColorPicker']);
+
+                if($color) {
+                    $this->addFlash('warning', "La couleur n'a pas été ajoutée car elle existait déjà");
+                    $category->setColor($color);
+                } else {
+                    $this->addFlash('success', "Une nouvelle couleur a été ajoutée en base de donnée");
+                    $persistColor = $this->persistColor($params['category']['bgColorPicker'], $params['category']['textColorPicker']);
+                    $category->setColor($persistColor);
+                }
+                // dd($category);
+                // $category->setColor($color);
+            }
+
+            if (!$this->get('session')->getFlashBag()->peek('error', [])) {
+                $this->em->flush();
+                $this->addFlash('success', 'La nouvelle catégorie a bien été ajoutée');
+
+                return $this->redirectToRoute('dashboard_category_list');
+            } else {
+                $this->addFlash('error', 'Des erreurs ont été rencontrées');
+            }
+        }
+
+        return $this->render('dashboard/category/edit.html.twig', [
+            'category' => $request->get('category'),
+            'category_form' => $category_form->createView(),
+            'colors' => $this->colorRepository->findBy(['user' => $this->getUser()]),
+        ]);
+    }
+
+    public function checkIfSameParent(Category $category) {
+        $parent = $category->getParent() ? $category->getParent()->getId() : null;
+        if (
+            $this->categoryRepository->findDuplicateCategories(
+                $category->getLabel(),
+                $category->getId(),
+                $this->getUser()->getId(),
+                $parent
+            )
+        ) {
+            $this->addFlash(
+                'error',
+                "Erreur! la catégorie parente sélectionnée contient déjà une catégorie de même nom."
+            );
+        }
     }
 
     #[Route('/delete/{id<\d+>}', name: 'delete')]

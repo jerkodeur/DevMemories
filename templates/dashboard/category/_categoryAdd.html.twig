@@ -1,6 +1,8 @@
 <section class="form-container">
     <fieldset>
-        <legend>{% trans %}Ajouter une catégorie{% endtrans %}</legend>
+        <legend>
+            {{action ~ ' une catégorie' }}
+        </legend>
             {{ form_start(category_form) }}
                 {{ form_row(category_form.label) }}
                 {{ form_row(category_form.parent) }}
@@ -18,7 +20,9 @@
                         <div id="preview-category-content"></div>
                     </fieldset>
                 </div>
-                {{ form_row(category_form.submitNewCategory) }}
+                {{ form_row(category_form.submitNewCategory,
+                    {'label': action ~ ' la catégory' , 'disabled': 'disabled'})
+                }}
             {{ form_end(category_form) }}
     </fieldset>
 </section>
@@ -27,21 +31,28 @@
  // Category preview
     const previewContainer = document.getElementById('preview-category');
     const previewCategoryContent = document.getElementById('preview-category-content');
+
     const labelCategoryInput = document.getElementById('category_label');
     labelCategoryInput.addEventListener('input', function(){
         if(this.value) {
             previewContainer.style.display = 'block'
             previewCategoryContent.innerHTML = this.value
+            document.getElementById('category_submitNewCategory').disabled = false;
         } else {
-            previewContainer.style.display = 'none'
+            document.getElementById('category_submitNewCategory').disabled = true;
+            previewContainer.style.display = 'none';
         }
     })
     const colorInput = document.getElementById('category_color');
     const bgPicker = document.getElementById('category_bgColorPicker');
     const textPicker = document.getElementById('category_textColorPicker');
+
+    textPicker.value = '#f0f5fa';
+    bgPicker.value = '#7b8ab8';
+
     colorInput.addEventListener('input', function(){
         const selectedText = this.options[this.selectedIndex].text
-        if(selectedText !== "Choisir une couleur") {
+        if(selectedText && selectedText !== "Choisir une couleur") {
             const [bgColor, textColor] = selectedText.split('_');
             previewCategoryContent.style.background = bgColor;
             previewCategoryContent.style.boxShadow = `2px 2px 5px #212529`;
@@ -53,11 +64,14 @@
             bgPicker.value = bgColor;
             textPicker.value = textColor;
         } else {
-            this.style.background = '#ffffff';
-            this.style.color = '#212529';
+            previewCategoryContent.style.color = '#f0f5fa';
+            previewCategoryContent.style.background = '#7b8ab8';
 
-            bgPicker.value = '#f0f5fa';
-            textPicker.value = '#7b8ab8';
+            this.style.color = '#7b8ab8';
+            this.style.background = '#f0f5fa';
+
+            textPicker.value = '#f0f5fa';
+            bgPicker.value = '#7b8ab8';
         }
     })
     // Stylise the select color
@@ -67,7 +81,7 @@
         colorInput.options[i].style.color = textColor;
     }
 
-    // Reset the selected colors if color picker change
+    {# // Reset the selected colors if color picker change
     bgPicker.addEventListener('change', function(){
         colorInput.options.selectedIndex = 0
         colorInput.style.background = '#ffffff';
@@ -79,5 +93,5 @@
         colorInput.style.background = '#ffffff';
         colorInput.style.color = '#212529';
         previewCategoryContent.style.color = this.value;
-    })
+    }) #}
 </script>
