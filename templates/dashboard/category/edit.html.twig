@@ -1,0 +1,32 @@
+{# templates/dashboard/category/category_edit.html.twig #}
+
+{% extends 'dashboard/index.html.twig' %}
+{% block title %}{% trans %}Modifier une catégorie{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="category-edit-container row">
+            {% include "dashboard/category/_categoryAdd.html.twig" with {'action': 'Modifier'}%}
+    </div>
+
+    <script>
+
+        const colorSelect = document.getElementById('category_color');
+        const selectedText = colorSelect.options[colorSelect.selectedIndex].text
+        const [bgColor, textColor] = selectedText.split('_');
+        previewCategoryContent.style.background = bgColor;
+        previewCategoryContent.style.boxShadow = `2px 2px 5px #212529`;
+        previewCategoryContent.style.color = textColor;
+
+        colorSelect.style.background = bgColor;
+        colorSelect.style.color = textColor;
+
+        bgPicker.value = bgColor;
+        textPicker.value = textColor;
+
+        previewContainer.style.display = 'block'
+        previewCategoryContent.innerHTML = labelCategoryInput.value
+
+        document.getElementById('category_submitNewCategory').disabled = false;
+    </script>
+{% endblock %}
+

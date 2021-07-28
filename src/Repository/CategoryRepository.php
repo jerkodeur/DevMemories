@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -34,13 +35,32 @@ class CategoryRepository extends ServiceEntityRepository
     public function findByParentCategories(int $user_id, string $label): array
     {
         return $this->createQueryBuilder('c')
-            ->andwhere('c.parent IS NULL')
             ->andWhere('c.label = :label_id')
             ->andWhere('c.user = :user_id')
             ->setParameter('user_id', $user_id)
             ->setParameter('label_id', $label)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findDuplicateCategories(string $label, int $cat_id, int $user_id, null|int $parent_id): array
+    {
+        return $this->createQueryBuilder('c')
+        ->where('c.label = :label_id')
+        ->andWhere('c.user = :user_id')
+        ->andWhere('c.id != :cat_id')
+        ->andWhere(
+            new Expr\Orx([
+                "c.parent IS NULL",
+                "c.parent = :parent_id",
+            ])
+        )
+        ->setParameter('user_id', $user_id)
+        ->setParameter('cat_id', $cat_id)
+        ->setParameter('label_id', $label)
+        ->setParameter('parent_id', $parent_id)
+        ->getQuery()
+        ->getResult();
     }
     // public function findCategoriesWithSub()
     // {
