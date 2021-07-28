@@ -35,16 +35,17 @@ class Color
      */
     private $code_bg;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="color")
-     */
-    private $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="colors")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="color")
+     */
+    private $categories;
 
     public function __construct()
     {
@@ -85,6 +86,18 @@ class Color
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Category[]
      */
@@ -111,18 +124,6 @@ class Color
                 $category->setColor(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
