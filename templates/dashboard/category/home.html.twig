@@ -1,4 +1,4 @@
-{# templates/dashboard/category/list.html.twig #}
+{# templates/dashboard/category/home.html.twig #}
 
 {% extends 'dashboard/index.html.twig' %}
 {% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
@@ -14,8 +14,8 @@
                     <i class="fas fa-chevron-up" id="cat-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            {% include "dashboard/category/_categoryList.html.twig" %}
-            {% include "dashboard/category/_categoryAdd.html.twig" with {'action': 'Ajouter'}%}
+            {% include "dashboard/category/_list.html.twig" %}
+            {% include "dashboard/category/_new.html.twig" with {'action': 'Ajouter'}%}
 
         </section>
         <section class="colors-handle-container col-12 col-md-4">
@@ -26,9 +26,9 @@
                     <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
                 </span>
             </h1>
-            {% include "dashboard/color/_colorEdit.html.twig" %}
-            {% include "dashboard/color/_colorList.html.twig" %}
-            {% include "dashboard/color/_colorNew.html.twig" %}
+            {% include "dashboard/color/_edit.html.twig" %}
+            {% include "dashboard/color/_list.html.twig" %}
+            {% include "dashboard/color/_new.html.twig" %}
         </section>
     </div>
 {% endblock %}

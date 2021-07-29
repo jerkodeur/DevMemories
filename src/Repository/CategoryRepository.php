@@ -21,10 +21,17 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    /**
+     * Return the parent categories of the user
+     *
+     * @param integer $user_id
+     *
+     * @return array
+     */
     public function findUserParentCategories(int $user_id): array
     {
         return $this->createQueryBuilder('c')
-            ->andwhere('c.parent IS NULL')
+            ->where('c.parent IS NULL')
             ->andWhere('c.user = :user_id')
             ->setParameter('user_id', $user_id)
             ->orderBy('c.label', 'ASC')
@@ -32,10 +39,18 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByParentCategories(int $user_id, string $label): array
+    /**
+     * Return the subcategories belonging of the parent category
+     *
+     * @param integer $user_id
+     * @param string $label
+     *
+     * @return array
+     */
+    public function findCategoriesByParentLabel(int $user_id, string $label): array
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.label = :label_id')
+            ->where('c.label = :label_id')
             ->andWhere('c.user = :user_id')
             ->setParameter('user_id', $user_id)
             ->setParameter('label_id', $label)
@@ -43,41 +58,33 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Return the categories with the same parent depending of the user and the subcategory
+     *
+     * @param integer $user_id
+     * @param string $label
+     *
+     * @return array
+     */
     public function findDuplicateCategories(string $label, int $cat_id, int $user_id, null|int $parent_id): array
     {
         return $this->createQueryBuilder('c')
-        ->where('c.label = :label_id')
-        ->andWhere('c.user = :user_id')
-        ->andWhere('c.id != :cat_id')
-        ->andWhere(
-            new Expr\Orx([
-                "c.parent IS NULL",
-                "c.parent = :parent_id",
-            ])
-        )
-        ->setParameter('user_id', $user_id)
-        ->setParameter('cat_id', $cat_id)
-        ->setParameter('label_id', $label)
-        ->setParameter('parent_id', $parent_id)
-        ->getQuery()
-        ->getResult();
+            ->where('c.label = :label_id')
+            ->andWhere('c.user = :user_id')
+            ->andWhere('c.id != :cat_id')
+            ->andWhere(
+                new Expr\Orx([
+                    "c.parent IS NULL",
+                    "c.parent = :parent_id",
+                ])
+            )
+            ->setParameter('user_id', $user_id)
+            ->setParameter('cat_id', $cat_id)
+            ->setParameter('label_id', $label)
+            ->setParameter('parent_id', $parent_id)
+            ->getQuery()
+            ->getResult();
     }
-    // public function findCategoriesWithSub()
-    // {
-    //     $parent_categories = $this->findUserParentCategories($this->getUser()->getId());
-    //     $categories = [];
-    //     foreach ($parent_categories as $index => $parent) {
-
-    //         $subCategory = $this->createQueryBuilder('c')
-    //             ->where('c.parent = :parent')
-    //             ->setParameter('parent', $parent->id)
-    //             ->orderBy('c.label', 'ASC')
-    //             ->getQuery()
-    //             ->getResult();
-    //         $categories[$parent->label][] = $subCategory;
-    //         return;
-    //     }
-    // }
 
     // /**
     //  * @return Category[] Returns an array of Category objects

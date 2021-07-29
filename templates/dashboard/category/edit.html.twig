@@ -1,15 +1,16 @@
-{# templates/dashboard/category/category_edit.html.twig #}
+{# templates/dashboard/category/edit.html.twig #}
 
 {% extends 'dashboard/index.html.twig' %}
 {% block title %}{% trans %}Modifier une catégorie{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="category-edit-container row">
-            {% include "dashboard/category/_categoryAdd.html.twig" with {'action': 'Modifier'}%}
+            {% include "dashboard/category/_new.html.twig" with {'action': 'Modifier'}%}
     </div>
 
     <script>
 
+        // Set the default color of the category
         const colorSelect = document.getElementById('category_color');
         const selectedText = colorSelect.options[colorSelect.selectedIndex].text
         const [bgColor, textColor] = selectedText.split('_');
@@ -29,4 +30,3 @@
         document.getElementById('category_submitNewCategory').disabled = false;
     </script>
 {% endblock %}
-

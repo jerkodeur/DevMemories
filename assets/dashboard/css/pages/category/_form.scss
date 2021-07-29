@@ -1,16 +1,17 @@
 .form-container {
-        margin-top: 1em;
-        width: 100%;
+    margin-top: 1em;
+    width: 100%;
     fieldset {
         box-shadow: 2px 2px 5px $dark;
         padding: 0.5em;
         border-radius: 4px;
-        input, select {
-            font-size: .9em !important;
+        input,
+        select {
+            font-size: 0.9em !important;
             margin: auto;
-            margin-bottom: .5em;
+            margin-bottom: 0.5em;
             width: 75%;
-            &[type=color] {
+            &[type="color"] {
                 height: 2rem;
             }
         }
@@ -20,13 +21,13 @@
             appearance: auto !important;
         }
         label {
-            font-size: .9em;
+            font-size: 0.9em;
             width: 73%;
             padding-left: 0;
             text-align: left;
         }
         legend {
-            padding-left: .5em;
+            padding-left: 0.5em;
             color: $secondary;
             font-size: 1.1em;
             text-shadow: 1px 1px 2px $light;
@@ -35,18 +36,17 @@
         }
         button {
             @extend .button-shadow-secondary;
-            margin: .5em 0;
+            margin: 0.5em 0;
         }
     }
     .form-custom-colors {
-        margin: .75em auto;
+        margin: 0.75em auto;
         width: 75%;
         text-align: center;
 
         legend {
-            font-size: .9em ;
+            font-size: 0.9em;
         }
-
 
         .custom-colors-container {
             display: flex;
@@ -91,8 +91,8 @@
                 flex-direction: row;
                 justify-content: space-around;
                 i:hover {
-                    &::before{
-                        color: red ;
+                    &::before {
+                        color: red;
                         cursor: pointer;
                     }
                 }
@@ -101,7 +101,7 @@
                     background-color: $secondary;
                     color: $light;
                     &:disabled {
-                        padding: 0 .5em;
+                        padding: 0 0.5em;
                         border-radius: 50%;
                         &:hover {
                             background-color: $secondary !important;
@@ -123,17 +123,18 @@
             .flex-equal {
                 width: 25%;
             }
-            button, input {
-                padding: .5em;
-                margin: .5em;
-                &[type=reset] {
+            button,
+            input {
+                padding: 0.5em;
+                margin: 0.5em;
+                &[type="reset"] {
                     background-color: $danger;
                     &:hover {
                         color: $white !important;
                         background-color: darken($color: $danger, $amount: 25%);
                     }
                 }
-                &[type=submit] {
+                &[type="submit"] {
                     background-color: $success;
                     color: $light !important;
                     &:hover {
@@ -149,7 +150,6 @@
                         background-color: $danger;
                     }
                 }
-
             }
             input {
                 padding: 4px;
@@ -169,7 +169,7 @@
         fieldset {
             padding: 0;
             legend {
-                font-size: .9em;
+                font-size: 0.9em;
                 margin-bottom: 0;
             }
             #preview-category-content {
@@ -178,7 +178,8 @@
             }
         }
     }
-    input, select {
+    input,
+    select {
         color: $dark;
         &::placeholder {
             color: $primary;
