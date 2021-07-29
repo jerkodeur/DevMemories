@@ -1,0 +1,68 @@
+{# templates/dashboard/category/home.html.twig #}
+
+{% extends 'dashboard/index.html.twig' %}
+{% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <div class="categories-main-container row">
+        <section class="categories-handle-container col-12 col-md-6">
+            <h1 id="category-title">
+                {% trans %}Mes catégories{% endtrans %}
+                <span>
+                    <i class="fas fa-chevron-down" id="cat-arrow-down" style="display: inline-block"></i>
+                    <i class="fas fa-chevron-up" id="cat-arrow-up" style="display: none"></i>
+                </span>
+            </h1>
+            {% include "dashboard/category/_list.html.twig" %}
+            {% include "dashboard/category/_new.html.twig" with {'action': 'Ajouter'}%}
+
+        </section>
+        <section class="colors-handle-container col-12 col-md-4">
+            <h1 id="color-title">
+                {% trans %}Mes couleurs{% endtrans %}
+                <span>
+                    <i class="fas fa-chevron-down" id="color-arrow-down" style="display: inline-block"></i>
+                    <i class="fas fa-chevron-up" id="color-arrow-up" style="display: none"></i>
+                </span>
+            </h1>
+            {% include "dashboard/color/_edit.html.twig" %}
+            {% include "dashboard/color/_list.html.twig" %}
+            {% include "dashboard/color/_new.html.twig" %}
+        </section>
+    </div>
+{% endblock %}
+
+{% block modal %}
+    {% include "common/modal/_deleteModal.html.twig" %}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script>
+        window.onload = () => {
+
+            // Hide/show list of categories on click
+            const handleButtonCatList = document.getElementById('category-title');
+            const catArrowDown = document.getElementById('cat-arrow-down');
+            const catArrowUp = document.getElementById('cat-arrow-up');
+            handleButtonCatList.addEventListener("click", function(){
+                const categoryList = document.getElementById('category-list');
+                categoryList.style.display = categoryList.style.display === "none" ? "inline-block" : "none";
+                catArrowDown.style.display = catArrowDown.style.display === "inline-block" ? "none" : "inline-block";
+                catArrowUp.style.display = catArrowUp.style.display === "inline-block" ? "none" : "inline-block";
+            });
+
+            // Hide/show list of colors on click
+            const handleButtonColorList = document.getElementById('color-title');
+            const colorArrowDown = document.getElementById('color-arrow-down');
+            const colorArrowUp = document.getElementById('color-arrow-up');
+            handleButtonColorList.addEventListener("click", function(){
+                const colorList = document.getElementById('color-list');
+                colorList.style.display = colorList.style.display === "none" ? "inline-block" : "none";
+                colorArrowDown.style.display = colorArrowDown.style.display === "inline-block" ? "none" : "inline-block";
+                colorArrowUp.style.display = colorArrowUp.style.display === "inline-block" ? "none" : "inline-block";
+            });
+        }
+    </script> #}
+{% endblock %}

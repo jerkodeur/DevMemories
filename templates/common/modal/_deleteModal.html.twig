@@ -1,0 +1,15 @@
+{# templates/common/modal/_deleteModal.html.twig #}
+
+{% extends "common/modal/_modal.html.twig" %}
+
+{% block modal_title %}
+    <span id="modal-title"></span>
+{% endblock %}
+
+{% block modal_body %}
+    <span id="modal-content"></span>
+{% endblock %}
+
+{% block modal_button_2 %}
+    <a href="#" class="btn btn btn-danger rounded" role="button" aria-pressed="true" id="delete-confirm">Confirmer la suppression</a>
+{% endblock %}

@@ -1,3 +1,5 @@
+{# templates/dashboard/base.html.twig #}
+
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -14,28 +16,31 @@
 	</head>
 
 	<body>
-		<main id="container">
+		<div id="container">
 			{# navbar #}
 			{% include "dashboard/common/_navbar.html.twig" %}
 			{# sidebar #}
 			{% include "dashboard/common/_sidebar.html.twig" %}
-			<section id="main-content">
+			<main id="main-content">
 				<div class="wrapper">
-					<div class="row">
+					<div class="container">
+						{% block flash %}
+							{% include "dashboard/common/_flashMessage.html.twig" %}
+						{% endblock %}
 						{% block body %}{% endblock %}
 					</div>
 				</div>
-			</section>
+			</main>
 			{# footer #}
 			{% include "dashboard/common/_footer.html.twig" %}
-		</main>
+		</div>
 
 		{# Page bottom javascript scripts #}
 		{% block js %}
 			{% include "dashboard/dependencies/_script.html.twig" %}
+
 		{% endblock %}
-		{# Notification popup #}
-		{# {% include "dashboard/common/_notification.html.twig" %} #}
+		{% block modal %}{% endblock %}
 	</body>
 
 </html>
