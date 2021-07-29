@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,6 +43,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nickname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Color::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $colors;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->colors = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,6 +162,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): self
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getUser() === $this) {
+                $category->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Color[]
+     */
+    public function getColors(): Collection
+    {
+        return $this->colors;
+    }
+
+    public function addColor(Color $color): self
+    {
+        if (!$this->colors->contains($color)) {
+            $this->colors[] = $color;
+            $color->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColor(Color $color): self
+    {
+        if ($this->colors->removeElement($color)) {
+            // set the owning side to null (unless already changed)
+            if ($color->getUser() === $this) {
+                $color->setUser(null);
+            }
+        }
 
         return $this;
     }
