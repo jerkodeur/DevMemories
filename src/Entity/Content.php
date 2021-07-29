@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContentRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation\Slug as Slug;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ContentRepository::class)
@@ -25,7 +25,7 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Slug(fields={"title"}, separator="-")
+     * @Gedmo\Slug(fields={"title"}, separator="-")
      */
     private $slug;
 
@@ -51,11 +51,13 @@ class Content
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updated_at;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created_at;
 
