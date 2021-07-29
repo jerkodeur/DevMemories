@@ -1,3 +1,5 @@
+{# templates/dashboard/category/_list.html.twig #}
+
 <article class="tree-categories-container" id="category-list" style="display:none">
     <input type="hidden" id="currentCategoryShow"></input>
     {% macro menu_categories(categories) %}
@@ -34,16 +36,13 @@
 
     {% import _self as macros %}
 
-    {{ macros.menu_categories(categories, 1) }}
+    {{ macros.menu_categories(categories) }}
 </article>
 
 <script>
-// Set the modal content
+    // Set the modal content
     function deleteCategoryConfirm(id) {
-        console.log(id);
-        {# alert('delete') #}
         const el = document.getElementsByClassName(id)[0];
-        console.log(el.dataset.sub)
         const subCategories = el.dataset.sub > 0 ? ' et <b>toutes ses sous-catégories</b>' : ''
         const message = `Êtes-vous sur de vouloir supprimer la catégorie <b>${el.dataset.label}</b> ${subCategories} ?`
         document.getElementById('modal-title').innerHTML = "Suppression d'une catégorie" ;

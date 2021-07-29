@@ -1,3 +1,5 @@
+{# templates/dashboard/category/_new.html.twig #}
+
 <section class="form-container">
     <fieldset>
         <legend>
@@ -28,21 +30,25 @@
 </section>
 
 <script>
- // Category preview
+    // Category preview
     const previewContainer = document.getElementById('preview-category');
     const previewCategoryContent = document.getElementById('preview-category-content');
 
+    // Preview container handler
     const labelCategoryInput = document.getElementById('category_label');
     labelCategoryInput.addEventListener('input', function(){
         if(this.value) {
             previewContainer.style.display = 'block'
             previewCategoryContent.innerHTML = this.value
+            // Disabled the submit button if no label
             document.getElementById('category_submitNewCategory').disabled = false;
         } else {
             document.getElementById('category_submitNewCategory').disabled = true;
             previewContainer.style.display = 'none';
         }
     })
+
+    // color pickers handle
     const colorInput = document.getElementById('category_color');
     const bgPicker = document.getElementById('category_bgColorPicker');
     const textPicker = document.getElementById('category_textColorPicker');
@@ -74,24 +80,11 @@
             bgPicker.value = '#7b8ab8';
         }
     })
+
     // Stylise the select color
     for(let i=0; i<colorInput.options.length; i++) {
         const [bgColor, textColor] = colorInput.options[i].text.split('_')
         colorInput.options[i].style.background = bgColor;
         colorInput.options[i].style.color = textColor;
     }
-
-    {# // Reset the selected colors if color picker change
-    bgPicker.addEventListener('change', function(){
-        colorInput.options.selectedIndex = 0
-        colorInput.style.background = '#ffffff';
-        colorInput.style.color = '#212529';
-        previewCategoryContent.style.background = this.value;
-    })
-    textPicker.addEventListener('change', function(){
-        colorInput.options.selectedIndex = 0
-        colorInput.style.background = '#ffffff';
-        colorInput.style.color = '#212529';
-        previewCategoryContent.style.color = this.value;
-    }) #}
 </script>

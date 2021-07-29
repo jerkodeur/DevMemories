@@ -1,6 +1,6 @@
-@import './_accordion-section';
-@import './_color-section';
-@import './_form';
+@import "./_accordion-section";
+@import "./_color-section";
+@import "./_form";
 
 .categories-main-container {
     display: flex;
@@ -10,13 +10,11 @@
         text-align: center;
         font-size: 1.5em;
         margin-top: 1rem;
-        // margin-bottom: 2rem;
         box-shadow: 0px 2px 5px $success;
         padding: 0.25em;
         border-radius: 4px;
         margin-bottom: 0 !important;
     }
-
 }
 
 .category-edit-container {
