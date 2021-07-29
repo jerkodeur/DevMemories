@@ -54,9 +54,15 @@ class Category
      */
     private $color;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="category")
+     */
+    private $contents;
+
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
 
     public function __toString()
@@ -159,6 +165,36 @@ class Category
     public function setColor(?Color $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->removeElement($content)) {
+            // set the owning side to null (unless already changed)
+            if ($content->getCategory() === $this) {
+                $content->setCategory(null);
+            }
+        }
 
         return $this;
     }
