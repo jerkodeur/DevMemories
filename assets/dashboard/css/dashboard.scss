@@ -22,29 +22,49 @@ Website: http://Alvarez.is/
 	}
 }
 
-.button-shadow-success {
-	font-size: 12px;
+.button-shadow-dark-success {
+	border: none !important;
+	font-size: .9em;
 	color: $light-success;
 	border-radius: 4px;
 	padding: 5px 15px;
 	background: $dark;
 	box-shadow: 2px 2px 5px $light-success;
 	&:hover {
-		box-shadow: 4px 4px 5px $primary;
-		color: $primary !important;
-		border-color: none !important;
+		box-shadow: 4px 4px 5px $light;
+		color: $light !important;
+		border: none !important;
 	}
 }
 
-.button-shadow-secondary {
-	font-size: 12px;
+.button-shadow-dark-secondary {
+	border: none !important;
+	font-size: .9em;
 	color: $secondary;
 	border-radius: 4px;
 	padding: 5px 15px;
 	background: $dark;
 	box-shadow: 2px 2px 5px $secondary;
 	&:hover {
-		box-shadow: 3px 3px 5px $primary;
+		box-shadow: 3px 3px 5px $light;
+		color: $light !important;
+		border: none !important;
+	}
+}
+
+.button-shadow-secondary {
+	border: none !important;
+	font-size: 1em;
+	color: $light;
+	border-radius: 4px;
+	padding: 5px 15px;
+	background: $secondary;
+	box-shadow: 2px 2px 5px $light;
+	&:hover {
+		background-color: $dark;
+		box-shadow: 3px 3px 5px $secondary;
+		color: $secondary !important;
+		border: none !important;
 	}
 }
 
@@ -80,15 +100,6 @@ a:focus {
 #container {
 	width: 100%;
 	height: 100%;
-}
-
-/* Bootstrap Modifications */
-.modal-header {
-	background: $light-success;
-}
-
-.modal-title {
-	color: white;
 }
 
 .btn-round {
@@ -250,11 +261,11 @@ ul.top-menu {
 		margin-top: 20px;
 
 		.new-content {
-			@extend .button-shadow-success;
+			@extend .button-shadow-dark-success;
 			margin-right: 15px;
 		}
 		.logout {
-			@extend .button-shadow-secondary;
+			@extend .button-shadow-dark-secondary;
 			margin-right: 15px;
 		}
 	}
@@ -263,6 +274,7 @@ ul.top-menu {
 /*sidebar navigation*/
 
 #sidebar {
+	z-index: 1;
 	width: 225px;
 	height: 100%;
 	position: fixed;
@@ -2647,14 +2659,6 @@ ul.inbox-pagination li {
 }
 .btn-send:hover {
 	background: #009da7;
-}
-.modal-header h4.modal-title {
-	font-weight: 300;
-	font-family: "Open Sans", sans-serif;
-}
-.modal-body label {
-	font-weight: 400;
-	font-family: "Open Sans", sans-serif;
 }
 
 .compose-mail {
