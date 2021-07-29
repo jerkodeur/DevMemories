@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug as Slug;
 
 /**
  * @ORM\Entity(repositoryClass=ContentRepository::class)
@@ -24,6 +25,7 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Slug(fields={"title"}, separator="-")
      */
     private $slug;
 

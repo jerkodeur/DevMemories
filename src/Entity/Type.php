@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug as Slug;
 
 /**
  * @ORM\Entity(repositoryClass=TypeRepository::class)
@@ -26,6 +27,7 @@ class Type
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Slug(fields={"label"}, separator="-")
      */
     private $slug;
 
