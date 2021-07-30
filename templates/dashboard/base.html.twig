@@ -11,6 +11,7 @@
 
 		{# stylesheets and javascript dependencies #}
 		{% include "dashboard/dependencies/_head.html.twig" %}
+		{% block head %}{% endblock %}
 
 		<title>{% block title %}Dashboard{% endblock %}</title>
 	</head>
