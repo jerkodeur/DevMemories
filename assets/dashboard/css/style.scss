@@ -17,8 +17,11 @@
 @import "../lib/gritter/css/jquery.gritter.css";
 @import "./dashboard.scss";
 @import "./style-responsive";
-@import "./table-responsive";
 @import "./to-do";
+
+// advanced table
+@import "./table-responsive";
+@import "./pages/content/demo_table.scss";
 
 @import "pages/category/category.scss";
 

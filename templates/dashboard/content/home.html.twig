@@ -1,26 +1,86 @@
 {# templates/dashboard/content/home.html.twig #}
 
-{% extends 'dashboard/index.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Hello ContentController!{% endblock %}
+{% block head %}{% endblock %}
+{% block title %}{% trans %}Liste de mes contenus{% endtrans %}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% include "dashboard/content/_advanced_table.html.twig" %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jerkoder/dev_docs/projects/simplon_DWWM/symfony/devMemories/src/Controller/ContentController.php'|file_link(0) }}">src/Controller/ContentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jerkoder/dev_docs/projects/simplon_DWWM/symfony/devMemories/templates/content/index.html.twig'|file_link(0) }}">templates/content/index.html.twig</a></code></li>
-    </ul>
-</div>
-
-<pre>
+  <pre>
     {{ dump(content) }}
 </pre>
+{% endblock %}
+
+{% block js %}
+  {{ parent() }}
+
+  <script src="{{ asset('dashboard/lib/advanced-datatable/js/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('dashboard/lib/advanced-datatable/js/DT_bootstrap.js') }}"></script>
+
+  <script type="text/javascript">
+/* Formating function for row details */
+function fnFormatDetails(oTable, nTr) {
+  var aData = oTable.fnGetData(nTr);
+  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+  sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
+  sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
+  sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+  sOut += '</table>';
+
+  return sOut;
+}
+$(document).ready(function () {
+  /*
+			* Insert a 'details' column to the table
+			*/
+  var nCloneTh = document.createElement('th');
+  var nCloneTd = document.createElement('td');
+  nCloneTd.innerHTML = '<img src="{{asset('dashboard/build/images/details_open.png', 'dashboard')}}">';
+  nCloneTd.className = "center";
+
+  $('#hidden-table-info thead tr').each(function () {
+    this.insertBefore(nCloneTh, this.childNodes[0]);
+  });
+
+  $('#hidden-table-info tbody tr').each(function () {
+    this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+  });
+
+  /*
+			* Initialse DataTables, with no sorting on the 'details' column
+			*/
+  var oTable = $('#hidden-table-info').dataTable({
+    "aoColumnDefs": [
+      {
+        "bSortable": false,
+        "aTargets": [0]
+      }
+    ],
+    "aaSorting": [
+      [1, 'asc']
+    ]
+  });
+
+  /* Add event listener for opening and closing details
+			* Note that the indicator for showing which row is open is not controlled by DataTables,
+			* rather it is done here
+			*/
+  $('#hidden-table-info tbody td img').on('click', function () {
+    var nTr = $(this).parents('tr')[0];
+    if (oTable.fnIsOpen(nTr)) {
+      /* This row is already open - close it */
+      this.src = "{{asset('dashboard/build/images/details_open.png', 'dashboard') }}";
+      oTable.fnClose(nTr);
+    } else {
+      /* Open this row */
+      this.src = "{{asset('dashboard/build/images/details_close.png', 'dashboard')}}";
+      oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+    }
+  });
+});
+
+</script>
 {% endblock %}
