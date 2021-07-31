@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/dashboard/contents/', name: 'dashboard_content_')]
+#[Route('/dashboard/contents', name: 'dashboard_content_')]
 class ContentController extends AbstractController
 {
     private ContentRepository $contentRepository;
@@ -20,12 +20,13 @@ class ContentController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/content', name: 'home')]
-    public function index(): Response
+    #[Route('/', name: 'home')]
+    public function index(int $page = 1, int $resultByPage = 50): Response
     {
         return $this->render('dashboard/content/home.html.twig', [
-            'content' => $this->contentRepository->findAll(),
-            'controller_name' => 'ContentController',
+            'contents' => $this->contentRepository->findBy([
+                // 'user' => $this->getUser()->getId()
+            ], ['updated_at' => 'desc'], $resultByPage, $page)
         ]);
     }
 }

@@ -12,8 +12,10 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
+@import "_common.scss";
 @import "assets/css/_modal.scss";
 
+// Main
 *,
 ::before,
 ::after {
@@ -28,37 +30,6 @@ html {
 
 body {
     font-family: $font-main !important;
-}
-
-// Fonts
-.font-main {
-    font-family: $font-main;
-}
-.font-secondary {
-    font-family: $font-secondary;
-}
-
-// Links
-.light-link {
-    &:active,
-    &:visited {
-        color: $primary;
-    }
-
-    &:hover {
-        color: $warning;
-    }
-}
-
-.dark-link {
-    &:active,
-    &:visited {
-        color: $dark;
-    }
-
-    &:hover {
-        color: $danger;
-    }
 }
 
 .profile-dropdown {
