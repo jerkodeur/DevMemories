@@ -47,7 +47,10 @@
 			{% include "dashboard/dependencies/_script.html.twig" %}
 
 		{% endblock %}
-		{% block modal %}{% endblock %}
+			{% include "common/modal/_deleteModal.html.twig" %}
+		{% block modal %}
+
+		{% endblock %}
 	</body>
 
 </html>

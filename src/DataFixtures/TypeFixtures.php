@@ -22,7 +22,7 @@ class TypeFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $type= new Type();
-        $type->setLabel('Article de veille');
+        $type->setLabel('Article');
         $this->addReference('type_1', $type);
         $this->em->persist($type);
 
