@@ -507,6 +507,12 @@
     "symfonycasts/verify-email-bundle": {
         "version": "v1.5.0"
     },
+    "twig/extra-bundle": {
+        "version": "v3.3.1"
+    },
+    "twig/string-extra": {
+        "version": "v3.3.1"
+    },
     "twig/twig": {
         "version": "v3.3.2"
     }
