@@ -1,0 +1,128 @@
+td {
+    table {
+        width: 100%;
+    }
+}
+
+
+tr.details, td.details {
+    margin: .25em !important;
+    padding: 0.25em !important;
+    background-color: $primary;
+}
+
+.table-details {
+    padding: none;
+
+    .td-details {
+        background-color: $light-success;
+    }
+}
+
+#content-container {
+    background-color: $secondary;
+    color: $primary;
+    box-shadow: 2px 2px 5px $dark;
+    border-radius: 4px;
+
+    h3 {
+        text-align: left;
+        padding: 0.2em;
+    }
+
+    .content-panel {
+        background-color: $primary;
+        border-radius: 4px;
+        padding: 0.5em 0.1em 0;
+        color: $primary;
+    }
+
+    #hidden-table-info {
+        background-color: $primary;
+        border: none;
+        .adv-table {
+            background-color: green;
+        }
+
+        thead {
+            th {
+                border: 1pt $primary solid;
+                background-color: #485785;
+                color: $light;
+                padding-top: 0.25em;
+                padding-bottom: 0.25em;
+                font-weight: normal;
+            }
+        }
+        tbody {
+            border-color: $primary;
+            tr {
+                &.gradeA.odd {
+                    td {
+                        background-color: $light;
+                        &.sorting_1 {
+                            background-color: darken($color: $primary, $amount: 1%) !important;
+                            border-color: $light;
+                        }
+                    }
+                }
+                &.gradeA.even {
+                    td {
+                        background-color: $white;
+                        &.sorting_1 {
+                            background-color: darken($color: $primary, $amount: 1%) !important;
+                            border-color: $light;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .dataTables_wrapper {
+        // background-color: red;
+        .dataTables_length {
+            padding: 0.5em !important;
+        }
+        .dataTables_filter {
+            padding: 0.5em !important;
+        }
+        // background-color:$primary;
+        color: $secondary !important;
+    }
+    .dataTables_info {
+        padding-left: 1em;
+        padding-top: 1.5em;
+    }
+
+    #hidden-table-info_paginate {
+        padding: 0.75em 0.5em;
+    }
+
+    a.paginate_button {
+        border: none;
+        box-shadow: 2px 2px 5px $dark;
+        margin: 0 0.25em;
+        color: $dark !important;
+        background-color: $light;
+        &:hover {
+            background: $secondary;
+            text-decoration: none !important;
+            box-shadow: 2px 2px 5px $secondary;
+        }
+        &.disabled {
+            background-color: $light;
+            box-shadow: 2px 2px 5px $secondary;
+            color: $primary !important;
+            cursor: default;
+            &:hover {
+                background-color: $light;
+            }
+        }
+        &.current {
+            cursor: default;
+            background: $white !important;
+            box-shadow: none;
+            color: $dark !important;
+        }
+    }
+}

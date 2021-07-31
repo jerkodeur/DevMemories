@@ -2,85 +2,93 @@
 
 {% extends 'dashboard/base.html.twig' %}
 
-{% block head %}{% endblock %}
+{% block head %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.25/datatables.min.css"/>
+{% endblock %}
 {% block title %}{% trans %}Liste de mes contenus{% endtrans %}
 {% endblock %}
-
+{% block breadcrumb %}
+  {{ parent() }}
+  Mes contenus
+{% endblock %}
 {% block body %}
-{% include "dashboard/content/_advanced_table.html.twig" %}
+  <section id="content-container">
+    <h3>Liste de mes contenus</h3>
+    {% include "dashboard/content/_advanced_table.html.twig" %}
+  </section>
 
   <pre>
-    {{ dump(content) }}
+    {{ dump(contents) }}
 </pre>
 {% endblock %}
 
 {% block js %}
   {{ parent() }}
 
-  <script src="{{ asset('dashboard/lib/advanced-datatable/js/jquery.dataTables.js') }}"></script>
-  <script src="{{ asset('dashboard/lib/advanced-datatable/js/DT_bootstrap.js') }}"></script>
+  <script src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
 
   <script type="text/javascript">
-/* Formating function for row details */
-function fnFormatDetails(oTable, nTr) {
-  var aData = oTable.fnGetData(nTr);
-  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-  sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
-  sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-  sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
-  sOut += '</table>';
 
-  return sOut;
-}
-$(document).ready(function () {
-  /*
-			* Insert a 'details' column to the table
-			*/
-  var nCloneTh = document.createElement('th');
-  var nCloneTd = document.createElement('td');
-  nCloneTd.innerHTML = '<img src="{{asset('dashboard/build/images/details_open.png', 'dashboard')}}">';
-  nCloneTd.className = "center";
+    /* Formating function for row details */
 
-  $('#hidden-table-info thead tr').each(function () {
-    this.insertBefore(nCloneTh, this.childNodes[0]);
-  });
+    $(document).ready(function () {
 
-  $('#hidden-table-info tbody tr').each(function () {
-    this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
-  });
+      function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="0" cellspacing="0" border="0" class="table-details">';
+        sOut += '<tr class="tr-details"><td class="td-details">Rendering engine:</td><td class="td-details">' + aData[1] + ' ' + aData[4] + '</td></tr>';
+        sOut += '</table>';
 
-  /*
+        return sOut;
+      }
+      /*
 			* Initialse DataTables, with no sorting on the 'details' column
 			*/
-  var oTable = $('#hidden-table-info').dataTable({
-    "aoColumnDefs": [
-      {
-        "bSortable": false,
-        "aTargets": [0]
-      }
-    ],
-    "aaSorting": [
-      [1, 'asc']
-    ]
-  });
+      var oTable = $('#hidden-table-info').dataTable({
+        "iDisplayLength": 25,
+        "aoColumnDefs": [
+          {
+            "bSortable": false,
+            "aTargets": [0]
+          }
+        ],
+        "aaSorting": [
+          [2, 'asc']
+        ],
 
-  /* Add event listener for opening and closing details
+        aLengthMenu: [
+          [
+            10, 25, 50, -1
+          ],
+          [
+            10, 25, 50, "Tous"
+          ]
+        ],
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
+        }
+      });
+
+      /* Add event listener for opening and closing details
 			* Note that the indicator for showing which row is open is not controlled by DataTables,
 			* rather it is done here
 			*/
-  $('#hidden-table-info tbody td img').on('click', function () {
-    var nTr = $(this).parents('tr')[0];
-    if (oTable.fnIsOpen(nTr)) {
-      /* This row is already open - close it */
-      this.src = "{{asset('dashboard/build/images/details_open.png', 'dashboard') }}";
-      oTable.fnClose(nTr);
-    } else {
-      /* Open this row */
-      this.src = "{{asset('dashboard/build/images/details_close.png', 'dashboard')}}";
-      oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
-    }
-  });
-});
-
-</script>
+      const images = document.querySelectorAll(".toggle-img");
+      for (let image of images) {
+        image.addEventListener('click', function () {
+          var nTr = $(this).parents('tr')[0];
+          if (oTable.fnIsOpen(nTr)) {
+            /* This row is already open - close it */
+            this.src = "{{asset('dashboard/build/images/details_open.png', 'dashboard') }}";
+            oTable.fnClose(nTr);
+          } else {
+            /* Open this row */
+            this.src = "{{asset('dashboard/build/images/details_close.png', 'dashboard')}}";
+            oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+          }
+        })
+      }
+    });
+  </script>
 {% endblock %}
