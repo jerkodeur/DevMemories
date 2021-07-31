@@ -25,7 +25,7 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\Slug(fields={"title"}, separator="-")
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true)
      */
     private $slug;
 
