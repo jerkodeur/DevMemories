@@ -76,17 +76,31 @@ tr.details, td.details {
                     }
                 }
             }
+            td {
+                padding: 0.5em;
+                width: 0;
+
+                i {
+                    color: $secondary;
+                    &:hover {
+                        &.fa-edit {
+                            color: $warning;
+                        }
+                        &.fa-trash {
+                            color: $danger;
+                        }
+                    }
+                }
+            }
         }
     }
     .dataTables_wrapper {
-        // background-color: red;
         .dataTables_length {
             padding: 0.5em !important;
         }
         .dataTables_filter {
             padding: 0.5em !important;
         }
-        // background-color:$primary;
         color: $secondary !important;
     }
     .dataTables_info {
@@ -123,6 +137,18 @@ tr.details, td.details {
             background: $white !important;
             box-shadow: none;
             color: $dark !important;
+        }
+    }
+    .form-check-input {
+        width: 3em;
+        margin-left: -2.5em;
+        background-color: lighten($light-success, 15%);
+        &:checked {
+            background-color: $success;
+        }
+        &:active, &:focus {
+            outline: unset;
+            background-color: lighten($light-success, 15%);
         }
     }
 }
