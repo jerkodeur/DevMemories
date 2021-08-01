@@ -42,7 +42,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $content->setTitle($this->faker->words(rand(8,15), true));
                 $content->setDescription($this->faker->realText(100));
-                $content->setContent($this->faker->realText(rand(200, 500)));
+                $content->setContent($this->faker->realText(rand(500, 2500)));
                 $content->setPrivate($this->faker->numberBetween(0,1));
                 $content->setPublished($this->faker->numberBetween(0,1));
                 $content->setType($this->getReference('type_' . rand(1,$nb_types)));

@@ -21,16 +21,23 @@ class TypeFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $types = [
+            'Article de veille',
+            'Extraits de code',
+            'Lignes de commande',
+            'FLux RSS',
+            'Tuto textuel',
+            'Tuto vidéo',
+            'Définition',
+            'Raccourci',
+        ];
         $type= new Type();
-        $type->setLabel('Article');
-        $this->addReference('type_1', $type);
-        $this->em->persist($type);
 
-        for($i=2;$i<7;$i++) {
+        for($i=0;$i<count($types);$i++) {
             $type = new Type();
 
-            $type->setLabel($this->faker->words(rand(1,4), true));
-            $this->addReference('type_' . $i, $type);
+            $type->setLabel($types[$i]);
+            $this->addReference('type_' . $i +1, $type);
 
             $manager->persist($type);
         }
