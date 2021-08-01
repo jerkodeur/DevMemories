@@ -45,9 +45,13 @@
 							</div>
 						</td>
 						<td class="center">
-							{% if content.category.label is defined %}
-							{{content.category.label}}
-							{% endif %}
+							<ul>
+								{% for category in content.categories %}
+								<li>
+									{{category.label}}
+								</li>
+								{% endfor %}
+							</ul>
 						</td>
 						<td class="text-center ">
 							<a href="{{ path('dashboard_content_edit', { slug: content.slug }) }}" role="button" aria-pressed="true" alt="Modifier le contenu" title="modifier"><i class="fas fa-edit fa-2x"></i></a>

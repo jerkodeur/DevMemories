@@ -3,16 +3,16 @@
 {% extends "dashboard/base.html.twig" %}
 
 {% block breadcrumb %}
-    {{ parent() }} Formulaire d'insertion de nouveau contenu
+    {{ parent() }} Modification d'un contenu
 {% endblock %}
 
-{% block title %}{% trans %}Insérer un contenu{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Modifier un contenu{% endtrans %}{% endblock %}
 
 {% block body %}
     <section id="content-edit-container">
         <div class="form-container">
         <fieldset>
-            <h3>Ajouter un contenu</h3>
+            <h3>Modifier le contenu</h3>
             {{ form_start(form) }}
                 {{ form_row(form.type) }}
                 {{ form_row(form.title) }}
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 {{ form_row(form.categories) }}
-                {{ form_row(form.submit) }}
+                {{ form_row(form.submit, {'label': 'Modifier le contenu'}) }}
             {{ form_end(form) }}
         </fieldset>
         </div>
