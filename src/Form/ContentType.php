@@ -30,6 +30,19 @@ class ContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type', EntityType::class, [
+                'class' => Type::class,
+                'label' => 'Choisir un type de contenu à ajouter',
+                'placeholder' => 'Choisir',
+                'required' => true,
+                'choices' => null,
+                'choice_label' => 'label',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.label', 'asc')
+                    ;
+                }
+            ])
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'attr' => ['placeholder' => 'Choisissez un titre']
@@ -42,18 +55,12 @@ class ContentType extends AbstractType
                 'label' => 'Contenu à ajouter'
             ])
             ->add('private', CheckboxType::class, [
-                'label' => 'Le contenu doit-il être privé ?'
+                'label' => 'Le contenu doit-il être privé ?',
+                'required' => false
             ])
             ->add('published', CheckboxType::class, [
-                'label' => 'Publier le contenu ?'
-            ])
-            ->add('type', EntityType::class, [
-                'class' => Type::class,
-                'label' => 'Type de contenu',
-                'placeholder' => 'Choisir un type',
-                'required' => true,
-                'choices' => null,
-                'choice_label' => 'label',
+                'label' => 'Publier le contenu ?',
+                'required' => false
             ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
@@ -73,7 +80,8 @@ class ContentType extends AbstractType
                 }
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer une nouveau contenu'
+                'label' => 'Créer une nouveau contenu',
+                'row_attr' => ['style' => 'text-align: end']
             ])
         ;
     }

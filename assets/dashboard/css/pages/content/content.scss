@@ -1,3 +1,5 @@
+@import './_new';
+
 td {
     table {
         width: 100%;
@@ -89,6 +91,13 @@ tr.details, td.details {
                         &.fa-trash {
                             color: $danger;
                         }
+                    }
+                }
+                ul {
+                    li {
+                        margin-left: -1em;
+                        list-style-type: circle;
+                        list-style-position: outside;
                     }
                 }
             }

@@ -24,19 +24,19 @@ class ContentController extends AbstractController
     }
 
     #[Route('/', name: 'list')]
-    public function index(int $page = 1, int $resultByPage = 50): Response
+    public function index(): Response
     {
         return $this->render('dashboard/content/home.html.twig', [
             'contents' => $this->contentRepository->findBy([
-                // 'user' => $this->getUser()->getId()
-            ], ['updated_at' => 'desc'], $resultByPage, $page)
+                'user' => $this->getUser()->getId()
+            ], ['updated_at' => 'asc'])
         ]);
     }
 
     #[Route('/new', name: 'new')]
     public function new(Request $request): Response
     {
-        $content = new Content;
+        $content = new Content();
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
 
@@ -44,9 +44,10 @@ class ContentController extends AbstractController
             $content->setUser($this->getUser());
             $this->em->persist($content);
 
+            $this->em->flush();
             $this->addFlash('success', 'Un nouveau contenu a bien été ajouté !');
 
-            $this->redirectToRoute('dashboard_content_list');
+            return $this->redirectToRoute('dashboard_content_list');
         }
 
         return $this->render('dashboard/content/new.html.twig', [
@@ -55,11 +56,27 @@ class ContentController extends AbstractController
 
     }
 
-    #[Route('/{slug}', name: 'edit')]
+    #[Route('/edit/{slug}', name: 'edit')]
     public function edit(Request $request, Content $content): Response
     {
-        dd($request);
+        $form = $this->createForm(ContentType::class, $content);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($content);
+            $this->em->flush();
+
+            $this->addFlash('success', "La catégorie" . $content->getTitle() . "a bien été modifiée ");
+
+            return $this->redirectToRoute('dashboard_content_list');
+        }
+
+        return $this->render('dashboard/content/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
+
 
     #[Route('/switchPrivate/{id<[0-9]*>}', name: 'switchPrivate')]
     public function switchPrivate(Content $content): Response
