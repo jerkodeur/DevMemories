@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Content;
 use App\Entity\Type;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,9 +28,8 @@ class ContentType extends AbstractType
                 'label' => 'Description',
                 'attr' => ['placholder' => 'Décrivez rapidement votre contenu']
             ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Contenu à ajouter',
-                'attr' => ['placholder' => 'Renseigner un contenu']
+            ->add('content', CKEditorType::class, [
+                'label' => 'Contenu à ajouter'
             ])
             ->add('private', CheckboxType::class, [
                 'label' => 'Le contenu doit-il être privé ?'
