@@ -60,8 +60,8 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                     [
                         'user' => $user->getId()
                     ]);
-
-                $content->setCategory($user_categories[rand(0, count($user_categories))] ?? null);
+                $added_cat = $user_categories[rand(0, count($user_categories))] ?? null;
+                $added_cat && $content->addCategory($added_cat);
 
                 // Add a new reference
                 $this->addReference('content_' . $j . '&user_' . $i , $content);
