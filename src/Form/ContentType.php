@@ -37,18 +37,19 @@ class ContentType extends AbstractType
             ->add('published', CheckboxType::class, [
                 'label' => 'Publier le contenu ?'
             ])
-            // ->add('updated_at')
-            // ->add('created_at')
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'label' => 'Type de contenu',
                 'placeholder' => 'Choisir un type',
                 'required' => true,
-                'choices' => null
+                'choices' => null,
+                'choice_label' => 'label',
             ])
-            // ->add('user')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'choice_label' => 'label',
+                'group_by' => 'parent',
+                'multiple' => true,
                 'label' => 'Associer à une catégorie',
                 'placeholder' => 'Choisir une catégorie',
                 'required' => false,
