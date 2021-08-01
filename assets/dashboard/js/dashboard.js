@@ -7,11 +7,12 @@
 
 import jQuery from 'jquery';
 import bootstrap from 'bootstrap';
-
-
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
+
+const $  = require( 'jquery' );
+var dt = require( 'datatables.net' )();
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/style.scss';
@@ -19,5 +20,3 @@ import '../css/style.scss';
 const imagesContext = require.context('../images', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
 imagesContext.keys().forEach(imagesContext);
 
-// start the Stimulus application
-import '../../bootstrap';

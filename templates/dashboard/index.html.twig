@@ -2,6 +2,9 @@
 
 {% extends "dashboard/base.html.twig" %}
 
+{% block breadcrumb  %}
+    {{ parent() }} Page d'accueil
+{% endblock %}
 {% block body %}
     Bienvenue dans ton dashboard {{ app.user.email }} !
 {% endblock %}

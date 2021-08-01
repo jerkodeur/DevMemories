@@ -33,7 +33,7 @@
             document.getElementById('color_edit_form_code_bg').value = this.dataset.bgColor;
             document.getElementById('color_update_id').value = this.dataset.id;
             // Display the delete button only when the color has no category bound
-            document.getElementById('color_edit_form_delete').style.display = this.dataset.bind ? 'none' : 'block';
+            document.getElementById('color_edit_form_delete').style.display = this.dataset.bind > 0 ? 'none' : 'block';
             document.getElementById('color_edit_form_nb_cat').innerHTML = this.dataset.bind > 0 ? this.dataset.bind : '';
         })
     })

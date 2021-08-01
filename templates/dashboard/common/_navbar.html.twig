@@ -20,7 +20,7 @@
     <div class="top-menu">
         <ul class="nav float-end top-menu">
             <li>
-                <a class="new-content" role="button" href="{#{{ path('content_add') }}#}">{% trans %}Créer un contenu{% endtrans %}</a>
+                <a class="new-content" role="button" href="{{ path('dashboard_content_new') }}">{% trans %}Créer un contenu{% endtrans %}</a>
             </li>
             <li>
                 <a class="logout" role="button" href="{{ path('app_logout') }}">{% trans %}Déconnexion{% endtrans %}</a>
