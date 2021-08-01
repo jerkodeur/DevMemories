@@ -56,6 +56,23 @@
     textPicker.value = '#f0f5fa';
     bgPicker.value = '#7b8ab8';
 
+    //
+    bgPicker.addEventListener('input', function() {
+        colorInput.selectedIndex = 0;
+        colorInput.style.background = '#fff';
+        colorInput.style.color = '#7b8ab8';
+        previewCategoryContent.style.background = this.value;
+        previewCategoryContent.style.text = textPicker.value;
+    })
+
+    textPicker.addEventListener('input', function() {
+        colorInput.selectedIndex = 0
+        colorInput.style.background = '#fff'
+        colorInput.style.color = '#7b8ab8'
+        previewCategoryContent.style.color = this.value;
+        previewCategoryContent.style.background = bgPicker.value;
+    })
+
     colorInput.addEventListener('input', function(){
         const selectedText = this.options[this.selectedIndex].text
         if(selectedText && selectedText !== "Choisir une couleur") {

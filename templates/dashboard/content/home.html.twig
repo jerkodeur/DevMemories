@@ -1,0 +1,109 @@
+{# templates/dashboard/content/home.html.twig #}
+
+{% extends 'dashboard/base.html.twig' %}
+
+{% block head %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.25/datatables.min.css"/>
+{% endblock %}
+{% block title %}{% trans %}Liste de mes contenus{% endtrans %}
+{% endblock %}
+{% block breadcrumb %}
+  {{ parent() }}
+  Mes contenus
+{% endblock %}
+{% block body %}
+  <section id="content-container">
+    <h3>Liste de mes contenus</h3>
+    {% include "dashboard/content/_contentTable.html.twig" %}
+  </section>
+
+{% endblock %}
+
+{% block js %}
+  {{ parent() }}
+
+  <script src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+
+  <script type="text/javascript">
+
+    /* Formating function for row details */
+
+    $(document).ready(function () {
+
+      function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="0" cellspacing="0" border="0" class="table-details">';
+        sOut += `<tr class="tr-details"><td class="td-details">Id: ${aData[1]}</td></tr>`;
+        sOut += `<tr class="tr-details"><td class="td-details">Crée le: ${aData[3]}</td></tr>`;
+        sOut += `<tr class="tr-details"><td class="td-details">Contenu:<br>${aData[7]}</td></tr>`;
+        sOut += '</table>';
+
+        return sOut;
+      }
+      /*
+			* Initialse DataTables, with no sorting on the 'details' column
+			*/
+      var oTable = $('#hidden-table-info').dataTable({
+        displayLength: 10,
+        sorting: [
+          [1, 'asc']
+        ],
+        {# autoWidth: false,
+        fixedColumns: false, #}
+        aLengthMenu: [
+          [
+            10, 25, 50, -1
+          ],
+          [
+            10, 25, 50, "Tous"
+          ]
+        ],
+        columnDefs: [
+          {
+            width: '1%',
+            targets: [0,8,9]
+          }, {
+            width: '5%',
+            targets: [2,4,10]
+          }, {
+            width: '25%',
+            targets: [5]
+          }, {
+            width: '40%',
+            targets: [6]
+          }, {
+            visible: false,
+            targets: [1, 7, 3]
+          }, {
+            bSortable: false,
+            targets: [0, 11, 5]
+          }
+        ],
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
+        }
+      });
+
+      /* Add event listener for opening and closing details
+			* Note that the indicator for showing which row is open is not controlled by DataTables,
+			* rather it is done here
+			*/
+      const images = document.querySelectorAll(".toggle-img");
+      for (let image of images) {
+        image.addEventListener('click', function () {
+          var nTr = $(this).parents('tr')[0];
+          if (oTable.fnIsOpen(nTr)) {
+            /* This row is already open - close it */
+            this.src = "{{asset('dashboard/build/images/details_open.png', 'dashboard') }}";
+            oTable.fnClose(nTr);
+          } else {
+            /* Open this row */
+            this.src = "{{asset('dashboard/build/images/details_close.png', 'dashboard')}}";
+            oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+          }
+        })
+      }
+    });
+  </script>
+{% endblock %}

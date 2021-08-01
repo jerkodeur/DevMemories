@@ -15,13 +15,13 @@
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;">
+                <a class="{{ 'dashboard_content' in route ? 'active' }}"  href="javascript:;">
                     <i class="fa fa-list-alt"></i>
                     <span>{% trans %}Mes contenus{% endtrans %}</span>
                 </a>
                 <ul class="sub">
                     <li>
-                        <a href="#">
+                        <a class="{{ route == 'dashboard_content_list' ? 'active' }}" href="{{ path('dashboard_content_list') }}">
                             <i class="fas fa-archive"></i>
                             {% trans %}Tous les contenus{% endtrans %}
                         </a>

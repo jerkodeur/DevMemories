@@ -6,13 +6,18 @@
         padding: 0.5em;
         border-radius: 4px;
         input,
-        select {
+        select,
+        textarea {
+            color: $secondary;
             font-size: 0.9em !important;
             margin: auto;
             margin-bottom: 0.5em;
             width: 75%;
             &[type="color"] {
                 height: 2rem;
+            }
+            &::placeholder {
+                color:$primary;
             }
         }
         select {
