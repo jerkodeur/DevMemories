@@ -1,4 +1,4 @@
-{# templates/dashboard/content/_advanced_table.html.twig #}
+{# templates/dashboard/content/_contentTable.html.twig #}
 
 <div class="content-panel">
 	<div class="adv-table">
@@ -66,7 +66,7 @@
     // Set the modal content
     function deleteModalConfirm(id) {
         const el = document.getElementById(`deleteButton_${id}`);
-        const message = `Êtes-vous sur de vouloir supprimer la catégorie <b>${el.dataset.title}</b> ?`
+        const message = `Êtes-vous sur de vouloir supprimer le contenu contenant le titre <b>${el.dataset.title}</b> ?`
         document.getElementById('modal-title').innerHTML = "Suppression d'un contenu" ;
         document.getElementById('modal-content').innerHTML = message;
         document.getElementById('delete-confirm').href = `/dashboard/contents/delete/${el.dataset.slug}`

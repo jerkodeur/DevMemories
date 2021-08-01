@@ -3,6 +3,7 @@
 namespace App\Controller\Dashboard;
 
 use App\Entity\Content;
+use App\Form\ContentType;
 use App\Repository\ContentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +31,28 @@ class ContentController extends AbstractController
                 // 'user' => $this->getUser()->getId()
             ], ['updated_at' => 'desc'], $resultByPage, $page)
         ]);
+    }
+
+    #[Route('/new', name: 'new')]
+    public function new(Request $request): Response
+    {
+        $content = new Content;
+        $form = $this->createForm(ContentType::class, $content);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $content->setUser($this->getUser());
+            $this->em->persist($content);
+
+            $this->addFlash('success', 'Un nouveau contenu a bien été ajouté !');
+
+            $this->redirectToRoute('dashboard_content_list');
+        }
+
+        return $this->render('dashboard/content/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 
     #[Route('/{slug}', name: 'edit')]

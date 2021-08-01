@@ -1,7 +1,10 @@
 {# templates/dashboard/category/home.html.twig #}
 
-{% extends 'dashboard/index.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 {% block title %}{% trans %}Mes catégories{% endtrans %}{% endblock %}
+{% block breadcrumb %}
+    {{ parent() }} Mes catégories
+{% endblock %}
 
 {% block body %}
 
