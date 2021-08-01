@@ -23,11 +23,13 @@ class CategoryType extends AbstractType
             ])
             ->add('parent', EntityType::class, [
                 'class' => Category::class,
+                'choice_label' => 'label',
+                'group_by' => 'parent',
                 'attr' => ['style' => 'color: #7b8ab8'],
                 'label' => 'Définir comme sous catégorie de:',
                 'placeholder' => 'Choisir une catégorie parente',
                 'required' => false,
-                'choices' => null
+                'choices' => null,
             ])
             ->add('color', EntityType::class, [
                 'class' => Color::class,

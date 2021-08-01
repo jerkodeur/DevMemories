@@ -33,7 +33,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         $num_existing_users = count($this->userRepository->findAll());
 
         for($i = 1; $i < $num_existing_users; $i++){
-            $this->CreateSubCategories($manager, 'user_' . $i, rand(1,3));
+            $this->CreateSubCategories($manager, 'user_' . $i, 3);
         }
     }
 
@@ -45,7 +45,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
      * @param integer $levels Number of subcategory levels
      * @param integer $loops Number of category to create by loop
      */
-    private function CreateSubCategories(ObjectManager $manager, string $userReference, int $levels = 1, int $loops = 25) {
+    private function CreateSubCategories(ObjectManager $manager, string $userReference, int $levels = 1, int $loops = 10) {
         if($levels > 0) {
 
             $user= $this->userRepository->findBy(['nickname' => $userReference])[0];
@@ -58,7 +58,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
 
             for($i= 1; $i <= $loops; $i++) {
                 $category = new Category();
-                $category->setLabel($this->faker->word);
+                $category->setLabel($this->faker->unique(false, 25000)->words(rand(1,3), true));
                 $category->setUser($user);
                 $category->setColor($this->getReference('color_' . rand(1, $num_existing_colors) . $userReference));
 

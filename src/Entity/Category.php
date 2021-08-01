@@ -67,11 +67,7 @@ class Category
 
     public function __toString()
     {
-        if($this->parent) {
-            return $this->parent->getLabel() . ' / ' . $this->label ;
-        } else {
-            return $this->label;
-        }
+        return $this->label;
     }
 
     public function getId(): ?int
