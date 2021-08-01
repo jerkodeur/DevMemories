@@ -10,7 +10,9 @@
 		<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
 		{# stylesheets and javascript dependencies #}
-		{% include "dashboard/dependencies/_head.html.twig" %}
+		{% block head %}
+			{% include "dashboard/dependencies/_head.html.twig" %}
+		{% endblock %}
 
 		<title>{% block title %}Dashboard{% endblock %}</title>
 	</head>
@@ -27,6 +29,11 @@
 						{% block flash %}
 							{% include "dashboard/common/_flashMessage.html.twig" %}
 						{% endblock %}
+						<aside class="breadcrumb">
+							{% block breadcrumb %}
+								<a href="{{ path('dashboard_home') }}">Dashboard </a>&nbsp></span>
+							{% endblock %}
+						</aside>
 						{% block body %}{% endblock %}
 					</div>
 				</div>
@@ -40,7 +47,10 @@
 			{% include "dashboard/dependencies/_script.html.twig" %}
 
 		{% endblock %}
-		{% block modal %}{% endblock %}
+			{% include "common/modal/_deleteModal.html.twig" %}
+		{% block modal %}
+
+		{% endblock %}
 	</body>
 
 </html>

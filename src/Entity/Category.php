@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Slug as Slug;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -54,18 +55,28 @@ class Category
      */
     private $color;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Content::class, mappedBy="categories")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $contents;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated_at;
+
+
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
 
     public function __toString()
     {
-        if($this->parent) {
-            return $this->parent->getLabel() . ' / ' . $this->label ;
-        } else {
-            return $this->label;
-        }
+        return $this->label;
     }
 
     public function getId(): ?int
@@ -162,4 +173,44 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->removeElement($content)) {
+            $content->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
 }

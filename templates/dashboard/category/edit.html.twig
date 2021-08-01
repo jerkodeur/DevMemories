@@ -1,12 +1,16 @@
 {# templates/dashboard/category/edit.html.twig #}
 
-{% extends 'dashboard/index.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 {% block title %}{% trans %}Modifier une catégorie{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="category-edit-container row">
             {% include "dashboard/category/_new.html.twig" with {'action': 'Modifier'}%}
     </div>
+
+    {% block breadcrumb %}
+        {{ parent() }} Modifier la catégorie > {{ category.label }}
+    {% endblock %}
 
     <script>
 

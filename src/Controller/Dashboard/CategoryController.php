@@ -300,7 +300,7 @@ class CategoryController extends AbstractController
 
             if (!$this->get('session')->getFlashBag()->peek('error', [])) {
                 $this->em->flush();
-                $this->addFlash('success', 'La nouvelle catégorie a bien été ajoutée');
+                $this->addFlash('success', 'La catégorie a bien été modifiée');
 
                 return $this->redirectToRoute('dashboard_category_list');
             } else {

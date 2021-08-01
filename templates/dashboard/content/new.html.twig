@@ -1,0 +1,35 @@
+{# templates/dashboard/content/new.html.twig #}
+
+{% extends "dashboard/base.html.twig" %}
+
+{% block breadcrumb %}
+    {{ parent() }} Formulaire d'insertion de nouveau contenu
+{% endblock %}
+
+{% block title %}{% trans %}Insérer un contenu{% endtrans %}{% endblock %}
+
+{% block body %}
+    <section id="content-edit-container">
+        <div class="form-container">
+        <fieldset>
+            <h3>Ajouter un contenu</h3>
+            {{ form_start(form) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.content) }}
+                <div class="content-options-container">
+                    <div class="content-option">
+                        {{ form_widget(form.private) }}
+                    </div>
+                    <div class="content-option">
+                        {{ form_widget(form.published) }}
+                    </div>
+                </div>
+                {{ form_row(form.categories) }}
+                {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </fieldset>
+        </div>
+    </section>
+{% endblock %}

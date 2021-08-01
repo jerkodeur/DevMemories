@@ -1,0 +1,35 @@
+{# templates/dashboard/content/new.html.twig #}
+
+{% extends "dashboard/base.html.twig" %}
+
+{% block breadcrumb %}
+    {{ parent() }} Modification d'un contenu
+{% endblock %}
+
+{% block title %}{% trans %}Modifier un contenu{% endtrans %}{% endblock %}
+
+{% block body %}
+    <section id="content-edit-container">
+        <div class="form-container">
+        <fieldset>
+            <h3>Modifier le contenu</h3>
+            {{ form_start(form) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.content) }}
+                <div class="content-options-container">
+                    <div class="content-option">
+                        {{ form_widget(form.private) }}
+                    </div>
+                    <div class="content-option">
+                        {{ form_widget(form.published) }}
+                    </div>
+                </div>
+                {{ form_row(form.categories) }}
+                {{ form_row(form.submit, {'label': 'Modifier le contenu'}) }}
+            {{ form_end(form) }}
+        </fieldset>
+        </div>
+    </section>
+{% endblock %}
