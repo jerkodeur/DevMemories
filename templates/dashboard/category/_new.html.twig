@@ -74,7 +74,6 @@
     })
 
     colorInput.addEventListener('input', function(){
-        console.log('hello')
         const selectedText = this.options[this.selectedIndex].text
         if(selectedText && selectedText !== "Choisir une couleur") {
             const [bgColor, textColor] = selectedText.split('_');
