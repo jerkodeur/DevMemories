@@ -15,12 +15,9 @@
 {% block body %}
   <section id="content-container">
     <h3>Liste de mes contenus</h3>
-    {% include "dashboard/content/_advanced_table.html.twig" %}
+    {% include "dashboard/content/_contentTable.html.twig" %}
   </section>
 
-  <pre>
-    {{ dump(contents) }}
-</pre>
 {% endblock %}
 
 {% block js %}
@@ -52,8 +49,8 @@
         sorting: [
           [1, 'asc']
         ],
-        autoWidth: false,
-        fixedColumns: false,
+        {# autoWidth: false,
+        fixedColumns: false, #}
         aLengthMenu: [
           [
             10, 25, 50, -1
@@ -83,10 +80,6 @@
             targets: [0, 11, 5]
           }
         ],
-        fixedHeader: {
-          footer: true,
-          header: true
-        },
         language: {
           url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
         }
