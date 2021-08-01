@@ -1,0 +1,61 @@
+
+// Fonts
+.font-main {
+    font-family: $font-main;
+}
+.font-secondary {
+    font-family: $font-secondary;
+}
+
+// Links
+.primary-warning-link {
+    &:active,
+    &:visited {
+        color: $primary;
+    }
+
+    &:hover {
+        color: $warning;
+    }
+}
+
+.dark-danger-link {
+    &:active,
+    &:visited {
+        color: $dark;
+    }
+
+    &:hover {
+        color: $danger;
+    }
+}
+
+.secondary-dark-link {
+	&:active,
+	&:visited {
+		color: $secondary;
+	}
+
+	&:hover {
+		color: $dark;
+	}
+}
+
+// Create a custom link
+@mixin custom-link($main-color: $primary, $hover-color: $secondary, $underline: none, $hover-underline: none) {
+
+    &:active,
+	&:visited {
+		color: $main-color;
+        text-decoration: $underline;
+	}
+
+	&:hover {
+		color: $hover-color;
+        text-decoration: $hover-underline;
+	}
+}
+
+.text-center {
+    text-align: center;
+}

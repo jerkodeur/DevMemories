@@ -11,17 +11,6 @@ Author: Carlos Alvarez
 Website: http://Alvarez.is/
 */
 
-.secondary-link {
-	&:active,
-	&:visited {
-		color: $secondary;
-	}
-
-	&:hover {
-		color: $primary;
-	}
-}
-
 .button-shadow-dark-success {
 	border: none !important;
 	font-size: .9em;
@@ -461,6 +450,13 @@ ul.sidebar-menu li {
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
 	margin-left: 210px;
+
+	.breadcrumb {
+		padding-top: .5em;
+		a {
+			@include custom-link($main-color: $secondary, $hover-color: $dark, $hover-underline: underline)
+		}
+	}
 }
 
 .header,
@@ -484,7 +480,7 @@ ul.sidebar-menu li {
 .wrapper {
 	display: inline-block;
 	margin-top: 60px;
-	padding-left: 15px;
+	padding-left: 25px;
 	padding-right: 15px;
 	padding-bottom: 15px;
 	padding-top: 0px;
