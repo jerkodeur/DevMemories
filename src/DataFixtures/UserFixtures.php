@@ -20,7 +20,7 @@ class UserFixtures extends Fixture
         $this->faker = Factory::create('FR_fr');
     }
 
-    public function load(ObjectManager $manager,)
+    public function load(ObjectManager $manager)
     {
         // User
         $user = new User();

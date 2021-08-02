@@ -47,10 +47,11 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @return array
      */
-    public function findCategoriesByParentLabel(int $user_id, string $label): array
+    public function findCategoriesByNoParent(int $user_id, string $label): array
     {
         return $this->createQueryBuilder('c')
-            ->where('c.label = :label_id')
+            ->where('c.parent IS NULL')
+            ->andWhere('c.label = :label_id')
             ->andWhere('c.user = :user_id')
             ->setParameter('user_id', $user_id)
             ->setParameter('label_id', $label)
