@@ -192,7 +192,7 @@ class CategoryController extends AbstractController
 
         if (
             !$request->get('category')['parent'] &&
-            $exist = $this->categoryRepository->findCategoriesByParentLabel(
+            $exist = $this->categoryRepository->findCategoriesByNoParent(
                 $this->getUser()->getId(),
                 $request->get('category')['label']
             )
