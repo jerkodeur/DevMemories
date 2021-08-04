@@ -1,6 +1,6 @@
 {# templates/dashboard/content/_contentTable.html.twig #}
 
-<div class="content-panel">
+{# <div class="content-panel">
 	<div class="adv-table">
 		<table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
 			<thead>
@@ -23,7 +23,7 @@
 				{% for content in contents %}
 					<tr class="gradeA {% if loop.index is even %} even {% else %} odd {% endif %}">
 						<td class="text-center">
-							<img class="toggle-img" src="{{asset('dashboard/build/images/details_open.png', 'dashboard')}}">
+							<img class="toggle-img" src="{{asset('build/images/dashboard/advanced-table/details_open.png', 'app')}}">
 						</td>
 						<td class="center">{{content.id}}</td>
 						<td class="center" title="{{content.updatedAt|date("d/m/Y à H:i")}}">{{content.updatedAt| date("d/m/Y")}}</td>
@@ -63,11 +63,11 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+</div> #}
 
 <script>
 
-    // Set the modal content
+    {# // Set the modal content
     function deleteModalConfirm(id) {
         const el = document.getElementById(`deleteButton_${id}`);
         const message = `Êtes-vous sur de vouloir supprimer le contenu contenant le titre <b>${el.dataset.title}</b> ?`
@@ -94,5 +94,5 @@
 				xmlhttp.send()
 			})
 		}
-	}
+	} #}
 </script>

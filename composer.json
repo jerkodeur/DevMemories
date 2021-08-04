@@ -85,6 +85,7 @@
             "composer db:install"
         ],
         "start": [
+            "symfony console cache:clear",
             "symfony server:start --no-tls -d",
             "yarn watch"
         ]
