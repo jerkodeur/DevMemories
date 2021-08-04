@@ -14,14 +14,8 @@ Encore
     {from: './node_modules/ckeditor/lang', to: 'ckeditor/lang/[path][name].[ext]'},
     {from: './node_modules/ckeditor/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
     {from: './node_modules/ckeditor/skins', to: 'ckeditor/skins/[path][name].[ext]'},
-    {from: './node_modules/ckeditor/vendor', to: 'ckeditor/vendor/[path][name].[ext]'},
-    // {from: './assets/images', to: 'images/[path][name].[hash:8].[ext]'}
+    {from: './node_modules/ckeditor/vendor', to: 'ckeditor/vendor/[path][name].[ext]'}
 ])
-
-// .copyFiles({
-//     from: './assets/libs',
-//     to: 'libs/[path][name].[hash:8].[ext]'
-// }
 
 // ---------------- App config ------------- \\
 Encore
@@ -37,6 +31,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('dashboard', './assets/js/dashboard.js')
     .addEntry('datatables', './assets/js/datatables.js')
     .addEntry('app_css', './assets/css/app/app.scss')
     .addEntry('dashboard_css', './assets/css/dashboard/style.scss')
@@ -55,10 +50,6 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
-    // .configureImageRule({
-    //     filename: 'images/[name].[hash:8].[ext]'
-    // })
 
     /*
      * FEATURE CONFIG
