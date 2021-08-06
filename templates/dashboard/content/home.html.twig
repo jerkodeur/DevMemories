@@ -38,7 +38,7 @@
 						{% for content in contents %}
 						<tr class="gradeA {% if loop.index is even %} even {% else %} odd {% endif %}">
 							<td class="text-center">
-
+								<img class="toggle-img" src="{{asset('build/images/dashboard/advanced-table/details_open.png', 'app')}}">
 							</td>
 							<td class="center">{{content.id}}</td>
 							<td class="center" title="{{content.updatedAt|date(" d/m/y à h:i")}}">{{content.updatedAt| date("d/m/Y")}}</td>

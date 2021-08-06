@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
 
-// console.log('test');c
 const $ = require('jquery');
 
 require('bootstrap');
