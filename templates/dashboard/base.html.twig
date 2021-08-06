@@ -12,6 +12,7 @@
 		{# stylesheets and javascript dependencies #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('dashboard_css') }}
+			<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 			<!-- Favicons -->
 			<link href="{{ asset('build/images/favicon.png', 'app') }}" rel="icon">
 		{% endblock %}
@@ -33,7 +34,7 @@
 						{% endblock %}
 						<aside class="breadcrumb">
 							{% block breadcrumb %}
-								<a href="{{ path('dashboard_home') }}">Dashboard </a>&nbsp;</span>
+								<a href="{{ path('dashboard_home') }}">Dashboard </a>&nbsp;></span>
 							{% endblock %}
 						</aside>
 						{% block body %}{% endblock %}
@@ -50,6 +51,8 @@
 		{% endblock %}
 		{% block javascript %}
 			{{ encore_entry_script_tags('dashboard') }}
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+			<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 		{% endblock %}
 	</body>
 
