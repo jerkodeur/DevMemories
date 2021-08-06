@@ -28,10 +28,21 @@ php bin/console doctrine:fixtures:load
 php bin/console server:start --no-tls
 ```
 
+### Built-in commmand lines
+```sh
+# Create the database, the tables and load fake data
+composer db:install
+
+# Drop the database, et reload the db:install operations
+composer db:reload
+
+# Start the symfony server and watch code changes
+composer start
+```
 ### [Display the page in the browser](http://localhost:8000/) at localhost
 
 You can connect to the application with identifiers below:
-> user@user.fr  `Password:` _password_  
-> admin@admin.fr  `Password:` _password_
+> user@user.fr  `Password:` _password12345_
+> admin@admin.fr  `Password:` _password12345_
 
 ### ENJOY
