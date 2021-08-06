@@ -2,108 +2,100 @@
 
 {% extends 'dashboard/base.html.twig' %}
 
-{% block head %}
-  {{ parent() }}
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.25/datatables.min.css"/>
-{% endblock %}
-{% block title %}{% trans %}Liste de mes contenus{% endtrans %}
-{% endblock %}
+{% block title %}{% trans %}Liste de mes contenus{% endtrans %}{% endblock %}
 {% block breadcrumb %}
-  {{ parent() }}
-  Mes contenus
+	{{ parent() }}
+	Mes contenus
 {% endblock %}
 {% block body %}
-  <section id="content-container">
-    <h3>Liste de mes contenus</h3>
-    {% include "dashboard/content/_contentTable.html.twig" %}
-  </section>
+	<section id="content-container">
+		<h3>Liste de mes contenus</h3>
+		<div class="content-panel">
+			<div class="adv-table">
+				<table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+					<thead>
+						<tr>
+						<th class="text-center" title="Plus d'infos">
+							<i class="fas fa-info-circle"></i>
+						</th>
+						<th style="style">{% trans %}Id{% endtrans %}</th>
+						<th style="style">{% trans %}Date{% endtrans %}</th>
+						<th style="style">{% trans %}Date{% endtrans %}</th>
+						<th style="style">{% trans %}Type{% endtrans %}</th>
+						<th>{% trans %}Titre{% endtrans %}</th>
+						<th>{% trans %}Description{% endtrans %}</th>
+						<th>{% trans %}Contenu{% endtrans %}</th>
+						<th>
+							<i class="fas fa-user-lock" title="Privé ?"></i>
+						</th>
+						<th>{% trans %}
+							<i class="fas fa-file-export" title="publié ?"></i>{% endtrans %}</th>
+						<th>{% trans %}Catégorie{% endtrans %}</th>
+						<th>{% trans %}Actions{% endtrans %}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for content in contents %}
+						<tr class="gradeA {% if loop.index is even %} even {% else %} odd {% endif %}">
+							<td class="text-center">
 
+							</td>
+							<td class="center">{{content.id}}</td>
+							<td class="center" title="{{content.updatedAt|date(" d/m/y à h:i")}}">{{content.updatedAt| date("d/m/Y")}}</td>
+							<td class="center" title="{{content.createdAt|date(" d/m/y à h:i")}}">{{content.createdAt| date("d/m/Y")}}</td>
+							<td class="center">{{content.type.label}}</td>
+							<td title="{{content.title}}">{{content.title | u.truncate(50, ' ...')}}</td>
+							<td title="{{content.description}}">{{content.description | u.truncate(75, ' ...')}}</td>
+							<td class="center">{{content.content}}</td>
+							<td class="text-center">
+							<div class="form-check form-switch">
+								<span style="display:none">{{content.private}}</span>
+								<input class="form-check-input" value="content.private" type="checkbox" name="private" id="private_{{ content.id }}" data-id="{{ content.id }}" {{ content.private ? 'checked' : null}}>
+							</div>
+							</td>
+							<td class="text-center">
+							<span style="display:none">{{content.published}}</span>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" name="published" id="published_{{ content.id }}" data-id="{{ content.id }}" {{ content.published ? 'checked' : null}}>
+							</div>
+							</td>
+							<td class="center">
+							<ul>
+								{% for category in content.categories %}
+								<li>
+									{{category.label}}
+								</li>
+								{% endfor %}
+							</ul>
+							</td>
+							<td class="text-center ">
+							<a href="{{ path('dashboard_content_edit', { slug: content.slug }) }}" role="button" aria-pressed="true" alt="Modifier le contenu" title="modifier">
+								<i class="fas fa-edit fa-2x"></i>
+							</a>
+
+							<i class="fas fa-trash fa-2x" role="button" data-bs-toggle="modal" data-bs-target="#modal" data-slug="{{ content.slug }}" data-title="{{ content.title }}" onclick="deleteModalConfirm({{ content.id }})" id="deleteButton_{{ content.id}}" aria-pressed="true" title="Supprimer" style="with:10em"></i>
+							</a>
+						</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 {% endblock %}
 
-{% block js %}
-  {{ parent() }}
-
-  <script src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
-
-  <script type="text/javascript">
-
-    /* Formating function for row details */
-
-    $(document).ready(function () {
-
-      function fnFormatDetails(oTable, nTr) {
-        var aData = oTable.fnGetData(nTr);
-        var sOut = '<table cellpadding="0" cellspacing="0" border="0" class="table-details">';
-        sOut += `<tr class="tr-details"><td class="td-details">Id: ${aData[1]}</td></tr>`;
-        sOut += `<tr class="tr-details"><td class="td-details">Crée le: ${aData[3]}</td></tr>`;
-        sOut += `<tr class="tr-details"><td class="td-details">Contenu:<br>${aData[7]}</td></tr>`;
-        sOut += '</table>';
-
-        return sOut;
-      }
-      /*
-			* Initialse DataTables, with no sorting on the 'details' column
-			*/
-      var oTable = $('#hidden-table-info').dataTable({
-        displayLength: 10,
-        sorting: [
-          [1, 'desc']
-        ],
-        {# autoWidth: false,
-        fixedColumns: false, #}
-        aLengthMenu: [
-          [
-            10, 25, 50, -1
-          ],
-          [
-            10, 25, 50, "Tous"
-          ]
-        ],
-        columnDefs: [
-          {
-            width: '1%',
-            targets: [0,8,9]
-          }, {
-            width: '5%',
-            targets: [2,4,10]
-          }, {
-            width: '25%',
-            targets: [5]
-          }, {
-            width: '40%',
-            targets: [6]
-          }, {
-            visible: false,
-            targets: [1, 7, 3]
-          }, {
-            bSortable: false,
-            targets: [0, 11, 5]
-          }
-        ],
-        language: {
-          url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
-        }
-      });
-
-      /* Add event listener for opening and closing details
-			* Note that the indicator for showing which row is open is not controlled by DataTables,
-			* rather it is done here
-			*/
-      const images = document.querySelectorAll(".toggle-img");
-      for (let image of images) {
-        image.addEventListener('click', function () {
-          var nTr = $(this).parents('tr')[0];
-          if (oTable.fnIsOpen(nTr)) {
-            /* This row is already open - close it */
-            this.src = "{{asset('dashboard/build/images/details_open.png', 'dashboard') }}";
-            oTable.fnClose(nTr);
-          } else {
-            /* Open this row */
-            this.src = "{{asset('dashboard/build/images/details_close.png', 'dashboard')}}";
-            oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
-          }
-        })
-      }
-    });
-  </script>
+{% block javascript %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('datatables') }}
+	<script>
+		// Set the modal content
+		function deleteModalConfirm(id) {
+			const el = document.getElementById(`deleteButton_${id}`);
+			const message = `Êtes-vous sur de vouloir supprimer le contenu contenant le titre <b>${el.dataset.title}</b> ?`
+			document.getElementById('modal-title').innerHTML = "Suppression d'un contenu" ;
+			document.getElementById('modal-content').innerHTML = message;
+			document.getElementById('delete-confirm').href = `/dashboard/contents/delete/${el.dataset.slug}`
+		}
+	</script>
 {% endblock %}

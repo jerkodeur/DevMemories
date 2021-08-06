@@ -100,17 +100,6 @@ var Script = function() {
     jQuery(this).parents(".panel").parent().remove();
   });
 
-
-  //    tool tips
-
-  $('.tooltips').tooltip();
-
-  //    popovers
-
-  $('.popovers').popover();
-
-
-
   // custom bar chart
 
   if ($(".custom-bar-chart")) {

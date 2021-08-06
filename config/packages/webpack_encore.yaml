@@ -18,13 +18,6 @@ webpack_encore:
     # Throw an exception if the entrypoints.json file is missing or an entry is missing from the data
     # strict_mode: false
 
-    # If you have multiple builds:
-    builds:
-        # pass "frontend" as the 3rg arg to the Twig functions
-        # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
-        appConfig: '%kernel.project_dir%/public/build'
-        dashboardConfig: '%kernel.project_dir%/public/dashboard/build/'
-
     # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
     # Put in config/packages/prod/webpack_encore.yaml
     cache: true
