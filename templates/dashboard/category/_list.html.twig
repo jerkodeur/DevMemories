@@ -17,9 +17,9 @@
                         {% endif %}
                     </button>
                     <div id="handle-category-{{category.id}}">
-                        <button class="category-edit-button-{{category.id}}" onclick="location.href='{{ path('dashboard_category_edit', {id: category.id}) }}'">Modifier</button>
-                        <button class="category-delete-button-{{category.id}}" data-bs-toggle="modal" title="Supprimer la catégorie" data-bs-target="#modal" onclick="deleteCategoryConfirm('category-delete-button-{{category.id}}')" data-label="{{category.label}}" data-id="{{category.id}}" data-sub={{category.subCategories|length}}>Supprimer</button>
-                        <button class="expand-category-button-{{category.id}}" data-id="{{category.id}}" href="{{ path('dashboard_category_edit', {id: category.id}) }}">
+                        <button class="category-edit-button-{{category.id}}" onclick="location.href='{{ path('dashboard_category_edit', {slug: category.slug}) }}'">Modifier</button>
+                        <button class="category-delete-button-{{category.id}}" data-bs-toggle="modal" title="Supprimer la catégorie" data-bs-target="#modal" onclick="deleteCategoryConfirm('category-delete-button-{{category.id}}')" data-slug="{{category.slug}}" data-label="{{category.label}}" data-id="{{category.id}}" data-sub={{category.subCategories|length}}>Supprimer</button>
+                        <button class="expand-category-button-{{category.id}}" data-id="{{category.id}}" href="{{ path('dashboard_category_edit', {slug: category.slug}) }}">
                             <i class="fas fa-chevron-right" id="fa-right-{{category.id}}"></i>
                             <i class="fas fa-chevron-left" id="fa-left-{{category.id}}" style="display:none"></i>
                         </button>
@@ -47,7 +47,7 @@
         const message = `Êtes-vous sur de vouloir supprimer la catégorie <b>${el.dataset.label}</b> ${subCategories} ?`
         document.getElementById('modal-title').innerHTML = "Suppression d'une catégorie" ;
         document.getElementById('modal-content').innerHTML = message;
-        document.getElementById('delete-confirm').href = `/dashboard/categories/delete/${el.dataset.id}`
+        document.getElementById('delete-confirm').href = `/dashboard/categories/delete/${el.dataset.slug}`
     }
 
     // Add a listener to the category title to show/hide the subCategories
