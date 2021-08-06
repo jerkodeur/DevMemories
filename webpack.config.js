@@ -6,6 +6,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
+<<<<<<< HEAD
 //ckEditor
 Encore
 .copyFiles([
@@ -16,6 +17,20 @@ Encore
     {from: './node_modules/ckeditor/skins', to: 'ckeditor/skins/[path][name].[ext]'},
     {from: './node_modules/ckeditor/vendor', to: 'ckeditor/vendor/[path][name].[ext]'}
 ])
+=======
+// ------------------- ckeditor ---------------- \\
+Encore
+    // ...
+    .copyFiles([
+        {from: './node_modules/ckeditor/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/ckeditor/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/lang', to: 'ckeditor/lang/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/skins', to: 'ckeditor/skins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/vendor', to: 'ckeditor/vendor/[path][name].[ext]'}
+    ])
+;
+>>>>>>> dev
 
 // ---------------- App config ------------- \\
 Encore
@@ -30,6 +45,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+<<<<<<< HEAD
     .addEntry('app', './assets/js/app.js')
     .addEntry('dashboard', './assets/js/dashboard.js')
     .addEntry('datatables', './assets/js/datatables.js')
@@ -41,6 +57,9 @@ Encore
         to: 'images/[path][name].[hash:8].[ext]'
     })
 
+=======
+    .addEntry('app', './assets/app.js')
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
@@ -50,6 +69,10 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
+
+    .configureImageRule({
+        filename: 'images/[name].[hash:8].[ext]'
+    })
 
     /*
      * FEATURE CONFIG
@@ -81,15 +104,115 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you use React
-    .enableReactPreset()
+    //.enableReactPreset()
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
+    //.autoProvidejQuery()
+;
+// build the first configuration
+const appConfig = Encore.getWebpackConfig();
+
+// Set a unique name for the config (needed later!)
+appConfig.name = 'app';
+
+// reset Encore to build the second config
+Encore.reset();
+
+
+// ------------------ Dashboard Config ----------------- \\
+Encore
+    // directory where compiled assets will be stored
+    .setOutputPath('public/dashboard/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/dashboard/build')
+
+    /*
+     * ENTRY CONFIG
+     *
+     * Each entry will result in one JavaScript file (e.g. app.js)
+     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
+     */
+    .addEntry('dashboard', './assets/dashboard/js/dashboard.js')
+
+>>>>>>> dev
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
+
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .splitEntryChunks()
+
+    // will require an extra script tag for runtime.js
+    // but, you probably want this, unless you're building a single-page app
+    .enableSingleRuntimeChunk()
+
+<<<<<<< HEAD
+=======
+    .configureImageRule({
+        filename: 'images/[name].[hash:8].[ext]'
+    })
+
+>>>>>>> dev
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
+    .cleanupOutputBeforeBuild()
+    .enableBuildNotifications()
+    .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    .enableVersioning(Encore.isProduction())
+
+    .configureBabel((config) => {
+        config.plugins.push('@babel/plugin-proposal-class-properties');
+    })
+
+    // enables @babel/preset-env polyfills
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = 3;
+    })
+
+    // enables Sass/SCSS support
+    .enableSassLoader()
+
+    // uncomment if you use TypeScript
+    //.enableTypeScriptLoader()
+
+    // uncomment if you use React
+<<<<<<< HEAD
+    .enableReactPreset()
+=======
+    //.enableReactPreset()
+>>>>>>> dev
+
+    // uncomment to get integrity="..." attributes on your script & link tags
+    // requires WebpackEncoreBundle 1.4 or higher
+    //.enableIntegrityHashes(Encore.isProduction())
+
+    // uncomment if you're having problems with a jQuery plugin
+<<<<<<< HEAD
     .autoProvidejQuery()
 ;
 
 // export the final configuration as an array of multiple configurations
 module.exports = Encore.getWebpackConfig();
+=======
+    //.autoProvidejQuery()
+;
+// build the first configuration
+const dashboardConfig = Encore.getWebpackConfig();
+
+// Set a unique name for the config (needed later!)
+dashboardConfig.name = 'dashboardConfig';
+
+
+// export the final configuration as an array of multiple configurations
+module.exports = [appConfig, dashboardConfig];
+>>>>>>> dev

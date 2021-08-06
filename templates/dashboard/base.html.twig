@@ -10,10 +10,15 @@
 		<meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
 		{# stylesheets and javascript dependencies #}
+<<<<<<< HEAD
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('dashboard_css') }}
 			<!-- Favicons -->
 			<link href="{{ asset('build/images/favicon.png', 'app') }}" rel="icon">
+=======
+		{% block head %}
+			{% include "dashboard/dependencies/_head.html.twig" %}
+>>>>>>> dev
 		{% endblock %}
 
 		<title>{% block title %}Dashboard{% endblock %}</title>
@@ -33,7 +38,11 @@
 						{% endblock %}
 						<aside class="breadcrumb">
 							{% block breadcrumb %}
+<<<<<<< HEAD
 								<a href="{{ path('dashboard_home') }}">Dashboard </a>&nbsp;</span>
+=======
+								<a href="{{ path('dashboard_home') }}">Dashboard </a>&nbsp></span>
+>>>>>>> dev
 							{% endblock %}
 						</aside>
 						{% block body %}{% endblock %}
@@ -45,11 +54,21 @@
 		</div>
 
 		{# Page bottom javascript scripts #}
+<<<<<<< HEAD
 		{% block modal %}
 			{% include "common/modal/_deleteModal.html.twig" %}
 		{% endblock %}
 		{% block javascript %}
 			{{ encore_entry_script_tags('dashboard') }}
+=======
+		{% block js %}
+			{% include "dashboard/dependencies/_script.html.twig" %}
+
+		{% endblock %}
+			{% include "common/modal/_deleteModal.html.twig" %}
+		{% block modal %}
+
+>>>>>>> dev
 		{% endblock %}
 	</body>
 

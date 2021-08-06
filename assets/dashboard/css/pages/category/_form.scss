@@ -1,0 +1,193 @@
+.form-container {
+    margin-top: 1em;
+    width: 100%;
+    fieldset {
+        box-shadow: 2px 2px 5px $dark;
+        padding: 0.5em;
+        border-radius: 4px;
+        input,
+        select,
+        textarea {
+            color: $secondary;
+            font-size: 0.9em !important;
+            margin: auto;
+            margin-bottom: 0.5em;
+            width: 75%;
+            &[type="color"] {
+                height: 2rem;
+            }
+            &::placeholder {
+                color:$primary;
+            }
+        }
+        select {
+            -webkit-appearance: auto !important;
+            -moz-appearance: auto !important;
+            appearance: auto !important;
+        }
+        label {
+            font-size: 0.9em;
+            width: 73%;
+            padding-left: 0;
+            text-align: left;
+        }
+        legend {
+            padding-left: 0.5em;
+            color: $secondary;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px $light;
+            text-align: left;
+            border-bottom: 1px $secondary solid;
+        }
+        button {
+            @extend .button-shadow-secondary;
+            margin: 0.5em 0;
+        }
+    }
+    .form-custom-colors {
+        margin: 0.75em auto;
+        width: 75%;
+        text-align: center;
+
+        legend {
+            font-size: 0.9em;
+        }
+
+        .custom-colors-container {
+            display: flex;
+            justify-content: space-around;
+            .flex-equal {
+                width: 35%;
+            }
+            input {
+                padding: 4px;
+                background: $primary;
+                border: none;
+                box-shadow: 1px 1px 3px $dark;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &.form-colors {
+                label {
+                    width: 100%;
+                    text-align: center;
+                }
+                .flex-equal {
+                    width: 50%;
+                }
+            }
+        }
+    }
+    #color_edit_form {
+        box-shadow: 1px 1px 5px $dark;
+        fieldset {
+            box-shadow: 1px 1px 5px $dark;
+            background-color: $primary;
+            padding: 0 !important;
+            legend {
+                width: 100%;
+                align-items: center;
+                background-color: $secondary;
+                margin-bottom: 0;
+                color: $primary;
+                text-shadow: none;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                i:hover {
+                    &::before {
+                        color: red;
+                        cursor: pointer;
+                    }
+                }
+                button {
+                    padding: 0;
+                    background-color: $secondary;
+                    color: $light;
+                    &:disabled {
+                        padding: 0 0.5em;
+                        border-radius: 50%;
+                        &:hover {
+                            background-color: $secondary !important;
+                            color: $light !important;
+                            box-shadow: 2px 2px 5px #f0f5fa !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .custom-colors-update-container {
+            background-color: $primary;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 0.5em 0 0.5em 0;
+
+            .flex-equal {
+                width: 25%;
+            }
+            button,
+            input {
+                padding: 0.5em;
+                margin: 0.5em;
+                &[type="reset"] {
+                    background-color: $danger;
+                    &:hover {
+                        color: $white !important;
+                        background-color: darken($color: $danger, $amount: 25%);
+                    }
+                }
+                &[type="submit"] {
+                    background-color: $success;
+                    color: $light !important;
+                    &:hover {
+                        color: $white !important;
+                        background-color: lighten($color: $success, $amount: 25%);
+                    }
+                }
+                &#color_edit_form_delete {
+                    background-color: darken($color: $danger, $amount: 15%);
+                    color: $light !important;
+                    &:hover {
+                        color: $white !important;
+                        background-color: $danger;
+                    }
+                }
+            }
+            input {
+                padding: 4px;
+                background: $primary;
+                border: none;
+                box-shadow: 1px 1px 3px $dark;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    #preview-category {
+        width: 75%;
+        margin: auto;
+        margin: 1em auto;
+        fieldset {
+            padding: 0;
+            legend {
+                font-size: 0.9em;
+                margin-bottom: 0;
+            }
+            #preview-category-content {
+                border-radius: 0 0 4px 4px;
+                padding: 0.25em;
+            }
+        }
+    }
+    input,
+    select {
+        color: $dark;
+        &::placeholder {
+            color: $primary;
+        }
+    }
+}

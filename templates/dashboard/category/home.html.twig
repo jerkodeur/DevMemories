@@ -36,6 +36,7 @@
     </div>
 {% endblock %}
 
+<<<<<<< HEAD
 {# {% block modal %}
     {% include "common/modal/_deleteModal.html.twig" %}
 {% endblock %} #}
@@ -44,6 +45,15 @@
     {{ parent() }}
     <script>
 
+=======
+{% block modal %}
+    {% include "common/modal/_deleteModal.html.twig" %}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script>
+>>>>>>> dev
         window.onload = () => {
 
             // Hide/show list of categories on click
